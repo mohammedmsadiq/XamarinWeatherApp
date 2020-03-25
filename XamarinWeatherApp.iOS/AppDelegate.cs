@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Prism;
+using Prism.Ioc;
 using UIKit;
 
 namespace XamarinWeatherApp.iOS
@@ -10,7 +12,7 @@ namespace XamarinWeatherApp.iOS
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
-    [Register("AppDelegate")]
+    [Register(nameof(AppDelegate))]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         //
@@ -23,9 +25,10 @@ namespace XamarinWeatherApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            global::Xamarin.Forms.FormsMaterial.Init();
+            LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);
-        }
+        }      
     }
 }
