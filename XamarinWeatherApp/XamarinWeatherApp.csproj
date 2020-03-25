@@ -23,14 +23,4 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="ViewModels\MainPage.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="ViewModels\MainPage.xaml.cs" />
-    <Compile Remove="AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove=".DS_Store" />
-  </ItemGroup>
 </Project>
