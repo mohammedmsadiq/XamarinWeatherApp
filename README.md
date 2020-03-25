@@ -1,2 +1,1 @@
-# mohammed.sadiq-hotmail.com
-WeatherApp
+# Xamarin.Forms WeatherApp
