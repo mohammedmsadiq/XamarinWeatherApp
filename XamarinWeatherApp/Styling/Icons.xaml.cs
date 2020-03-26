@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace XamarinWeatherApp.Styling
 {
-    public partial class FontStyling : ResourceDictionary
+    public partial class Icons : ResourceDictionary
     {
-        public FontStyling()
+        public Icons()
         {
             InitializeComponent();
         }
