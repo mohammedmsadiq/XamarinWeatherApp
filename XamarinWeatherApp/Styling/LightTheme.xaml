@@ -7,4 +7,9 @@
     <Color
         x:Key="background">#ffffff</Color>
 
+    <Color
+        x:Key="SunnyOffSet0">#810E64</Color>
+    <Color
+        x:Key="SunnyOffSet1">#FC5038</Color>
+
 </ResourceDictionary>

@@ -4,8 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
     xmlns:resources="clr-namespace:XamarinWeatherApp.Styling"
+    xmlns:converter="clr-namespace:XamarinWeatherApp.Converters"
     x:Class="XamarinWeatherApp.App">
     <prism:PrismApplication.Resources>
+
+        <ResourceDictionary
+            Source="/Styling/FontFamily.xaml" />
+        <ResourceDictionary
+            Source="/Styling/Icons.xaml" />
+        <ResourceDictionary
+            Source="/Styling/LightTheme.xaml" />
+
+        <ResourceDictionary>
+            <!--Convereters-->
+            <converter:ColourOffSetAConverter
+                x:Key="ColourOffSetAConverter" />
+            <converter:ColourOffSetBConverter
+                x:Key="ColourOffSetBConverter" />
+        </ResourceDictionary>
+
         <!--<OnPlatform
                 x:Key="MaterialFontFamily"
                 x:TypeArguments="x:String">
@@ -16,15 +33,6 @@
                     Platform="Android"
                     Value="materialdesignicons-webfont.ttf#Material Design Icons" />
             </OnPlatform>-->
-        <ResourceDictionary
-            Source="/Styling/FontFamily.xaml" />
-        <ResourceDictionary
-            Source="/Styling/Icons.xaml" />
-        <ResourceDictionary
-            Source="/Styling/LightTheme.xaml" />
-
-
-
         <!--<ResourceDictionary.MergedDictionaries>
                 <resources:Icons />
 

@@ -1,28 +1,46 @@
 ﻿using System;
 using Prism.Mvvm;
+using Prism.Navigation;
+using Prism.Services;
 
 namespace XamarinWeatherApp.ViewModels
 {
-    public class HomePageViewModel : BindableBase
+    public class HomePageViewModel : ViewModelBase
     {
-        public HomePageViewModel()
+        private string textForLabel;
+        private int offSetA;
+        private int offSetB;
+
+        public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
+            this.OffSetA = 1;
+            //this.OffSetA = "#810E64";
+
+            this.OffSetB = 1;
+            //this.OffSetB = "#FC5038";
         }
 
-        private string title;
-        public string Title
-        {
-            get => this.title;
-            set => SetProperty(ref this.title, value);
-        }
 
-        private string textForLabel;
+
+
         public string TextForLabel
         {
             get => this.textForLabel;
             set => SetProperty(ref this.textForLabel, value);
+        }
+
+        public int OffSetA
+        {
+            get => this.offSetA;
+            set => SetProperty(ref this.offSetA, value);
+        }
+
+        public int OffSetB
+        {
+            get => this.offSetB;
+            set => SetProperty(ref this.offSetB, value);
         }
     }
 }
