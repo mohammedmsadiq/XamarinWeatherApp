@@ -14,7 +14,6 @@
                 Text="{Binding TextForLabel}"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
-
             <Label
                 FontFamily="{StaticResource MaterialFontFamily}"
                 Text="&#xf40a;"
