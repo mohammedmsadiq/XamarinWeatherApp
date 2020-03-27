@@ -16,10 +16,7 @@ namespace XamarinWeatherApp.ViewModels
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
             this.OffSetA = 1;
-            //this.OffSetA = "#810E64";
-
             this.OffSetB = 1;
-            //this.OffSetB = "#FC5038";
         }
 
 

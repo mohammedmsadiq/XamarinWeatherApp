@@ -6,6 +6,7 @@
     xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{DynamicResource background}"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Class="XamarinWeatherApp.Views.HomePage">
     <ContentPage.Content>
         <Grid
@@ -27,11 +28,16 @@
                     </magic:LinearGradient>
                 </magic:GradientView.GradientSource>
             </magic:GradientView>-->
+            <yummy:PancakeView
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundGradientStartColor="{Binding OffSetA, Converter={StaticResource ColourOffSetAConverter}}"
+                BackgroundGradientEndColor="{Binding OffSetB, Converter={StaticResource ColourOffSetBConverter}}">
+            </yummy:PancakeView>
 
             <StackLayout
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
-                 Place new controls here 
                 <Label
                     Text="{Binding TextForLabel}"
                     VerticalOptions="CenterAndExpand"
