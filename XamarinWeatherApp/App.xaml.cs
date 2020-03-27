@@ -2,6 +2,8 @@
 using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
+using XamarinWeatherApp.Interfaces;
+using XamarinWeatherApp.Services;
 using XamarinWeatherApp.ViewModels;
 using XamarinWeatherApp.Views;
 
@@ -25,6 +27,8 @@ namespace XamarinWeatherApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+
+            containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
         }
 
         protected override void OnStart()

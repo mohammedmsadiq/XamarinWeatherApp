@@ -14,6 +14,21 @@
             RowSpacing="0"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
+            <yummy:PancakeView
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundGradientStartColor="{Binding OffSetA, Converter={StaticResource ColourOffSetAConverter}}"
+                BackgroundGradientEndColor="{Binding OffSetB, Converter={StaticResource ColourOffSetBConverter}}">
+            </yummy:PancakeView>
+            <Label
+                Text="{Binding TimeStamp}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand" />
+            <Label
+                Text="{Binding TimeStamp}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand" />
+
             <!--<magic:GradientView
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
@@ -28,14 +43,7 @@
                     </magic:LinearGradient>
                 </magic:GradientView.GradientSource>
             </magic:GradientView>-->
-            <yummy:PancakeView
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                BackgroundGradientStartColor="{Binding OffSetA, Converter={StaticResource ColourOffSetAConverter}}"
-                BackgroundGradientEndColor="{Binding OffSetB, Converter={StaticResource ColourOffSetBConverter}}">
-            </yummy:PancakeView>
-
-            <StackLayout
+            <!--<StackLayout
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
                 <Label
@@ -63,7 +71,7 @@
                             Color="Red" />
                     </Image.Source>
                 </Image>
-            </StackLayout>
+            </StackLayout>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

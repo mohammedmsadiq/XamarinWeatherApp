@@ -29,7 +29,7 @@ namespace XamarinWeatherApp.Converters
                 case 9:
                     return Color.FromHex("#34323A");
                 default:
-                    return "Transparent";
+                    return Color.FromHex("#52A4DB"); //clear
             }
         }
 

@@ -34,6 +34,8 @@
 	<string>XamarinWeatherApp</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Device Location is required to get accurate weather Information</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>materialdesignicons-webfont.ttf</string>

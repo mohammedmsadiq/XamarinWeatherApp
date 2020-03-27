@@ -55,27 +55,27 @@ namespace XamarinWeatherApp.ViewModels
 
 
         #region IApplicationLifecycleAware
-        public void OnResume() { }
+        public virtual void OnResume() { }
 
-        public void OnSleep() { }
+        public virtual void OnSleep() { }
         #endregion IApplicationLifecycleAware
 
 
         #region IPageLifecycleAwar
-        public void OnAppearing() { }
+        public virtual void OnAppearing() { }
 
-        public void OnDisappearing() { }
+        public virtual void OnDisappearing() { }
         #endregion IPageLifecycleAware
 
 
         #region IDestructible
-        public void Destroy() { }
+        public virtual void Destroy() { }
         #endregion IDestructible
 
         #region INavigationAware
-        public void OnNavigatedFrom(INavigationParameters parameters) { }
+        public virtual void OnNavigatedFrom(INavigationParameters parameters) { }
 
-        public void OnNavigatedTo(INavigationParameters parameters) { }
+        public virtual void OnNavigatedTo(INavigationParameters parameters) { }
         #endregion INavigationAware
 
         #region ExecuteAsyncTask

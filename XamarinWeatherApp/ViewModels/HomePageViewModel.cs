@@ -1,7 +1,9 @@
-﻿using System;
-using Prism.Mvvm;
+﻿using System.Collections.ObjectModel;
 using Prism.Navigation;
 using Prism.Services;
+using Xamarin.Essentials;
+using XamarinWeatherApp.Interfaces;
+using XamarinWeatherApp.Models;
 
 namespace XamarinWeatherApp.ViewModels
 {
@@ -10,15 +12,53 @@ namespace XamarinWeatherApp.ViewModels
         private string textForLabel;
         private int offSetA;
         private int offSetB;
+        private string timeStamp;
+        private ObservableCollection<ForecastModel> item;
 
-        public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
+        IWeatherService WeatherService;
+
+
+        public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
+            this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
-            this.OffSetA = 1;
-            this.OffSetB = 1;
         }
 
+        public override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.loadData();
+        }
+
+        private async void loadData()
+        {
+            var location = await Geolocation.GetLastKnownLocationAsync();
+            var current = Connectivity.NetworkAccess;
+            if (current == NetworkAccess.Internet)
+            {
+                this.ExecuteAsyncTask(async () =>
+                {
+                    var result = await this.WeatherService.GetForecast(location.Latitude, location.Longitude);
+
+                });
+            }
+
+
+        }
+
+        public ObservableCollection<ForecastModel> Item
+        {
+            get
+            {
+                return this.item;
+            }
+
+            set
+            {
+                this.SetProperty(ref this.item, value);
+            }
+        }
 
 
 
