@@ -3,21 +3,28 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    xmlns:style="clr-namespace:XamarinWeatherApp.Styling"
     prism:ViewModelLocator.AutowireViewModel="True"
     x:Class="XamarinWeatherApp.Views.HomePage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand">
             <!-- Place new controls here -->
             <Label
                 Text="{Binding TextForLabel}"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
+
+            <Label
+                FontFamily="{StaticResource MaterialFontFamily}"
+                Text="&#xf40a;"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand" />
             <Image
                 HeightRequest="40"
                 WidthRequest="40"
-                VerticalOptions="Center"
-                HorizontalOptions="Center">
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand">
                 <Image.Source>
                     <FontImageSource
                         FontFamily="{DynamicResource MaterialFontFamily}"
