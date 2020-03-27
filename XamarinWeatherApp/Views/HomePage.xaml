@@ -20,6 +20,9 @@
                 Text="&#xf40a;"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
+            <Button
+                Text="Darkmode"
+                Clicked="Button_Clicked"/>
             <Image
                 HeightRequest="45"
                 WidthRequest="45"
