@@ -6,8 +6,7 @@
     xmlns:resources="clr-namespace:XamarinWeatherApp.Styling"
     x:Class="XamarinWeatherApp.App">
     <prism:PrismApplication.Resources>
-        <ResourceDictionary>
-            <OnPlatform
+        <!--<OnPlatform
                 x:Key="MaterialFontFamily"
                 x:TypeArguments="x:String">
                 <On
@@ -16,10 +15,20 @@
                 <On
                     Platform="Android"
                     Value="materialdesignicons-webfont.ttf#Material Design Icons" />
-            </OnPlatform>
-            <ResourceDictionary.MergedDictionaries>
+            </OnPlatform>-->
+        <ResourceDictionary
+            Source="/Styling/FontFamily.xaml" />
+        <ResourceDictionary
+            Source="/Styling/Icons.xaml" />
+        <ResourceDictionary
+            Source="/Styling/LightTheme.xaml" />
+
+
+
+        <!--<ResourceDictionary.MergedDictionaries>
                 <resources:Icons />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary> -->
     </prism:PrismApplication.Resources>
 </prism:PrismApplication>

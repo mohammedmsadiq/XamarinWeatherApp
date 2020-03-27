@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource background}"
     x:Class="XamarinWeatherApp.Views.HomePage">
     <ContentPage.Content>
         <StackLayout
@@ -20,8 +21,8 @@
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />
             <Image
-                HeightRequest="40"
-                WidthRequest="40"
+                HeightRequest="45"
+                WidthRequest="45"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand">
                 <Image.Source>
