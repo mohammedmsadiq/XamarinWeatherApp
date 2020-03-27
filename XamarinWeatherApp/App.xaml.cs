@@ -10,6 +10,8 @@ namespace XamarinWeatherApp
 {
     public partial class App : PrismApplication
     {
+        public static Theme AppTheme { get; set; }
+
         public App() : this(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -36,5 +38,11 @@ namespace XamarinWeatherApp
         protected override void OnResume()
         {
         }
+    }
+
+    public enum Theme
+    {
+        Light,
+        Dark
     }
 }

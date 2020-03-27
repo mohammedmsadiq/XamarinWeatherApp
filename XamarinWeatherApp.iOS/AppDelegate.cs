@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
-using Prism;
-using Prism.Ioc;
+﻿using Foundation;
 using UIKit;
+using Xamarin.Forms;
+using XamarinWeatherApp.Styling;
 
 namespace XamarinWeatherApp.iOS
 {
@@ -27,8 +23,33 @@ namespace XamarinWeatherApp.iOS
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App(new iOSInitializer()));
+            MessagingCenter.Subscribe<Page, Theme>(this, "ModeChanged", callback: OnModeChanged);
 
             return base.FinishedLaunching(app, options);
-        }      
+        }
+
+        private void OnModeChanged(Page page, Theme theme)
+        {
+            SetTheme(theme);
+        }
+
+        void SetTheme(Theme mode)
+        {
+            Window.OverrideUserInterfaceStyle = mode == Theme.Dark ? UIUserInterfaceStyle.Dark : UIUserInterfaceStyle.Light;
+
+            if (mode == XamarinWeatherApp.Theme.Dark)
+            {
+                if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
+                    return;
+                App.Current.Resources = new DarkTheme();
+            }
+            else
+            {
+                if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
+                    return;
+                App.Current.Resources = new LightTheme();
+            }
+            App.AppTheme = mode;
+        }
     }
 }

@@ -24,5 +24,6 @@
     <Folder Include="Views\" />
     <Folder Include="Styling\" />
     <Folder Include="Constants\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

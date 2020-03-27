@@ -28,6 +28,7 @@ namespace XamarinWeatherApp.iOS.Renderers
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
+            Console.WriteLine($"TraitCollectionDidChange: {TraitCollection.UserInterfaceStyle} != {previousTraitCollection.UserInterfaceStyle}");
 
             if (TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
             {
@@ -39,11 +40,23 @@ namespace XamarinWeatherApp.iOS.Renderers
         {
             if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
             {
+                if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
+                {
+                    return;
+                }
+
                 App.Current.Resources = new DarkTheme();
+                App.AppTheme = XamarinWeatherApp.Theme.Dark;
             }
             else
             {
+                if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
+                {
+                    return;
+                }
+
                 App.Current.Resources = new LightTheme();
+                App.AppTheme = XamarinWeatherApp.Theme.Light;
             }
         }
     }
