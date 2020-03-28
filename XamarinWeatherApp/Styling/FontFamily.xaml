@@ -8,9 +8,119 @@
         x:TypeArguments="x:String">
         <On
             Platform="iOS"
-            Value="Material Design Icons" />
+            Value="materialdesignicons-webfont" />
         <On
             Platform="Android"
             Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="SemiboldItalicFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-SemiboldItalic.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-SemiboldItalic" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="SemiboldFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-Semibold.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-Semibold" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="RegularFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-Regular.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-Regular" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="LightItalicFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-LightItalic.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-LightItalic" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="LightFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-Light.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-Light" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="ItalicFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-Italic.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-Italic" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="ExtraBoldItalicFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-ExtraBoldItalic.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-ExtraBoldItalic" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="ExtraBoldFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-ExtraBold.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-ExtraBold" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="BoldItalicFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-BoldItalic.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-BoldItalic" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:TypeArguments="x:String"
+        x:Key="BoldFont">
+        <On
+            Platform="Android"
+            Value="OpenSans-Bold.ttf#Open Sans" />
+        <On
+            Platform="iOS"
+            Value="OpenSans-Bold" />
     </OnPlatform>
 </ResourceDictionary>

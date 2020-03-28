@@ -70,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="iOSInitializer.cs" />
     <Compile Include="Renderers\ThemeRenderer.cs" />
+    <Compile Include="Renderers\LabelShadowEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -166,6 +167,16 @@
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
+    <BundleResource Include="Resources\OpenSans-Bold.ttf" />
+    <BundleResource Include="Resources\OpenSans-BoldItalic.ttf" />
+    <BundleResource Include="Resources\OpenSans-ExtraBold.ttf" />
+    <BundleResource Include="Resources\OpenSans-ExtraBoldItalic.ttf" />
+    <BundleResource Include="Resources\OpenSans-Italic.ttf" />
+    <BundleResource Include="Resources\OpenSans-Light.ttf" />
+    <BundleResource Include="Resources\OpenSans-LightItalic.ttf" />
+    <BundleResource Include="Resources\OpenSans-Regular.ttf" />
+    <BundleResource Include="Resources\OpenSans-Semibold.ttf" />
+    <BundleResource Include="Resources\OpenSans-SemiboldItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

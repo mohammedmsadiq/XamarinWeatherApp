@@ -12,14 +12,17 @@ namespace XamarinWeatherApp.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
+        protected readonly IWeatherService WeatherService;
+
         private string textForLabel;
         private int offSetA;
         private int offSetB;
         private ObservableCollection<ForecastModel> item;
         private Location userLocation;
-
-        protected readonly IWeatherService WeatherService;
-
+        private double deviceLatitude;
+        private double deviceLongitude;
+        private string timeZoneInfo;
+        private int offSet;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -54,22 +57,16 @@ namespace XamarinWeatherApp.ViewModels
             {
                 // Handle not supported on device exception
                 Debug.WriteLine(fnsEx);
-                await DialogService.DisplayAlertAsync("Error", "FeatureNotSupportedException" + fnsEx, "OK");
-
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Debug.WriteLine(pEx);
-                await DialogService.DisplayAlertAsync("Error", "PermissionException" + pEx, "OK");
-
             }
             catch (Exception ex)
             {
                 // Unable to get location
                 Debug.WriteLine(ex);
-                await DialogService.DisplayAlertAsync("Error", "ex", "OK");
-
             }
         }
 
@@ -83,6 +80,15 @@ namespace XamarinWeatherApp.ViewModels
                     if (userLocation != null)
                     {
                         var result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
+                        if (result != null)
+                        {
+                            DeviceLatitude = result.latitude;
+                            DeviceLongitude = result.longitude;
+                            TimeZoneInfo = result.timezone;
+                            OffSet = result.offset;
+                        }
+
+
                     }
                     else
                     {
@@ -94,15 +100,8 @@ namespace XamarinWeatherApp.ViewModels
 
         public ObservableCollection<ForecastModel> Item
         {
-            get
-            {
-                return this.item;
-            }
-
-            set
-            {
-                this.SetProperty(ref this.item, value);
-            }
+            get => this.item;
+            set => SetProperty(ref this.item, value);
         }
 
         public string TextForLabel
@@ -122,5 +121,37 @@ namespace XamarinWeatherApp.ViewModels
             get => this.offSetB;
             set => SetProperty(ref this.offSetB, value);
         }
+
+        public string CurrentTime
+        {
+            get => DateTime.Now.ToString("ddd dd, hh:mm tt");
+        }
+        
+
+        //properties
+        public double DeviceLatitude
+        {
+            get => this.deviceLatitude;
+            set => SetProperty(ref this.deviceLatitude, value);
+        }
+
+        public double DeviceLongitude
+        {
+            get => this.deviceLongitude;
+            set => SetProperty(ref this.deviceLongitude, value);
+        }
+
+        public string TimeZoneInfo
+        {
+            get => this.timeZoneInfo;
+            set => SetProperty(ref this.timeZoneInfo, value);
+        }
+
+        public int OffSet
+        {
+            get => this.offSet;
+            set => SetProperty(ref this.offSet, value);
+        }
+
     }
 }
