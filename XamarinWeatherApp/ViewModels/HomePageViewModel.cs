@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
@@ -12,10 +15,10 @@ namespace XamarinWeatherApp.ViewModels
         private string textForLabel;
         private int offSetA;
         private int offSetB;
-        private string timeStamp;
         private ObservableCollection<ForecastModel> item;
+        private Location userLocation;
 
-        IWeatherService WeatherService;
+        protected readonly IWeatherService WeatherService;
 
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
@@ -23,28 +26,70 @@ namespace XamarinWeatherApp.ViewModels
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
+            Item = new ObservableCollection<ForecastModel>();
         }
 
         public override void OnAppearing()
         {
             base.OnAppearing();
-            this.loadData();
+            this.ExecuteAsyncTask(async () =>
+            {
+                await FindUserLocation();
+            });
         }
 
-        private async void loadData()
+        async Task FindUserLocation()
         {
-            var location = await Geolocation.GetLastKnownLocationAsync();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                userLocation = await Geolocation.GetLastKnownLocationAsync();
+                Debug.WriteLine(userLocation?.ToString() ?? "GetLastKnownLocation no location");
+                userLocation = await Geolocation.GetLocationAsync(request);
+                Debug.WriteLine(userLocation?.ToString() ?? "GetLocation no location");
+
+                await this.loadData();
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+                Debug.WriteLine(fnsEx);
+                await DialogService.DisplayAlertAsync("Error", "FeatureNotSupportedException" + fnsEx, "OK");
+
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+                Debug.WriteLine(pEx);
+                await DialogService.DisplayAlertAsync("Error", "PermissionException" + pEx, "OK");
+
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Debug.WriteLine(ex);
+                await DialogService.DisplayAlertAsync("Error", "ex", "OK");
+
+            }
+        }
+
+        private async Task loadData()
+        {
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
                 this.ExecuteAsyncTask(async () =>
                 {
-                    var result = await this.WeatherService.GetForecast(location.Latitude, location.Longitude);
-
+                    if (userLocation != null)
+                    {
+                        var result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
+                    }
+                    else
+                    {
+                        DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
+                    }
                 });
             }
-
-
         }
 
         public ObservableCollection<ForecastModel> Item
@@ -59,8 +104,6 @@ namespace XamarinWeatherApp.ViewModels
                 this.SetProperty(ref this.item, value);
             }
         }
-
-
 
         public string TextForLabel
         {

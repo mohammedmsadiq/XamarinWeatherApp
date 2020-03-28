@@ -12,8 +12,8 @@ namespace XamarinWeatherApp.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible, IPageLifecycleAware, IApplicationLifecycleAware, IConfirmNavigationAsync,
         IConfirmNavigation, IActiveAware
     {
-        protected INavigationService NavigationService { get; }
-        protected IPageDialogService DialogService { get; }
+        protected INavigationService NavigationService { get; private set; }
+        protected IPageDialogService DialogService { get; private set; }
 
         private bool _isBusy;
         public bool IsBusy
@@ -29,6 +29,11 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref _title, value);
         }
 
+        public bool IsNotBusy { get; set; }
+
+        private void OnIsBusyChanged() => IsNotBusy = !IsBusy;
+
+        private void OnIsNotBusyChanged() => IsBusy = !IsNotBusy;
 
         public ViewModelBase(INavigationService navigationService, IPageDialogService dialogService)
         {
@@ -41,8 +46,25 @@ namespace XamarinWeatherApp.ViewModels
         public bool IsActive { get; set; }
 
         public event EventHandler IsActiveChanged;
-        #endregion IActiveAware
 
+        private void OnIsActiveChanged()
+        {
+            IsActiveChanged?.Invoke(this, EventArgs.Empty);
+
+            if (IsActive)
+            {
+                OnIsActive();
+            }
+            else
+            {
+                OnIsNotActive();
+            }
+        }
+
+        protected virtual void OnIsActive() { }
+
+        protected virtual void OnIsNotActive() { }
+        #endregion IActiveAware
 
         #region IConfirmNavigation
         public virtual bool CanNavigate(INavigationParameters parameters) => true;
@@ -127,7 +149,7 @@ namespace XamarinWeatherApp.ViewModels
         protected async Task ShowErrorMessage(Exception ex)
         {
             //Dialog service, show error. 
-            await DialogService.DisplayAlertAsync("Error", "Unable to Receive Data", "OK");
+            await DialogService.DisplayAlertAsync("Error", ex.Message, "OK");
         }
         #endregion ExecuteAsyncTask
     }
