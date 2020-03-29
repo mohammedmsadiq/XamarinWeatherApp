@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Prism;
 using Prism.AppModel;
@@ -10,7 +12,7 @@ using Xamarin.Forms;
 namespace XamarinWeatherApp.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible, IPageLifecycleAware, IApplicationLifecycleAware, IConfirmNavigationAsync,
-        IConfirmNavigation, IActiveAware
+        IConfirmNavigation, IActiveAware, INotifyPropertyChanged
     {
         protected INavigationService NavigationService { get; private set; }
         protected IPageDialogService DialogService { get; private set; }
@@ -152,5 +154,17 @@ namespace XamarinWeatherApp.ViewModels
             await DialogService.DisplayAlertAsync("Error", ex.Message, "OK");
         }
         #endregion ExecuteAsyncTask
+
+
+        //#region PropertyChangedEventHandler
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //protected void OnPropertyChanged([CallerMemberName] string name = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
+        //#endregion PropertyChangedEventHandler
+
+
     }
 }

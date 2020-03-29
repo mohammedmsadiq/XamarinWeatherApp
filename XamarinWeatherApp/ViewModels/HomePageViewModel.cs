@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
 
@@ -25,7 +26,9 @@ namespace XamarinWeatherApp.ViewModels
         private int offSet;
         private string townCityName;
         private string currentTemp;
-
+        private string currentSummary;
+        private string lottieImage;
+        private string country;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -60,7 +63,10 @@ namespace XamarinWeatherApp.ViewModels
                 if (placemark != null)
                 {
                     TownCityName = placemark.Locality.ToString();
+                    Country = placemark.CountryName.Replace(" ", string.Empty) + ".jpg";
                     Debug.WriteLine(TownCityName);
+                    Debug.WriteLine(Country);
+
                 }
 
                 await this.loadData();
@@ -99,8 +105,8 @@ namespace XamarinWeatherApp.ViewModels
                             TimeZoneInfo = result.timezone;
                             OffSet = result.offset;
                             CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
+                            CurrentSummary = result.currently.summary;
                         }
-
                     }
                     else
                     {
@@ -124,14 +130,26 @@ namespace XamarinWeatherApp.ViewModels
 
         public int OffSetA
         {
-            get => this.offSetA;
-            set => SetProperty(ref this.offSetA, value);
+            get
+            {
+                return offSetA;
+            }
+            set
+            {
+                this.SetProperty(ref this.offSetA, value);
+            }
         }
 
         public int OffSetB
         {
-            get => this.offSetB;
-            set => SetProperty(ref this.offSetB, value);
+            get
+            {
+                return offSetB;
+            }
+            set
+            {
+                this.SetProperty(ref this.offSetB, value);
+            }
         }
 
         public string CurrentTime
@@ -147,6 +165,12 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.deviceLatitude, value);
         }
 
+        public string LottieImage
+        {
+            get => this.lottieImage;
+            set => SetProperty(ref this.lottieImage, value);
+        }
+
         public double DeviceLongitude
         {
             get => this.deviceLongitude;
@@ -159,10 +183,22 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.townCityName, value);
         }
 
+        public string Country
+        {
+            get => this.country;
+            set => SetProperty(ref this.country, value);
+        }
+
         public string TimeZoneInfo
         {
             get => this.timeZoneInfo;
             set => SetProperty(ref this.timeZoneInfo, value);
+        }
+
+        public string CurrentSummary
+        {
+            get => this.currentSummary;
+            set => SetProperty(ref this.currentSummary, value);
         }
 
         public int OffSet

@@ -5,7 +5,7 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="{DynamicResource background}"
+    BackgroundColor="#57A8DC"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -25,6 +25,16 @@
                 BackgroundGradientStartColor="{Binding OffSetA, Converter={StaticResource ColourOffSetAConverter}}"
                 BackgroundGradientEndColor="{Binding OffSetB, Converter={StaticResource ColourOffSetBConverter}}">
             </yummy:PancakeView>
+            <Image
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Aspect="AspectFill"
+                Source="{Binding Country}" />
+            <BoxView
+                BackgroundColor="Black"
+                Opacity="0.3"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand" />
             <StackLayout
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
@@ -51,38 +61,72 @@
                     HorizontalOptions="CenterAndExpand">
                 </Label>
                 <Grid
+                    Margin="0,30,0,0"
                     RowSpacing="0"
                     ColumnSpacing="0"
                     VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
                         <RowDefinition
-                            Height="*" />
+                            Height="4*" />
                         <RowDefinition
-                            Height="*" />
+                            Height="3*" />
                     </Grid.RowDefinitions>
-                    <StackLayout
+                    <Grid
+                        RowSpacing="0"
+                        ColumnSpacing="0"
                         Grid.Row="0"
-                        Orientation="Horizontal"
                         VerticalOptions="FillAndExpand"
-                        HorizontalOptions="CenterAndExpand">
-                        <Label
-                            Text="{Binding CurrentTemp}"
-                            d:Text="15"
-                            FontFamily="{StaticResource LightFont}"
-                            TextColor="White"
-                            FontSize="150"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center" />
-                        <Label
-                            Text="°"
-                            Margin="0,-50,0,0"
-                            FontFamily="{StaticResource LightFont}"
-                            TextColor="White"
-                            FontSize="80"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Start" />
-                    </StackLayout>
+                        HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="2*" />
+                            <RowDefinition
+                                Height="4*" />
+                        </Grid.RowDefinitions>
+                        <StackLayout
+                            Margin="30,0"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand"
+                            Grid.Row="0"
+                            HorizontalOptions="FillAndExpand">
+                            <Label
+                                Margin="20,0"
+                                Text="{Binding CurrentSummary}"
+                                d:Text="Test"
+                                d:TextColor="White"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                                FontSize="24"
+                                FontFamily="{StaticResource LightFont}"
+                                TextColor="White">
+                            </Label>
+                        </StackLayout>
+
+                        <StackLayout
+                            VerticalOptions="Start"
+                            Orientation="Horizontal"
+                            Grid.Row="1"
+                            HorizontalOptions="Center">
+                            <Label
+                                Text="{Binding CurrentTemp}"
+                                d:Text="15"
+                                FontFamily="{StaticResource LightFont}"
+                                TextColor="White"
+                                FontSize="150"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="°"
+                                Margin="0,-50,0,0"
+                                FontFamily="{StaticResource LightFont}"
+                                TextColor="White"
+                                FontSize="80"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Start" />
+
+                        </StackLayout>
+                    </Grid>
                     <StackLayout
                         Grid.Row="1"
                         BackgroundColor="Transparent"
