@@ -63,9 +63,7 @@ namespace XamarinWeatherApp.ViewModels
                 if (placemark != null)
                 {
                     TownCityName = placemark.Locality.ToString();
-                    Country = placemark.CountryName.Replace(" ", string.Empty) + ".jpg";
                     Debug.WriteLine(TownCityName);
-                    Debug.WriteLine(Country);
 
                 }
 
@@ -181,12 +179,6 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => this.townCityName;
             set => SetProperty(ref this.townCityName, value);
-        }
-
-        public string Country
-        {
-            get => this.country;
-            set => SetProperty(ref this.country, value);
         }
 
         public string TimeZoneInfo
