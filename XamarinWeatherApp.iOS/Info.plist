@@ -38,7 +38,6 @@
 	<string>Device Location is required to get accurate weather Information</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>materialdesignicons-webfont.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
 		<string>OpenSans-BoldItalic.ttf</string>
 		<string>OpenSans-ExtraBold.ttf</string>
@@ -50,6 +49,9 @@
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-Semibold.ttf</string>
 		<string>OpenSans-SemiboldItalic.ttf</string>
+		<string>FontAwesomePro-Light.otf</string>
+		<string>FontAwesomePro-Regular.otf</string>
+		<string>FontAwesomePro-Solid.otf</string>
 	</array>
 </dict>
 </plist>

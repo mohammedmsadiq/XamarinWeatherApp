@@ -4,6 +4,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="XamarinWeatherApp.Styling.FontFamily">
     <OnPlatform
+        x:Key="FontAwesomeLight"
+        x:TypeArguments="x:String">
+        <On
+            Platform="iOS"
+            Value="FontAwesome5Pro-Light" />
+        <On
+            Platform="Android"
+            Value="FontAwesomePro-Light.otf#Font Awesome 5 Pro Light" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:Key="FontAwesomeRegular"
+        x:TypeArguments="x:String">
+        <On
+            Platform="iOS"
+            Value="FontAwesome5Pro-Regular" />
+        <On
+            Platform="Android"
+            Value="FontAwesomePro-Regular.otf#Font Awesome 5 Pro Regular" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:Key="FontAwesomeSolid"
+        x:TypeArguments="x:String">
+        <On
+            Platform="iOS"
+            Value="FontAwesome5Pro-Solid" />
+        <On
+            Platform="Android"
+            Value="FontAwesomePro-Solid.otf#Font Awesome 5 Pro Solid" />
+    </OnPlatform>
+
+    <OnPlatform
         x:Key="MaterialFontFamily"
         x:TypeArguments="x:String">
         <On

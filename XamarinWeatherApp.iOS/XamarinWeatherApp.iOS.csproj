@@ -166,7 +166,6 @@
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default%402x.png" />
-    <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
     <BundleResource Include="Resources\OpenSans-Bold.ttf" />
     <BundleResource Include="Resources\OpenSans-BoldItalic.ttf" />
     <BundleResource Include="Resources\OpenSans-ExtraBold.ttf" />
@@ -177,6 +176,9 @@
     <BundleResource Include="Resources\OpenSans-Regular.ttf" />
     <BundleResource Include="Resources\OpenSans-Semibold.ttf" />
     <BundleResource Include="Resources\OpenSans-SemiboldItalic.ttf" />
+    <BundleResource Include="Resources\FontAwesomePro-Light.otf" />
+    <BundleResource Include="Resources\FontAwesomePro-Regular.otf" />
+    <BundleResource Include="Resources\FontAwesomePro-Solid.otf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

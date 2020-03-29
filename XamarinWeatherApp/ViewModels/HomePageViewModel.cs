@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Prism.Navigation;
 using Prism.Services;
@@ -13,7 +14,6 @@ namespace XamarinWeatherApp.ViewModels
     public class HomePageViewModel : ViewModelBase
     {
         protected readonly IWeatherService WeatherService;
-
         private string textForLabel;
         private int offSetA;
         private int offSetB;
@@ -23,6 +23,9 @@ namespace XamarinWeatherApp.ViewModels
         private double deviceLongitude;
         private string timeZoneInfo;
         private int offSet;
+        private string townCityName;
+        private string currentTemp;
+
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -50,6 +53,15 @@ namespace XamarinWeatherApp.ViewModels
                 Debug.WriteLine(userLocation?.ToString() ?? "GetLastKnownLocation no location");
                 userLocation = await Geolocation.GetLocationAsync(request);
                 Debug.WriteLine(userLocation?.ToString() ?? "GetLocation no location");
+
+                //Get Name of City/Town
+                var placemarks = await Geocoding.GetPlacemarksAsync(userLocation.Latitude, userLocation.Longitude);
+                var placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
+                {
+                    TownCityName = placemark.Locality.ToString();
+                    Debug.WriteLine(TownCityName);
+                }
 
                 await this.loadData();
             }
@@ -86,8 +98,8 @@ namespace XamarinWeatherApp.ViewModels
                             DeviceLongitude = result.longitude;
                             TimeZoneInfo = result.timezone;
                             OffSet = result.offset;
+                            CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
                         }
-
 
                     }
                     else
@@ -126,7 +138,7 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => DateTime.Now.ToString("ddd dd, hh:mm tt");
         }
-        
+
 
         //properties
         public double DeviceLatitude
@@ -141,6 +153,12 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.deviceLongitude, value);
         }
 
+        public string TownCityName
+        {
+            get => this.townCityName;
+            set => SetProperty(ref this.townCityName, value);
+        }
+
         public string TimeZoneInfo
         {
             get => this.timeZoneInfo;
@@ -151,6 +169,12 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => this.offSet;
             set => SetProperty(ref this.offSet, value);
+        }
+
+        public string CurrentTemp
+        {
+            get => this.currentTemp;
+            set => SetProperty(ref this.currentTemp, value);
         }
 
     }

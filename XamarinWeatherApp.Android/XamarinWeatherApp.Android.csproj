@@ -90,7 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -126,17 +125,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-Bold.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-BoldItalic.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-ExtraBold.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-ExtraBoldItalic.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-Italic.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-Light.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-LightItalic.ttf" />
-    <AndroidAsset Include="Assets\OpenSans-Regular.ttf" />
     <AndroidAsset Include="Assets\OpenSans-Semibold.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-Light.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-Italic.ttf" />
+    <AndroidAsset Include="Assets\FontAwesomePro-Solid.otf" />
+    <AndroidAsset Include="Assets\OpenSans-ExtraBold.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-LightItalic.ttf" />
+    <AndroidAsset Include="Assets\FontAwesomePro-Regular.otf" />
+    <AndroidAsset Include="Assets\OpenSans-Bold.ttf" />
+    <AndroidAsset Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\OpenSans-SemiboldItalic.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-ExtraBoldItalic.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-Regular.ttf" />
+    <AndroidAsset Include="Assets\OpenSans-BoldItalic.ttf" />
+    <AndroidAsset Include="Assets\FontAwesomePro-Light.otf" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
