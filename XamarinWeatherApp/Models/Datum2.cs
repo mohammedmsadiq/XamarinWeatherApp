@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Essentials;
+using XamarinWeatherApp.Styling;
 
 namespace XamarinWeatherApp.Models
 {
@@ -7,10 +8,9 @@ namespace XamarinWeatherApp.Models
     {
         private string hrTime;
         private string sTemperature;
-
+        public string icon { get; set; }
         public double time { get; set; }
         public string summary { get; set; }
-        public string icon { get; set; }
         public double precipIntensity { get; set; }
         public double precipProbability { get; set; }
         public double temperature { get; set; }
@@ -48,8 +48,6 @@ namespace XamarinWeatherApp.Models
                 return hrTime;
             }
             set { }
-
         }
-
     }
 }

@@ -135,7 +135,6 @@ namespace XamarinWeatherApp.ViewModels
                                  };
                                  Device.BeginInvokeOnMainThread(() =>
                                  {
-
                                      this.HData.Add(itemToAdd);
                                  });
                              }
@@ -165,7 +164,6 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => DateTime.Now.ToString("ddd dd, hh:mm tt");
         }
-
 
         //properties
         public double DeviceLatitude
