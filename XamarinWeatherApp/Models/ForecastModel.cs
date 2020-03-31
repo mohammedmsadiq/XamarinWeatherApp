@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace XamarinWeatherApp.Models
@@ -15,6 +15,5 @@ namespace XamarinWeatherApp.Models
         public Daily daily { get; set; }
         public Flags flags { get; set; }
         public int offset { get; set; }
-    }
+    }   
 }
-

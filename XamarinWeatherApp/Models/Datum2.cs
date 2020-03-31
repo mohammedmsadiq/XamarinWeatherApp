@@ -1,8 +1,14 @@
-﻿namespace XamarinWeatherApp.Models
+﻿using System;
+using Xamarin.Essentials;
+
+namespace XamarinWeatherApp.Models
 {
     public class Datum2
     {
-        public int time { get; set; }
+        private string hrTime;
+        private string sTemperature;
+
+        public double time { get; set; }
         public string summary { get; set; }
         public string icon { get; set; }
         public double precipIntensity { get; set; }
@@ -20,5 +26,30 @@
         public double visibility { get; set; }
         public double ozone { get; set; }
         public string precipType { get; set; }
+
+        public string STemperature
+        {
+            get
+            {
+                double result = temperature;
+                sTemperature = result.ToString() + "°";
+                return sTemperature;
+            }
+            set { }
+        }
+
+        public string HrTime
+        {
+            get
+            {
+                var timeSpan = TimeSpan.FromSeconds((double)time);
+                var localDateTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                hrTime = localDateTime.ToString("HH");
+                return hrTime;
+            }
+            set { }
+
+        }
+
     }
 }

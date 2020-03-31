@@ -3,13 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="#57A8DC"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:BackgroundColor="Blue"
+    d:BackgroundColor="Green"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
     x:Class="XamarinWeatherApp.Views.HomePage">
@@ -19,22 +18,12 @@
             RowSpacing="0"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
-            <yummy:PancakeView
+            <!--<yummy:PancakeView
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
-                BackgroundGradientStartColor="{Binding OffSetA, Converter={StaticResource ColourOffSetAConverter}}"
-                BackgroundGradientEndColor="{Binding OffSetB, Converter={StaticResource ColourOffSetBConverter}}">
-            </yummy:PancakeView>
-            <Image
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                Aspect="AspectFill"
-                Source="{Binding Country}" />
-            <BoxView
-                BackgroundColor="Black"
-                Opacity="0.3"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand" />
+                BackgroundGradientStartColor="{Binding CurrentTemp, Converter={converters:BackgroundColorConverter IsStart=True}}"
+                BackgroundGradientEndColor="{Binding CurrentTemp,  Converter={converters:BackgroundColorConverter IsStart=False}}">
+            </yummy:PancakeView>-->
             <StackLayout
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
@@ -91,7 +80,14 @@
                             Grid.Row="0"
                             HorizontalOptions="FillAndExpand">
                             <Label
-                                Margin="20,0"
+                                VerticalOptions="End"
+                                HorizontalOptions="Start"
+                                TextColor="White"
+                                FontSize="50"
+                                Text="{Binding CurrentIcon}"
+                                FontFamily="{StaticResource FontAwesomeLight}" />
+                            <Label
+                                Margin="20,0,0,10"
                                 Text="{Binding CurrentSummary}"
                                 d:Text="Test"
                                 d:TextColor="White"
@@ -99,10 +95,8 @@
                                 HorizontalOptions="Start"
                                 FontSize="24"
                                 FontFamily="{StaticResource LightFont}"
-                                TextColor="White">
-                            </Label>
+                                TextColor="White" />
                         </StackLayout>
-
                         <StackLayout
                             VerticalOptions="Start"
                             Orientation="Horizontal"
@@ -124,14 +118,59 @@
                                 FontSize="80"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Start" />
-
                         </StackLayout>
                     </Grid>
                     <StackLayout
                         Grid.Row="1"
-                        BackgroundColor="Transparent"
                         VerticalOptions="FillAndExpand"
                         HorizontalOptions="FillAndExpand">
+                        <BoxView
+                            Margin="0"
+                            HeightRequest="1"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            Color="White" />
+                        <CollectionView
+                            ItemsSource="{Binding HData}"
+                            ItemsLayout="HorizontalList"
+                            HorizontalScrollBarVisibility="Never"
+                            HeightRequest="100">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"
+                                        WidthRequest="50"
+                                        Margin="4,0">
+                                        <Label
+                                            VerticalOptions="Start"
+                                            Margin="4"
+                                            HorizontalOptions="CenterAndExpand"
+                                            TextColor="White"
+                                            Text="{Binding HrTime}" />
+                                        <Label
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="CenterAndExpand"
+                                            TextColor="White"
+                                            FontSize="20"
+                                            Text="{Binding icon, Converter={StaticResource IconConverter}}"
+                                            FontFamily="{StaticResource FontAwesomeLight}" />
+                                        <Label
+                                            VerticalOptions="End"
+                                            Margin="4"
+                                            HorizontalOptions="CenterAndExpand"
+                                            TextColor="White"
+                                            Text="{Binding STemperature}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <BoxView
+                            Margin="0"
+                            HeightRequest="1"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            Color="White" />
                     </StackLayout>
                 </Grid>
             </StackLayout>

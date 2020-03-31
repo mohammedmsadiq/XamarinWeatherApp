@@ -3,12 +3,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microcharts;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
+using XamarinWeatherApp.Styling;
 
 namespace XamarinWeatherApp.ViewModels
 {
@@ -16,9 +18,7 @@ namespace XamarinWeatherApp.ViewModels
     {
         protected readonly IWeatherService WeatherService;
         private string textForLabel;
-        private int offSetA;
-        private int offSetB;
-        private ObservableCollection<ForecastModel> item;
+        private ObservableCollection<Datum2> hData;
         private Location userLocation;
         private double deviceLatitude;
         private double deviceLongitude;
@@ -27,15 +27,16 @@ namespace XamarinWeatherApp.ViewModels
         private string townCityName;
         private string currentTemp;
         private string currentSummary;
-        private string lottieImage;
-        private string country;
+        private string hourlySummary;
+        private string hourlyIcon;
+        private string currentIcon;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
-            Item = new ObservableCollection<ForecastModel>();
+            HData = new ObservableCollection<Datum2>();
         }
 
         public override void OnAppearing()
@@ -91,64 +92,74 @@ namespace XamarinWeatherApp.ViewModels
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                this.ExecuteAsyncTask(async () =>
-                {
-                    if (userLocation != null)
-                    {
-                        var result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
-                        if (result != null)
-                        {
-                            DeviceLatitude = result.latitude;
-                            DeviceLongitude = result.longitude;
-                            TimeZoneInfo = result.timezone;
-                            OffSet = result.offset;
-                            CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
-                            CurrentSummary = result.currently.summary;
-                        }
-                    }
-                    else
-                    {
-                        DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
-                    }
-                });
+                await this.ExecuteAsyncTask(async () =>
+                 {
+                     if (userLocation != null)
+                     {
+                         var result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
+                         if (result != null)
+                         {
+                             DeviceLatitude = result.latitude;
+                             DeviceLongitude = result.longitude;
+                             TimeZoneInfo = result.timezone;
+                             OffSet = result.offset;
+                             CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
+                             CurrentSummary = result.currently.summary;
+                             CurrentIcon = result.currently.icon.ToString();
+
+                             HData.Clear();
+                             foreach (var item in result.hourly.data)
+                             {
+                                 var itemToAdd = new Datum2
+                                 {
+                                     time = item.time,
+                                     HrTime = item.HrTime,
+                                     summary = item.summary,
+                                     icon = item.icon,
+                                     precipIntensity = item.precipIntensity,
+                                     precipProbability = item.precipProbability,
+                                     temperature = Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)),
+                                     STemperature = item.STemperature,
+                                     apparentTemperature = item.apparentTemperature,
+                                     dewPoint = item.dewPoint,
+                                     humidity = item.humidity,
+                                     pressure = item.pressure,
+                                     windSpeed = item.windSpeed,
+                                     windGust = item.windGust,
+                                     windBearing = item.windBearing,
+                                     cloudCover = item.cloudCover,
+                                     uvIndex = item.uvIndex,
+                                     visibility = item.visibility,
+                                     ozone = item.ozone,
+                                     precipType = item.precipType
+                                 };
+                                 Device.BeginInvokeOnMainThread(() =>
+                                 {
+
+                                     this.HData.Add(itemToAdd);
+                                 });
+                             }
+                         }
+                     }
+                     else
+                     {
+                         DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
+                     }
+                 });
             }
         }
 
-        public ObservableCollection<ForecastModel> Item
+        public ObservableCollection<Datum2> HData
         {
-            get => this.item;
-            set => SetProperty(ref this.item, value);
+            get => this.hData;
+            set => SetProperty(ref this.hData, value);
         }
 
         public string TextForLabel
         {
             get => this.textForLabel;
             set => SetProperty(ref this.textForLabel, value);
-        }
-
-        public int OffSetA
-        {
-            get
-            {
-                return offSetA;
-            }
-            set
-            {
-                this.SetProperty(ref this.offSetA, value);
-            }
-        }
-
-        public int OffSetB
-        {
-            get
-            {
-                return offSetB;
-            }
-            set
-            {
-                this.SetProperty(ref this.offSetB, value);
-            }
-        }
+        }       
 
         public string CurrentTime
         {
@@ -163,12 +174,6 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.deviceLatitude, value);
         }
 
-        public string LottieImage
-        {
-            get => this.lottieImage;
-            set => SetProperty(ref this.lottieImage, value);
-        }
-
         public double DeviceLongitude
         {
             get => this.deviceLongitude;
@@ -181,6 +186,74 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.townCityName, value);
         }
 
+        public string CurrentIcon
+        {
+            get
+            {
+                var result = currentIcon;
+                if (result == "clear-day")
+                {
+                    return IconToFont.ClearDay;
+                }
+                else if (result == "clear-night")
+                {
+                    return IconToFont.ClearNight;
+                }
+                else if (result == "rain")
+                {
+                    return IconToFont.rain;
+                }
+                else if (result == "snow")
+                {
+                    return IconToFont.snow;
+                }
+                else if (result == "sleet")
+                {
+                    return IconToFont.sleet;
+                }
+                else if (result == "wind")
+                {
+                    return IconToFont.wind;
+                }
+                else if (result == "fog")
+                {
+                    return IconToFont.fog;
+                }
+                else if (result == "cloudy")
+                {
+                    return IconToFont.cloudy;
+                }
+                else if (result == "partly-cloudy-day")
+                {
+                    return IconToFont.DartlyCloudyDay;
+                }
+                else if (result == "partly-cloudy-night")
+                {
+                    return IconToFont.DartlyCloudynight;
+                }
+                else if (result == "hail")
+                {
+                    return IconToFont.hail;
+                }
+                else if (result == "thunderstorm")
+                {
+                    return IconToFont.thunderstorm;
+                }
+                else if (result == "tornado")
+                {
+                    return IconToFont.tornado;
+                }
+                else
+                {
+                    return IconToFont.Error;
+                }
+            }
+            set
+            {
+                this.SetProperty(ref this.currentIcon, value);
+            }
+        }
+
         public string TimeZoneInfo
         {
             get => this.timeZoneInfo;
@@ -191,6 +264,18 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => this.currentSummary;
             set => SetProperty(ref this.currentSummary, value);
+        }
+
+        public string HourlySummary
+        {
+            get => this.hourlySummary;
+            set => SetProperty(ref this.hourlySummary, value);
+        }
+
+        public string HourlyIcon
+        {
+            get => this.hourlyIcon;
+            set => SetProperty(ref this.hourlyIcon, value);
         }
 
         public int OffSet
