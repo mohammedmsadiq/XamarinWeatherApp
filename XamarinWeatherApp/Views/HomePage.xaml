@@ -178,6 +178,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Color="White" />
                                 <ListView
+                                    BackgroundColor="Transparent"
                                     HeightRequest="360"
                                     SeparatorColor="Transparent"
                                     ItemsSource="{Binding DailyData}">
@@ -253,7 +254,11 @@
                                         HorizontalOptions="FillAndExpand">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition
+                                                Width="40" />
+                                            <ColumnDefinition
                                                 Width="*" />
+                                            <ColumnDefinition
+                                                Width="40" />
                                             <ColumnDefinition
                                                 Width="*" />
                                         </Grid.ColumnDefinitions>
@@ -265,27 +270,45 @@
                                         </Grid.RowDefinitions>
                                         <Label
                                             Grid.Column="0"
-                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
                                             VerticalOptions="CenterAndExpand"
-                                            HorizontalOptions="StartAndExpand"
-                                            TextColor="LightGray"
-                                            Text="Humidity" />
+                                            HorizontalOptions="CenterAndExpand"
+                                            TextColor="White"
+                                            FontSize="20"
+                                            Text="&#xf750;"
+                                            FontFamily="{StaticResource FontAwesomeLight}" />
                                         <Label
                                             Grid.Column="1"
                                             Grid.Row="0"
                                             VerticalOptions="CenterAndExpand"
                                             HorizontalOptions="StartAndExpand"
                                             TextColor="LightGray"
-                                            Text="Cloud Cover" />
+                                            Text="HUMIDITY" />
                                         <Label
-                                            Grid.Column="0"
+                                            Grid.Column="3"
+                                            Grid.Row="0"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="StartAndExpand"
+                                            TextColor="LightGray"
+                                            Text="CLOUD COVER" />
+                                        <Label
+                                            Grid.Column="2"
+                                            Grid.RowSpan="2"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="CenterAndExpand"
+                                            TextColor="White"
+                                            FontSize="20"
+                                            Text="&#xf0c2;"
+                                            FontFamily="{StaticResource FontAwesomeLight}" />
+                                        <Label
+                                            Grid.Column="1"
                                             Grid.Row="1"
                                             VerticalOptions="CenterAndExpand"
                                             HorizontalOptions="StartAndExpand"
                                             TextColor="White"
                                             Text="{Binding HumidityPerc}" />
                                         <Label
-                                            Grid.Column="1"
+                                            Grid.Column="3"
                                             Grid.Row="1"
                                             VerticalOptions="CenterAndExpand"
                                             HorizontalOptions="StartAndExpand"

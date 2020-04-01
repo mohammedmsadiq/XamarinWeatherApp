@@ -6,12 +6,15 @@ namespace XamarinWeatherApp.Models
     {
         private string dailyTime;
         private string sunrise;
+        private DateTime localSunriseTime;
+        private DateTime localSunsetTime;
 
         public int time { get; set; }
         public string summary { get; set; }
         public string icon { get; set; }
         public int sunriseTime { get; set; }
         public int sunsetTime { get; set; }
+
         public double moonPhase { get; set; }
         public double precipIntensity { get; set; }
         public double precipIntensityMax { get; set; }
@@ -57,6 +60,28 @@ namespace XamarinWeatherApp.Models
                 return dailyTime;
             }
             set { }
-        }     
+        }
+
+        public DateTime LocalSunriseTime
+        {
+            get
+            {
+                var timeSpan = TimeSpan.FromSeconds((double)sunriseTime);
+                localSunriseTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                return localSunriseTime;
+            }
+            set { }
+        }
+
+        public DateTime LocalSunsetTime
+        {
+            get
+            {
+                var timeSpan = TimeSpan.FromSeconds((double)sunsetTime);
+                localSunsetTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                return localSunsetTime;
+            }
+            set { }
+        }
     }
 }

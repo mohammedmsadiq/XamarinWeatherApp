@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microcharts;
 using Prism.Navigation;
 using Prism.Services;
+using Unity.Injection;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.Interfaces;
@@ -156,6 +157,8 @@ namespace XamarinWeatherApp.ViewModels
                                      icon = dailyItem.icon,
                                      sunriseTime = dailyItem.sunriseTime,
                                      sunsetTime = dailyItem.sunsetTime,
+                                     LocalSunriseTime = dailyItem.LocalSunriseTime,
+                                     LocalSunsetTime = dailyItem.LocalSunsetTime,
                                      moonPhase = dailyItem.moonPhase,
                                      precipIntensity = dailyItem.precipIntensity,
                                      precipIntensityMax = dailyItem.precipIntensityMax,
@@ -363,6 +366,5 @@ namespace XamarinWeatherApp.ViewModels
             get => this.cloudCoverPerc;
             set => SetProperty(ref this.cloudCoverPerc, value);
         }
-
     }
 }
