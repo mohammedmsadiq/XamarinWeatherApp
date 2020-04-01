@@ -23,5 +23,24 @@
         public int uvIndex { get; set; }
         public int visibility { get; set; }
         public double ozone { get; set; }
+        public string HumidityPerc
+        {
+            get
+            {
+                var r = (humidity * 100) + "%";
+                return r;
+            }
+            set { }
+        }
+
+        public string CloudCoverPerc
+        {
+            get
+            {
+                var r = (cloudCover * 100) + "%";
+                return r;
+            }
+            set { }
+        }
     }
 }

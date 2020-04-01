@@ -1,7 +1,12 @@
-﻿namespace XamarinWeatherApp.Models
+﻿using System;
+
+namespace XamarinWeatherApp.Models
 {
     public class Datum3
     {
+        private string dailyTime;
+        private string sunrise;
+
         public int time { get; set; }
         public string summary { get; set; }
         public string icon { get; set; }
@@ -41,5 +46,17 @@
         public int apparentTemperatureMinTime { get; set; }
         public double apparentTemperatureMax { get; set; }
         public int apparentTemperatureMaxTime { get; set; }
+
+        public string DailyTime
+        {
+            get
+            {
+                var timeSpan = TimeSpan.FromSeconds((double)time);
+                var localDateTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                dailyTime = localDateTime.ToString("dddd, dd MMMM");
+                return dailyTime;
+            }
+            set { }
+        }     
     }
 }

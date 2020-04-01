@@ -18,7 +18,8 @@ namespace XamarinWeatherApp.ViewModels
     {
         protected readonly IWeatherService WeatherService;
         private string textForLabel;
-        private ObservableCollection<Datum2> hData;
+        private ObservableCollection<Datum2> hourlyData;
+        private ObservableCollection<Datum3> dailyData;
         private Location userLocation;
         private double deviceLatitude;
         private double deviceLongitude;
@@ -30,13 +31,16 @@ namespace XamarinWeatherApp.ViewModels
         private string hourlySummary;
         private string hourlyIcon;
         private string currentIcon;
+        private string humidityPerc;
+        private string cloudCoverPerc;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
-            HData = new ObservableCollection<Datum2>();
+            HourlyData = new ObservableCollection<Datum2>();
+            DailyData = new ObservableCollection<Datum3>();
         }
 
         public override void OnAppearing()
@@ -105,9 +109,11 @@ namespace XamarinWeatherApp.ViewModels
                              OffSet = result.offset;
                              CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
                              CurrentSummary = result.currently.summary;
+                             HumidityPerc = result.currently.HumidityPerc;
+                             CloudCoverPerc = result.currently.CloudCoverPerc;
                              CurrentIcon = result.currently.icon.ToString();
 
-                             HData.Clear();
+                             HourlyData.Clear();
                              foreach (var item in result.hourly.data)
                              {
                                  var itemToAdd = new Datum2
@@ -135,7 +141,59 @@ namespace XamarinWeatherApp.ViewModels
                                  };
                                  Device.BeginInvokeOnMainThread(() =>
                                  {
-                                     this.HData.Add(itemToAdd);
+                                     this.HourlyData.Add(itemToAdd);
+                                 });
+                             }
+
+                             DailyData.Clear();
+                             foreach (var dailyItem in result.daily.data)
+                             {
+                                 var dailyItemToAdd = new Datum3
+                                 {
+                                     time = dailyItem.time,
+                                     DailyTime = dailyItem.DailyTime,
+                                     summary = dailyItem.summary,
+                                     icon = dailyItem.icon,
+                                     sunriseTime = dailyItem.sunriseTime,
+                                     sunsetTime = dailyItem.sunsetTime,
+                                     moonPhase = dailyItem.moonPhase,
+                                     precipIntensity = dailyItem.precipIntensity,
+                                     precipIntensityMax = dailyItem.precipIntensityMax,
+                                     precipIntensityMaxTime = dailyItem.precipIntensityMaxTime,
+                                     precipProbability = dailyItem.precipProbability,
+                                     precipType = dailyItem.precipType,
+                                     temperatureHigh = Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureHigh)),
+                                     temperatureHighTime = dailyItem.temperatureHighTime,
+                                     temperatureLow = Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureLow)),
+                                     temperatureLowTime = dailyItem.temperatureLowTime,
+                                     apparentTemperatureHigh = dailyItem.apparentTemperatureHigh,
+                                     apparentTemperatureHighTime = dailyItem.apparentTemperatureHighTime,
+                                     apparentTemperatureLow = dailyItem.apparentTemperatureLow,
+                                     apparentTemperatureLowTime = dailyItem.apparentTemperatureLowTime,
+                                     dewPoint = dailyItem.dewPoint,
+                                     humidity = dailyItem.humidity,
+                                     pressure = dailyItem.pressure,
+                                     windSpeed = dailyItem.windSpeed,
+                                     windGust = dailyItem.windGust,
+                                     windGustTime = dailyItem.windGustTime,
+                                     windBearing = dailyItem.windBearing,
+                                     cloudCover = dailyItem.cloudCover,
+                                     uvIndex = dailyItem.uvIndex,
+                                     uvIndexTime = dailyItem.uvIndexTime,
+                                     visibility = dailyItem.visibility,
+                                     ozone = dailyItem.ozone,
+                                     temperatureMin = dailyItem.temperatureMin,
+                                     temperatureMinTime = dailyItem.temperatureMinTime,
+                                     temperatureMax = dailyItem.temperatureMax,
+                                     temperatureMaxTime = dailyItem.temperatureMaxTime,
+                                     apparentTemperatureMin = dailyItem.apparentTemperatureMin,
+                                     apparentTemperatureMinTime = dailyItem.apparentTemperatureMinTime,
+                                     apparentTemperatureMax = dailyItem.apparentTemperatureMax,
+                                     apparentTemperatureMaxTime = dailyItem.apparentTemperatureMaxTime
+                                 };
+                                 Device.BeginInvokeOnMainThread(() =>
+                                 {
+                                     this.DailyData.Add(dailyItemToAdd);
                                  });
                              }
                          }
@@ -148,17 +206,23 @@ namespace XamarinWeatherApp.ViewModels
             }
         }
 
-        public ObservableCollection<Datum2> HData
+        public ObservableCollection<Datum2> HourlyData
         {
-            get => this.hData;
-            set => SetProperty(ref this.hData, value);
+            get => this.hourlyData;
+            set => SetProperty(ref this.hourlyData, value);
+        }
+
+        public ObservableCollection<Datum3> DailyData
+        {
+            get => this.dailyData;
+            set => SetProperty(ref this.dailyData, value);
         }
 
         public string TextForLabel
         {
             get => this.textForLabel;
             set => SetProperty(ref this.textForLabel, value);
-        }       
+        }
 
         public string CurrentTime
         {
@@ -286,6 +350,18 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => this.currentTemp;
             set => SetProperty(ref this.currentTemp, value);
+        }
+
+        public string HumidityPerc
+        {
+            get => this.humidityPerc;
+            set => SetProperty(ref this.humidityPerc, value);
+        }
+
+        public string CloudCoverPerc
+        {
+            get => this.cloudCoverPerc;
+            set => SetProperty(ref this.cloudCoverPerc, value);
         }
 
     }
