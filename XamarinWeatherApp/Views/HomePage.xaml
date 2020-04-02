@@ -85,13 +85,13 @@
                                     VerticalOptions="FillAndExpand"
                                     Grid.Row="0"
                                     HorizontalOptions="FillAndExpand">
-                                    <Label
+                                    <Image
                                         VerticalOptions="End"
                                         HorizontalOptions="Start"
-                                        TextColor="White"
-                                        FontSize="50"
-                                        Text="{Binding CurrentIcon}"
-                                        FontFamily="{StaticResource FontAwesomeLight}" />
+                                        Source="{Binding CurrentIcon}"
+                                        HeightRequest="50"
+                                        WidthRequest="50"
+                                        Aspect="AspectFit" />
                                     <Label
                                         Margin="20,0,0,10"
                                         Text="{Binding CurrentSummary}"
@@ -132,7 +132,7 @@
                                 HorizontalOptions="FillAndExpand">
                                 <BoxView
                                     Margin="0"
-                                    HeightRequest="1"
+                                    HeightRequest="0.5"
                                     VerticalOptions="Start"
                                     HorizontalOptions="FillAndExpand"
                                     Color="White" />
@@ -154,13 +154,13 @@
                                                     HorizontalOptions="CenterAndExpand"
                                                     TextColor="White"
                                                     Text="{Binding HrTime}" />
-                                                <Label
+                                                <Image
                                                     VerticalOptions="CenterAndExpand"
                                                     HorizontalOptions="CenterAndExpand"
-                                                    TextColor="White"
-                                                    FontSize="20"
-                                                    Text="{Binding icon, Converter={StaticResource IconConverter}}"
-                                                    FontFamily="{StaticResource FontAwesomeLight}" />
+                                                    Source="{Binding icon}"
+                                                    HeightRequest="20"
+                                                    WidthRequest="20"
+                                                    Aspect="AspectFit" />
                                                 <Label
                                                     VerticalOptions="End"
                                                     Margin="4"
@@ -173,11 +173,12 @@
                                 </CollectionView>
                                 <BoxView
                                     Margin="0"
-                                    HeightRequest="1"
+                                    HeightRequest="0.5"
                                     VerticalOptions="Start"
                                     HorizontalOptions="FillAndExpand"
                                     Color="White" />
                                 <ListView
+                                    x:Name="DailyList"
                                     BackgroundColor="Transparent"
                                     HeightRequest="360"
                                     SeparatorColor="Transparent"
@@ -205,15 +206,15 @@
                                                         HorizontalOptions="Start"
                                                         TextColor="White"
                                                         Text="{Binding DailyTime}" />
-                                                    <Label
+                                                    <Image
                                                         Grid.Column="1"
                                                         Margin="-70,0,0,0"
                                                         VerticalOptions="CenterAndExpand"
                                                         HorizontalOptions="CenterAndExpand"
-                                                        TextColor="White"
-                                                        FontSize="20"
-                                                        Text="{Binding icon, Converter={StaticResource IconConverter}}"
-                                                        FontFamily="{StaticResource FontAwesomeLight}" />
+                                                        Source="{Binding icon}"
+                                                        HeightRequest="20"
+                                                        WidthRequest="20"
+                                                        Aspect="AspectFit" />
                                                     <StackLayout
                                                         Grid.Column="2"
                                                         Margin="0,0,5,0"
@@ -240,7 +241,7 @@
                                 </ListView>
                                 <BoxView
                                     Margin="0"
-                                    HeightRequest="1"
+                                    HeightRequest="0.5"
                                     VerticalOptions="Start"
                                     HorizontalOptions="FillAndExpand"
                                     Color="White" />
@@ -317,7 +318,7 @@
                                     </Grid>
                                     <BoxView
                                         Margin="0"
-                                        HeightRequest="1"
+                                        HeightRequest="0.5"
                                         VerticalOptions="Start"
                                         HorizontalOptions="FillAndExpand"
                                         Color="White" />

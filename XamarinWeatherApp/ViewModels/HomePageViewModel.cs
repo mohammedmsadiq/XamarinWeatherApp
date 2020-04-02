@@ -122,7 +122,7 @@ namespace XamarinWeatherApp.ViewModels
                                      time = item.time,
                                      HrTime = item.HrTime,
                                      summary = item.summary,
-                                     icon = item.icon,
+                                     icon = item.icon + ".png",
                                      precipIntensity = item.precipIntensity,
                                      precipProbability = item.precipProbability,
                                      temperature = Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)),
@@ -154,7 +154,7 @@ namespace XamarinWeatherApp.ViewModels
                                      time = dailyItem.time,
                                      DailyTime = dailyItem.DailyTime,
                                      summary = dailyItem.summary,
-                                     icon = dailyItem.icon,
+                                     icon = dailyItem.icon + ".png",
                                      sunriseTime = dailyItem.sunriseTime,
                                      sunsetTime = dailyItem.sunsetTime,
                                      LocalSunriseTime = dailyItem.LocalSunriseTime,
@@ -255,69 +255,82 @@ namespace XamarinWeatherApp.ViewModels
         {
             get
             {
-                var result = currentIcon;
-                if (result == "clear-day")
-                {
-                    return IconToFont.ClearDay;
-                }
-                else if (result == "clear-night")
-                {
-                    return IconToFont.ClearNight;
-                }
-                else if (result == "rain")
-                {
-                    return IconToFont.rain;
-                }
-                else if (result == "snow")
-                {
-                    return IconToFont.snow;
-                }
-                else if (result == "sleet")
-                {
-                    return IconToFont.sleet;
-                }
-                else if (result == "wind")
-                {
-                    return IconToFont.wind;
-                }
-                else if (result == "fog")
-                {
-                    return IconToFont.fog;
-                }
-                else if (result == "cloudy")
-                {
-                    return IconToFont.cloudy;
-                }
-                else if (result == "partly-cloudy-day")
-                {
-                    return IconToFont.DartlyCloudyDay;
-                }
-                else if (result == "partly-cloudy-night")
-                {
-                    return IconToFont.DartlyCloudynight;
-                }
-                else if (result == "hail")
-                {
-                    return IconToFont.hail;
-                }
-                else if (result == "thunderstorm")
-                {
-                    return IconToFont.thunderstorm;
-                }
-                else if (result == "tornado")
-                {
-                    return IconToFont.tornado;
-                }
-                else
-                {
-                    return IconToFont.Error;
-                }
+                var result = currentIcon + ".png";
+                return result;
             }
             set
             {
                 this.SetProperty(ref this.currentIcon, value);
             }
         }
+
+        //public string CurrentIcon
+        //{
+        //    get
+        //    {
+        //        var result = currentIcon;
+        //        if (result == "clear-day")
+        //        {
+        //            return IconToFont.ClearDay;
+        //        }
+        //        else if (result == "clear-night")
+        //        {
+        //            return IconToFont.ClearNight;
+        //        }
+        //        else if (result == "rain")
+        //        {
+        //            return IconToFont.rain;
+        //        }
+        //        else if (result == "snow")
+        //        {
+        //            return IconToFont.snow;
+        //        }
+        //        else if (result == "sleet")
+        //        {
+        //            return IconToFont.sleet;
+        //        }
+        //        else if (result == "wind")
+        //        {
+        //            return IconToFont.wind;
+        //        }
+        //        else if (result == "fog")
+        //        {
+        //            return IconToFont.fog;
+        //        }
+        //        else if (result == "cloudy")
+        //        {
+        //            return IconToFont.cloudy;
+        //        }
+        //        else if (result == "partly-cloudy-day")
+        //        {
+        //            return IconToFont.DartlyCloudyDay;
+        //        }
+        //        else if (result == "partly-cloudy-night")
+        //        {
+        //            return IconToFont.DartlyCloudynight;
+        //        }
+        //        else if (result == "hail")
+        //        {
+        //            return IconToFont.hail;
+        //        }
+        //        else if (result == "thunderstorm")
+        //        {
+        //            return IconToFont.thunderstorm;
+        //        }
+        //        else if (result == "tornado")
+        //        {
+        //            return IconToFont.tornado;
+        //        }
+        //        else
+        //        {
+        //            return IconToFont.Error;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        this.SetProperty(ref this.currentIcon, value);
+        //    }
+        //}
 
         public string TimeZoneInfo
         {

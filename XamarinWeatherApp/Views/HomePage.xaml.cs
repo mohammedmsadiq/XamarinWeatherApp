@@ -14,7 +14,22 @@ namespace XamarinWeatherApp.Views
         public HomePage()
         {
             InitializeComponent();
+
+            DailyList.ItemTapped += (sender, e) =>
+            {
+                if (e.Item == null)
+                {
+                    return;
+                }
+
+                if (sender is Xamarin.Forms.ListView lv)
+                {
+                    lv.SelectedItem = null;
+                }
+            };
         }
+
+
 
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
