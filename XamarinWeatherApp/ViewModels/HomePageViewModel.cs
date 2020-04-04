@@ -65,14 +65,37 @@ namespace XamarinWeatherApp.ViewModels
 
                 //Get Name of City/Town
                 var placemarks = await Geocoding.GetPlacemarksAsync(userLocation.Latitude, userLocation.Longitude);
+                if (placemarks == null)
+                {
+                    DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
+                }
                 var placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
-                    TownCityName = placemark.Locality.ToString();
+                    if (placemark.Locality != null)
+                    {
+                        TownCityName = placemark.Locality.ToString();
+                    }
+                    else
+                    {
+                        TownCityName = placemark.CountryName.ToString();
+                    }
+
+                    var geocodeAddress =
+                        $"AdminArea:       {placemark.AdminArea}\n" +
+                        $"CountryCode:     {placemark.CountryCode}\n" +
+                        $"CountryName:     {placemark.CountryName}\n" +
+                        $"FeatureName:     {placemark.FeatureName}\n" +
+                        $"Locality:        {placemark.Locality}\n" +
+                        $"PostalCode:      {placemark.PostalCode}\n" +
+                        $"SubAdminArea:    {placemark.SubAdminArea}\n" +
+                        $"SubLocality:     {placemark.SubLocality}\n" +
+                        $"SubThoroughfare: {placemark.SubThoroughfare}\n" +
+                        $"Thoroughfare:    {placemark.Thoroughfare}\n";
+
+                    Debug.WriteLine(geocodeAddress);
                     Debug.WriteLine(TownCityName);
-
                 }
-
                 await this.loadData();
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -112,7 +135,7 @@ namespace XamarinWeatherApp.ViewModels
                              CurrentSummary = result.currently.summary;
                              HumidityPerc = result.currently.HumidityPerc;
                              CloudCoverPerc = result.currently.CloudCoverPerc;
-                             CurrentIcon = result.currently.icon.ToString();
+                             CurrentIcon = result.currently.icon.Replace("-", string.Empty);
 
                              HourlyData.Clear();
                              foreach (var item in result.hourly.data)
@@ -123,6 +146,7 @@ namespace XamarinWeatherApp.ViewModels
                                      HrTime = item.HrTime,
                                      summary = item.summary,
                                      icon = item.icon + ".png",
+                                     ImageIcon = item.ImageIcon,
                                      precipIntensity = item.precipIntensity,
                                      precipProbability = item.precipProbability,
                                      temperature = Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)),
@@ -155,6 +179,7 @@ namespace XamarinWeatherApp.ViewModels
                                      DailyTime = dailyItem.DailyTime,
                                      summary = dailyItem.summary,
                                      icon = dailyItem.icon + ".png",
+                                     ImageIcon = dailyItem.ImageIcon,
                                      sunriseTime = dailyItem.sunriseTime,
                                      sunsetTime = dailyItem.sunsetTime,
                                      LocalSunriseTime = dailyItem.LocalSunriseTime,
@@ -200,10 +225,6 @@ namespace XamarinWeatherApp.ViewModels
                                  });
                              }
                          }
-                     }
-                     else
-                     {
-                         DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
                      }
                  });
             }

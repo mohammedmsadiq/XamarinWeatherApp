@@ -8,6 +8,7 @@ namespace XamarinWeatherApp.Models
         private string sunrise;
         private DateTime localSunriseTime;
         private DateTime localSunsetTime;
+        private string imageIcon;
 
         public int time { get; set; }
         public string summary { get; set; }
@@ -48,6 +49,17 @@ namespace XamarinWeatherApp.Models
         public int apparentTemperatureMinTime { get; set; }
         public double apparentTemperatureMax { get; set; }
         public int apparentTemperatureMaxTime { get; set; }
+
+        public string ImageIcon
+        {
+            get
+            {
+                string str = icon.Replace("-", string.Empty);
+                imageIcon = str;
+                return imageIcon;
+            }
+            set { }
+        }
 
         public string DailyTime
         {

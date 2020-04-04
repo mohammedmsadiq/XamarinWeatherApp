@@ -157,7 +157,7 @@
                                                 <Image
                                                     VerticalOptions="CenterAndExpand"
                                                     HorizontalOptions="CenterAndExpand"
-                                                    Source="{Binding icon}"
+                                                    Source="{Binding ImageIcon}"
                                                     HeightRequest="20"
                                                     WidthRequest="20"
                                                     Aspect="AspectFit" />
@@ -211,7 +211,7 @@
                                                         Margin="-70,0,0,0"
                                                         VerticalOptions="CenterAndExpand"
                                                         HorizontalOptions="CenterAndExpand"
-                                                        Source="{Binding icon}"
+                                                        Source="{Binding ImageIcon}"
                                                         HeightRequest="20"
                                                         WidthRequest="20"
                                                         Aspect="AspectFit" />

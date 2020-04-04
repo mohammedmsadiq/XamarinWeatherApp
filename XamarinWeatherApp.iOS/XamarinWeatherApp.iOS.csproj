@@ -185,19 +185,19 @@
     <BundleResource Include="Resources\FontAwesomePro-Light.otf" />
     <BundleResource Include="Resources\FontAwesomePro-Regular.otf" />
     <BundleResource Include="Resources\FontAwesomePro-Solid.otf" />
-    <BundleResource Include="Resources\clear-day.png" />
-    <BundleResource Include="Resources\clear-night.png" />
     <BundleResource Include="Resources\cloudy.png" />
     <BundleResource Include="Resources\fog.png" />
     <BundleResource Include="Resources\hail.png" />
-    <BundleResource Include="Resources\partly-cloudy-day.png" />
-    <BundleResource Include="Resources\partly-cloudy-night.png" />
     <BundleResource Include="Resources\rain.png" />
     <BundleResource Include="Resources\sleet.png" />
     <BundleResource Include="Resources\snow.png" />
     <BundleResource Include="Resources\thunderstorm.png" />
     <BundleResource Include="Resources\tornado.png" />
     <BundleResource Include="Resources\wind.png" />
+    <BundleResource Include="Resources\clearday.png" />
+    <BundleResource Include="Resources\clearnight.png" />
+    <BundleResource Include="Resources\partlycloudyday.png" />
+    <BundleResource Include="Resources\partlycloudynight.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

@@ -8,6 +8,8 @@ namespace XamarinWeatherApp.Models
     {
         private string hrTime;
         private string sTemperature;
+        private string imageIcon;
+
         public string icon { get; set; }
         public double time { get; set; }
         public string summary { get; set; }
@@ -26,6 +28,17 @@ namespace XamarinWeatherApp.Models
         public double visibility { get; set; }
         public double ozone { get; set; }
         public string precipType { get; set; }
+
+        public string ImageIcon
+        {
+            get
+            {
+                string str = icon.Replace("-", string.Empty);
+                imageIcon = str;
+                return imageIcon;
+            }
+            set { }
+        }
 
         public string STemperature
         {
