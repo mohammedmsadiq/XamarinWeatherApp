@@ -55,8 +55,10 @@ namespace XamarinWeatherApp.Models
         {
             get
             {
-                var timeSpan = TimeSpan.FromSeconds((double)time);
-                var localDateTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                long unixTimeStampInTicks = (long)(time * TimeSpan.TicksPerSecond);
+                DateTime r = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc);
+                var localDateTime = r.ToLocalTime();
                 hrTime = localDateTime.ToString("HH");
                 return hrTime;
             }
