@@ -5,11 +5,6 @@
     x:Class="XamarinWeatherApp.Styling.LightTheme">
 
     <Color
-        x:Key="background">#ffffff</Color>
-
-    <Color
-        x:Key="SunnyOffSet0">#810E64</Color>
-    <Color
-        x:Key="SunnyOffSet1">#FC5038</Color>
+        x:Key="background">#57A8DC</Color>
 
 </ResourceDictionary>

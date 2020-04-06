@@ -29,8 +29,6 @@ namespace XamarinWeatherApp.Views
             };
         }
 
-
-
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
             Theme themeRequested = App.AppTheme == Theme.Light ? Theme.Dark : Theme.Light;

@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="#57A8DC"
+    BackgroundColor="{DynamicResource background}"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:BackgroundColor="Green"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     x:Class="XamarinWeatherApp.Views.HomePage">
     <ContentPage.Content>
         <Grid
@@ -40,14 +41,24 @@
                     <StackLayout
                         VerticalOptions="FillAndExpand"
                         HorizontalOptions="FillAndExpand">
-                        <Label
-                            Text="{Binding CurrentTime}"
-                            VerticalOptions="Start"
-                            FontSize="15"
-                            FontFamily="{StaticResource LightFont}"
-                            TextColor="White"
-                            HorizontalOptions="CenterAndExpand">
-                        </Label>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                Text="{Binding CurrentTime}"
+                                VerticalOptions="Start"
+                                FontSize="15"
+                                FontFamily="{StaticResource LightFont}"
+                                TextColor="White"
+                                HorizontalOptions="CenterAndExpand">
+                            </Label>
+                            <lottie:AnimationView
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                Animation="lightdark.json"
+                                HeightRequest="30"
+                                AutoPlay="True"
+                                Loop="True" />
+                        </StackLayout>
                         <Grid
                             Margin="0,30,0,0"
                             RowSpacing="0"

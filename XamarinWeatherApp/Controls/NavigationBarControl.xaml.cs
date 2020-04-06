@@ -9,6 +9,6 @@ namespace XamarinWeatherApp.Controls
         public NavigationBarControl()
         {
             InitializeComponent();
-        }
+        }      
     }
 }

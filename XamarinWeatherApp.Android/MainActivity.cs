@@ -1,15 +1,10 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Prism.Ioc;
 using Prism;
 using Xamarin.Forms;
-using static Android.Content.Res.Resources;
 using XamarinWeatherApp.Styling;
 using Android.Content.Res;
 using Android.Support.V7.App;
@@ -26,9 +21,11 @@ namespace XamarinWeatherApp.Droid
 
             base.OnCreate(savedInstanceState);
 
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+
             LoadApplication(new App(new AndroidInitializer()));
             SetAppTheme();
             MessagingCenter.Subscribe<Page, Theme>(this, "ModeChanged", callback: OnModeChanged);
@@ -65,14 +62,16 @@ namespace XamarinWeatherApp.Droid
             if (mode == XamarinWeatherApp.Theme.Dark)
             {
                 if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
-                    return;
-                App.Current.Resources = new DarkTheme();
+                {
+                    App.Current.Resources = new DarkTheme();
+                }
             }
             else
             {
                 if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
-                    return;
-                App.Current.Resources = new LightTheme();
+                {
+                    App.Current.Resources = new LightTheme();
+                }                
             }
             App.AppTheme = mode;
         }

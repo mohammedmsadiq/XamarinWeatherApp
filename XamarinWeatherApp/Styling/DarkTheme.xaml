@@ -5,6 +5,6 @@
     x:Class="XamarinWeatherApp.Styling.DarkTheme">
 
     <Color
-        x:Key="background">#000000</Color>
+        x:Key="background">#171612</Color>
 
 </ResourceDictionary>

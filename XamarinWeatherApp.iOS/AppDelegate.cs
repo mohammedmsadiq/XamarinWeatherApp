@@ -1,6 +1,6 @@
 ﻿using Foundation;
+using Lottie.Forms.iOS.Renderers;
 using UIKit;
-
 using Xamarin.Forms;
 using XamarinWeatherApp.Styling;
 
@@ -25,6 +25,7 @@ namespace XamarinWeatherApp.iOS
             global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App(new iOSInitializer()));
             MessagingCenter.Subscribe<Page, Theme>(this, "ModeChanged", callback: OnModeChanged);
+            AnimationViewRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }
