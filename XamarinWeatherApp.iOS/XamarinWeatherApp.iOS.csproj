@@ -159,7 +159,7 @@
       <Version>0.8.5-pre</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-      <Version>3.1.0</Version>
+      <Version>3.0.4</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.iOS.Lottie">
       <Version>2.5.10</Version>
@@ -204,9 +204,9 @@
     <BundleResource Include="Resources\clearnight.png" />
     <BundleResource Include="Resources\partlycloudyday.png" />
     <BundleResource Include="Resources\partlycloudynight.png" />
-    <BundleResource Include="Resources\darkmodeoff.json" />
-    <BundleResource Include="Resources\darkmodeon.json" />
     <BundleResource Include="Resources\lightdark.json" />
+    <BundleResource Include="darkmodeoff.json" />
+    <BundleResource Include="darkmodeon.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

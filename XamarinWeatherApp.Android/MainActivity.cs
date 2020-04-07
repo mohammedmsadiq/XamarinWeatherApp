@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using XamarinWeatherApp.Styling;
 using Android.Content.Res;
 using Android.Support.V7.App;
+using Lottie.Forms.Droid;
 
 namespace XamarinWeatherApp.Droid
 {
@@ -25,6 +26,7 @@ namespace XamarinWeatherApp.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+            AnimationViewRenderer.Init();
 
             LoadApplication(new App(new AndroidInitializer()));
             SetAppTheme();

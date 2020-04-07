@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using SkiaSharp;
 using Microcharts;
 using System.ComponentModel;
-
+using System.Threading.Tasks;
 
 namespace XamarinWeatherApp.Views
 {
@@ -27,6 +27,27 @@ namespace XamarinWeatherApp.Views
                     lv.SelectedItem = null;
                 }
             };
+        }
+        protected override void OnAppearing()
+        {
+            this.setImage();
+            base.OnAppearing();
+        }
+
+        private async Task setImage()
+        {
+            if (App.AppTheme == Theme.Light)
+            {
+                ThemeSwitch.Animation = "darkmodeon.json";
+                await Task.Delay(5000);
+                ThemeSwitch.IsPlaying = true;
+            }
+            else
+            {
+                ThemeSwitch.Animation = "darkmodeoff.json";
+                await Task.Delay(5000);
+                ThemeSwitch.IsPlaying = true;
+            }
         }
 
         void Button_Clicked(System.Object sender, System.EventArgs e)

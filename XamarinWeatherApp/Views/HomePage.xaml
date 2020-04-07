@@ -41,33 +41,31 @@
                     <StackLayout
                         VerticalOptions="FillAndExpand"
                         HorizontalOptions="FillAndExpand">
-                        <StackLayout
-                            Orientation="Horizontal">
-                            <Label
-                                Text="{Binding CurrentTime}"
-                                VerticalOptions="Start"
-                                FontSize="15"
-                                FontFamily="{StaticResource LightFont}"
-                                TextColor="White"
-                                HorizontalOptions="CenterAndExpand">
-                            </Label>
-                            <lottie:AnimationView
-                                VerticalOptions="FillAndExpand"
-                                HorizontalOptions="FillAndExpand"
-                                Animation="lightdark.json"
-                                HeightRequest="30"
-                                AutoPlay="True"
-                                Loop="True" />
-                        </StackLayout>
+                        <Label
+                            Text="{Binding CurrentTime}"
+                            VerticalOptions="Start"
+                            FontSize="15"
+                            FontFamily="{StaticResource LightFont}"
+                            TextColor="White"
+                            d:Text="DateTime"
+                            HorizontalOptions="CenterAndExpand" />
+                        <lottie:AnimationView
+                            x:Name="ThemeSwitch"
+                            OnClick="Button_Clicked"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="EndAndExpand"
+                            Margin="30,10,30,0"
+                            HeightRequest="60"
+                            AutoPlay="False"
+                            Loop="False" />
                         <Grid
-                            Margin="0,30,0,0"
                             RowSpacing="0"
                             ColumnSpacing="0"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                             <Grid.RowDefinitions>
                                 <RowDefinition
-                                    Height="400" />
+                                    Height="350" />
                                 <RowDefinition
                                     Height="Auto" />
                             </Grid.RowDefinitions>
