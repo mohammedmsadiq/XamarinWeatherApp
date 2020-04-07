@@ -6,6 +6,7 @@ using SkiaSharp;
 using Microcharts;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace XamarinWeatherApp.Views
 {
@@ -28,6 +29,7 @@ namespace XamarinWeatherApp.Views
                 }
             };
         }
+
         protected override void OnAppearing()
         {
             this.setImage();
@@ -39,12 +41,32 @@ namespace XamarinWeatherApp.Views
             if (App.AppTheme == Theme.Light)
             {
                 ThemeSwitch.Animation = "darkmodeon.json";
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    ThemeSwitch.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    ThemeSwitch.VerticalOptions = LayoutOptions.FillAndExpand;
+                }
+                else
+                {
+                    ThemeSwitch.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                    ThemeSwitch.VerticalOptions = LayoutOptions.EndAndExpand;
+                }
                 await Task.Delay(5000);
                 ThemeSwitch.IsPlaying = true;
             }
             else
             {
                 ThemeSwitch.Animation = "darkmodeoff.json";
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    ThemeSwitch.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    ThemeSwitch.VerticalOptions = LayoutOptions.FillAndExpand;
+                }
+                else
+                {
+                    ThemeSwitch.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                    ThemeSwitch.VerticalOptions = LayoutOptions.EndAndExpand;
+                }
                 await Task.Delay(5000);
                 ThemeSwitch.IsPlaying = true;
             }
@@ -54,6 +76,7 @@ namespace XamarinWeatherApp.Views
         {
             Theme themeRequested = App.AppTheme == Theme.Light ? Theme.Dark : Theme.Light;
             MessagingCenter.Send<Page, Theme>(this, "ModeChanged", themeRequested);
+            setImage();
         }
     }
 }

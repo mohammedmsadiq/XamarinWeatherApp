@@ -51,13 +51,11 @@
                             HorizontalOptions="CenterAndExpand" />
                         <lottie:AnimationView
                             x:Name="ThemeSwitch"
-                            OnClick="Button_Clicked"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="EndAndExpand"
+                            OnClick="Button_Clicked"               
                             Margin="30,10,30,0"
                             HeightRequest="60"
                             AutoPlay="False"
-                            Loop="False" />
+                            Loop="False" />                   
                         <Grid
                             RowSpacing="0"
                             ColumnSpacing="0"
