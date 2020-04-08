@@ -3,15 +3,13 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microcharts;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
-using Unity.Injection;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
-using XamarinWeatherApp.Styling;
 
 namespace XamarinWeatherApp.ViewModels
 {
@@ -40,9 +38,17 @@ namespace XamarinWeatherApp.ViewModels
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
+            this.SearchCountryCommand = new DelegateCommand(async () => { await this.SearchCountryAction(); });
             HourlyData = new ObservableCollection<Datum2>();
             DailyData = new ObservableCollection<Datum3>();
         }
+
+        private async Task SearchCountryAction()
+        {
+            await NavigationService.NavigateAsync("SearchCountryPage", animated: true);
+        }
+
+        public DelegateCommand SearchCountryCommand { get; private set; }
 
         public override void OnAppearing()
         {

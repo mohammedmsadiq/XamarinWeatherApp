@@ -27,6 +27,7 @@ namespace XamarinWeatherApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<SearchCountryPage, SearchCountryPageViewModel>();
 
             containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
         }

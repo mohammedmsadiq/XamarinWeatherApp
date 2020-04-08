@@ -47,6 +47,7 @@
             <ImageButton
                 BackgroundColor="Transparent"
                 Grid.Column="2"
+                Command="{Binding SearchCountryCommand}"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="StartAndExpand">
                 <ImageButton.Source>

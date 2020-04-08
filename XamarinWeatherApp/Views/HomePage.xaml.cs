@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using SkiaSharp;
-using Microcharts;
-using System.ComponentModel;
+﻿using Xamarin.Forms;
 using System.Threading.Tasks;
-using Xamarin.Forms.PlatformConfiguration;
 
 namespace XamarinWeatherApp.Views
 {

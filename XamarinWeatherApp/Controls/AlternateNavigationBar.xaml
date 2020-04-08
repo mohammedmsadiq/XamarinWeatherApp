@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    HeightRequest="40"
+    BackgroundColor="Transparent"
+    VerticalOptions="FillAndExpand"
+    HorizontalOptions="FillAndExpand"
+    x:Class="XamarinWeatherApp.Controls.AlternateNavigationBar">
+    <ContentView.Content>
+        <ImageButton
+            Margin="30,0,0,0"
+            VerticalOptions="StartAndExpand"
+            HorizontalOptions="StartAndExpand">
+            <ImageButton.Source>
+                <FontImageSource
+                    FontFamily="{StaticResource FontAwesomeLight}"
+                    Size="30"
+                    Glyph="&#xf0a8;"
+                    Color="White"
+                    d:Color="Blue" />
+            </ImageButton.Source>
+        </ImageButton>
+    </ContentView.Content>
+</ContentView>
