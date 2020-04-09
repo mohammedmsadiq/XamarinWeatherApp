@@ -7,6 +7,7 @@
     BackgroundColor="{DynamicResource background}"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:b="http://prismlibrary.com"
     x:Class="XamarinWeatherApp.Views.SearchCountryPage">
     <ContentPage.Content>
         <Grid
@@ -59,6 +60,12 @@
                         VerticalOptions="StartAndExpand"
                         HorizontalOptions="StartAndExpand"
                         ItemsSource="{Binding Data}">
+                        <ListView.Behaviors>
+                            <b:EventToCommandBehavior
+                                EventName="ItemTapped"
+                                Command="{Binding ItemSelected}"
+                                EventArgsParameterPath="Item" />
+                        </ListView.Behaviors>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

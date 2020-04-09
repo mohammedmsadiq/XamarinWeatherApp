@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
+using XamarinWeatherApp.Helpers;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Services;
 using XamarinWeatherApp.ViewModels;
@@ -22,6 +23,9 @@ namespace XamarinWeatherApp
         {
             InitializeComponent();
             await NavigationService.NavigateAsync("HomePage");
+
+            var availableFolders = Helpers.StorageHelper.GetSpecialFolders();
+            var datapath = Helpers.StorageHelper.GetLocalFilePath();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -32,7 +36,7 @@ namespace XamarinWeatherApp
 
             containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
             containerRegistry.RegisterSingleton<ILocationService, LocationService>();
-        }
+        }       
 
         protected override void OnStart()
         {

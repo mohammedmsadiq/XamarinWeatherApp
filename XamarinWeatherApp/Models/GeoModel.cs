@@ -1,10 +1,10 @@
 ﻿using System;
-
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace XamarinWeatherApp.Models
 {
-    public class GeoModel 
+    public class GeoModel
     {
         public string name { get; set; }
         public string type { get; set; }
@@ -14,8 +14,12 @@ namespace XamarinWeatherApp.Models
         public string tzs { get; set; }
         public string l { get; set; }
         public string ll { get; set; }
-        public string lat { get; set; }
-        public string lon { get; set; }
+
+        [JsonProperty(PropertyName = "lat")]
+        public double Latitude { get; set; }
+
+        [JsonProperty(PropertyName = "lon")]
+        public double Longitude { get; set; }
     }
 }
 

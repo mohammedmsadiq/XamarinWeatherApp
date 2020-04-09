@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using SQLite;
 using Xamarin.Forms;
+using XamarinWeatherApp.DataModel;
+using XamarinWeatherApp.Helpers;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
 
@@ -24,7 +30,30 @@ namespace XamarinWeatherApp.ViewModels
             this.LocationService = locationService;
             this.GoBackCommand = new DelegateCommand(async () => { await this.GoBackAction(); });
             this.Data = new ObservableCollection<GeoModel>();
+        }
 
+        public DelegateCommand<GeoModel> ItemSelected => new DelegateCommand<GeoModel>(async (Param) => await this.ItemSelectedAction(Param));
+
+        private async Task ItemSelectedAction(GeoModel item)
+        {
+            FavoriteLocationDataModel post = new FavoriteLocationDataModel()
+            {
+                LocationName = item.name,
+                Longitude = item.Longitude,
+                Latitude = item.Latitude,
+                LocationTime = item.tz
+            };
+
+            SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
+
+            //delete table
+            //conn.DropTable<FavoriteLocationDataModel>();
+            conn.CreateTable<FavoriteLocationDataModel>();
+            int row = conn.Insert(post);
+            conn.Close();
+
+            await Task.Delay(1000);
+            await NavigationService.NavigateAsync("CountryListPage", animated: true);
         }
 
         private string _searchedText;
@@ -43,6 +72,7 @@ namespace XamarinWeatherApp.ViewModels
             }
         }
 
+
         private void SearchCommandExecute(string Text)
         {
             var r = Text;
@@ -54,21 +84,25 @@ namespace XamarinWeatherApp.ViewModels
                 {
                     var itemToAdd = new GeoModel
                     {
-                        name = item.name
+                        name = item.name,
+                        Latitude = item.Latitude,
+                        Longitude = item.Longitude,
+                        tzs = item.tzs,
+                        tz = item.tz
                     };
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         this.Data.Add(itemToAdd);
                     });
                 }
-            });           
+            });
         }
 
         public ObservableCollection<GeoModel> Data { get; set; }
 
         private async Task GoBackAction()
         {
-            await NavigationService.GoBackAsync(animated: false);
+            await NavigationService.NavigateAsync("HomePage", animated: true);
         }
 
         public DelegateCommand GoBackCommand { get; private set; }

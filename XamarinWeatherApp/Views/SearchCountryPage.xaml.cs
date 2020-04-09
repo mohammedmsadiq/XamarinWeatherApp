@@ -1,4 +1,6 @@
 ﻿using Xamarin.Forms;
+using XamarinWeatherApp.Models;
+using XamarinWeatherApp.ViewModels;
 
 namespace XamarinWeatherApp.Views
 {
@@ -28,6 +30,6 @@ namespace XamarinWeatherApp.Views
             }
             await Navi.FadeTo(1, 500, Easing.SinIn);
             base.OnAppearing();
-        }
+        }        
     }
 }
