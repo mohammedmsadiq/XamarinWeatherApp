@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Collections.Generic;
+
+using Xamarin.Forms;
 
 namespace XamarinWeatherApp.Views
 {
-    public partial class SearchCountryPage : ContentPage
+    public partial class CountryListPage : ContentPage
     {
-        private double _pageHeight;
-
-        public SearchCountryPage()
+        public CountryListPage()
         {
             InitializeComponent();
         }

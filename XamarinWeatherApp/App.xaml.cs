@@ -28,6 +28,7 @@ namespace XamarinWeatherApp
         {
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<SearchCountryPage, SearchCountryPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountryListPage, CountryListPageViewModel>();
 
             containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
             containerRegistry.RegisterSingleton<ILocationService, LocationService>();

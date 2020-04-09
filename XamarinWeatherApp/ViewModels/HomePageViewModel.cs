@@ -39,8 +39,14 @@ namespace XamarinWeatherApp.ViewModels
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
             this.SearchCountryCommand = new DelegateCommand(async () => { await this.SearchCountryAction(); });
+            this.CountryListCommand = new DelegateCommand(async () => { await this.CountryListAction(); });
             HourlyData = new ObservableCollection<Datum2>();
             DailyData = new ObservableCollection<Datum3>();
+        }
+
+        private async Task CountryListAction()
+        {
+            await NavigationService.NavigateAsync("CountryListPage", animated: true);
         }
 
         private async Task SearchCountryAction()
@@ -49,6 +55,7 @@ namespace XamarinWeatherApp.ViewModels
         }
 
         public DelegateCommand SearchCountryCommand { get; private set; }
+        public DelegateCommand CountryListCommand { get; private set; }
 
         public override void OnAppearing()
         {

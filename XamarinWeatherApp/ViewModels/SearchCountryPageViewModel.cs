@@ -66,10 +66,6 @@ namespace XamarinWeatherApp.ViewModels
 
         public ObservableCollection<GeoModel> Data { get; set; }
 
-
-
-
-
         private async Task GoBackAction()
         {
             await NavigationService.GoBackAsync(animated: false);
