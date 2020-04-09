@@ -30,6 +30,7 @@ namespace XamarinWeatherApp
             containerRegistry.RegisterForNavigation<SearchCountryPage, SearchCountryPageViewModel>();
 
             containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
+            containerRegistry.RegisterSingleton<ILocationService, LocationService>();
         }
 
         protected override void OnStart()

@@ -26,16 +26,6 @@ namespace XamarinWeatherApp.Views
                 BackButton.IsVisible = false;
             }
             base.OnAppearing();
-        }
-
-        protected override void OnSizeAllocated(double width, double height)
-        {
-            _pageHeight = height;
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                cakeDetail.TranslationY = _pageHeight - 100;
-            }
-            base.OnSizeAllocated(width, height);
-        }
+        }       
     }
 }

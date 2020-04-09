@@ -31,30 +31,56 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Center" />
             </Grid>
-
             <yummy:PancakeView
                 x:Name="cakeDetail"
                 Padding="10,20,10,0"
-                BackgroundColor="{StaticResource secondbackground}"
+                BackgroundColor="{DynamicResource secondbackground}"
                 CornerRadius="30,30,0,0"
                 HasShadow="false"
                 VerticalOptions="FillAndExpand">
-                <Grid
+                <StackLayout
                     BackgroundColor="Transparent"
                     VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
                     <SearchBar
+                        SearchCommand="{Binding SearchCommand}"
+                        Text="{Binding SearchedText, Mode=TwoWay}"
                         Placeholder="Search"
                         TextColor="White"
                         CancelButtonColor="White"
                         BackgroundColor="Transparent"
                         VerticalOptions="Start"
                         HorizontalOptions="Start" />
-
-
-                </Grid>
+                    <ListView
+                        Margin="0,0,0,130"
+                        SeparatorColor="Transparent"
+                        VerticalScrollBarVisibility="Never"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="StartAndExpand"
+                        HorizontalOptions="StartAndExpand"
+                        ItemsSource="{Binding Data}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Label
+                                            Grid.Column="0"
+                                            Margin="10,0,0,0"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="Start"
+                                            TextColor="White"
+                                            Text="{Binding name}" />
+                                        <BoxView
+                                            BackgroundColor="White"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </yummy:PancakeView>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

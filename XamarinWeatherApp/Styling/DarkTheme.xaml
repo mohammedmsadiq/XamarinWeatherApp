@@ -7,5 +7,5 @@
     <Color
         x:Key="background">#171612</Color>
     <Color
-        x:Key="secondbackground">Red</Color>
+        x:Key="secondbackground">#423f34</Color>
 </ResourceDictionary>
