@@ -28,14 +28,6 @@ namespace XamarinWeatherApp.Views
         protected override void OnSizeAllocated(double width, double height)
         {
             Navi.FadeTo(0);
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                Navi.HeightRequest = 80;
-            }
-            else
-            {
-                Navi.HeightRequest = 50;
-            }
             pageHeight = height;
             Navi.FadeTo(0);
             DetailSection.TranslationY = pageHeight;

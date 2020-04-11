@@ -17,18 +17,20 @@
                 x:Key="IconConverter" />
 
             <!--ResourceDictionary-->
+            <!--<ResourceDictionary.MergedDictionaries>
+                <styling:FontFamily />
+                <styling:Icons />
+                <styling:LightTheme />
+                <styling:PageStyles />
+            </ResourceDictionary.MergedDictionaries>-->
             <ResourceDictionary
                 Source="/Styling/FontFamily.xaml" />
             <ResourceDictionary
                 Source="/Styling/Icons.xaml" />
             <ResourceDictionary
-                Source="/Styling/LightTheme.xaml" />
+                Source="/Styling/Theme.xaml" />
             <ResourceDictionary
                 Source="/Styling/PageStyles.xaml" />
-            <!--<styling:FontFamily />
-            <styling:Icons />
-            <styling:LightTheme />
-            <styling:PageStyles />-->
         </ResourceDictionary>
     </prism:PrismApplication.Resources>
 </prism:PrismApplication>

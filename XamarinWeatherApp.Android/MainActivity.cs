@@ -27,54 +27,7 @@ namespace XamarinWeatherApp.Droid
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
 
             LoadApplication(new App(new AndroidInitializer()));
-            SetAppTheme();
-            MessagingCenter.Subscribe<Page, Theme>(this, "ModeChanged", callback: OnModeChanged);
-
-        }
-
-        private void OnModeChanged(Page arg1, Theme theme)
-        {
-            if (theme == XamarinWeatherApp.Theme.Light)
-            {
-                Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightNo);
-            }
-            else
-            {
-                Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
-            }
-            SetTheme(theme);
-        }
-
-        void SetAppTheme()
-        {
-            if (Resources.Configuration.UiMode.HasFlag(UiMode.NightYes))
-            {
-                SetTheme(XamarinWeatherApp.Theme.Dark);
-            }
-            else
-            {
-                SetTheme(XamarinWeatherApp.Theme.Light);
-            }
-        }
-
-        void SetTheme(Theme mode)
-        {
-            if (mode == XamarinWeatherApp.Theme.Dark)
-            {
-                if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
-                {
-                    App.Current.Resources = new DarkTheme();
-                }
-            }
-            else
-            {
-                if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
-                {
-                    App.Current.Resources = new LightTheme();
-                }                
-            }
-            App.AppTheme = mode;
-        }
+        }     
 
         public class AndroidInitializer : IPlatformInitializer
         {

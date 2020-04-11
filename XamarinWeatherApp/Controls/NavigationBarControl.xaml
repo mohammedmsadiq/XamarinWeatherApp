@@ -5,13 +5,14 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    HeightRequest="50"
     BackgroundColor="Transparent"
     VerticalOptions="FillAndExpand"
     HorizontalOptions="FillAndExpand"
     x:Class="XamarinWeatherApp.Controls.NavigationBarControl">
     <ContentView.Content>
-        <Grid>
+        <Grid
+            ColumnSpacing="0"
+            RowSpacing="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
                     Width="50" />

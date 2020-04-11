@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
-using XamarinWeatherApp.Models;
-using XamarinWeatherApp.ViewModels;
 
 namespace XamarinWeatherApp.Views
 {
@@ -11,14 +9,12 @@ namespace XamarinWeatherApp.Views
         {
             InitializeComponent();
         }
-
         private double pageHeight;
 
         protected override void OnSizeAllocated(double width, double height)
         {
             Navi.FadeTo(0);
             pageHeight = height;
-            Navi.FadeTo(0);
             DetailSection.TranslationY = pageHeight;
             base.OnSizeAllocated(width, height);
         }

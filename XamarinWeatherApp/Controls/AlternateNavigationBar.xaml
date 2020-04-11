@@ -5,31 +5,42 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    HeightRequest="50"
     BackgroundColor="Transparent"
     d:BackgroundColor="Red"
-    VerticalOptions="FillAndExpand"
+    VerticalOptions="CenterAndExpand"
     HorizontalOptions="FillAndExpand"
     x:Class="XamarinWeatherApp.Controls.AlternateNavigationBar">
     <ContentView.Content>
         <Grid
             Margin="20,0"
-            x:Name="Navi"
             VerticalOptions="FillAndExpand">
-            <Button
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding GoBackCommand}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Start">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource FontAwesomeLight}"
+                        Size="30"
+                        Glyph="&#xf0a8;"
+                        Color="White"
+                        d:Color="Black" />
+                </ImageButton.Source>
+            </ImageButton>
+            <!--<Button
                 x:Name="BackButton"
                 Text="BACK"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
                 TextColor="White"
                 Command="{Binding GoBackCommand}"
-                VerticalOptions="Center"
-                HorizontalOptions="Start" />
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Start" />-->
             <Label
-                Text="{Binding HeaderText}"
-                d:Text="Heading"
+                x:Name="InnerHeaderText"
                 TextColor="White"
-                VerticalOptions="Center"
+                VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center" />
         </Grid>
     </ContentView.Content>

@@ -11,45 +11,45 @@ namespace XamarinWeatherApp.Droid.Renderers
 {
     public class ThemeRenderer : Xamarin.Forms.Platform.Android.PageRenderer
     {
-        public ThemeRenderer(Context context) : base(context) { }
+        //public ThemeRenderer(Context context) : base(context) { }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
-        {
-            base.OnElementChanged(e);
-            SetAppTheme();
-        }
+        //protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+        //{
+        //    base.OnElementChanged(e);
+        //    SetAppTheme();
+        //}
 
-        void SetAppTheme()
-        {
-            if (Resources.Configuration.UiMode.HasFlag(UiMode.NightYes))
-            {
-                SetTheme(XamarinWeatherApp.Theme.Dark);
-            }
-            else
-            {
-                SetTheme(XamarinWeatherApp.Theme.Light);
-            }
-        }
+        //void SetAppTheme()
+        //{
+        //    if (Resources.Configuration.UiMode.HasFlag(UiMode.NightYes))
+        //    {
+        //        SetTheme(XamarinWeatherApp.Theme.Dark);
+        //    }
+        //    else
+        //    {
+        //        SetTheme(XamarinWeatherApp.Theme.Light);
+        //    }
+        //}
 
-        void SetTheme(Theme mode)
-        {
-            if (mode == XamarinWeatherApp.Theme.Dark)
-            {
-                if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
-                    return;
+        //void SetTheme(Theme mode)
+        //{
+        //    if (mode == XamarinWeatherApp.Theme.Dark)
+        //    {
+        //        if (App.AppTheme == XamarinWeatherApp.Theme.Dark)
+        //            return;
 
-                App.Current.Resources = new DarkTheme();
+        //        App.Current.Resources = new DarkTheme();
 
-                App.AppTheme = XamarinWeatherApp.Theme.Dark;
-            }
-            else
-            {
-                if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
-                    return;
-                App.Current.Resources = new LightTheme();
-                App.AppTheme = XamarinWeatherApp.Theme.Light;
-            }
-        }
+        //        App.AppTheme = XamarinWeatherApp.Theme.Dark;
+        //    }
+        //    else
+        //    {
+        //        if (App.AppTheme != XamarinWeatherApp.Theme.Dark)
+        //            return;
+        //        App.Current.Resources = new LightTheme();
+        //        App.AppTheme = XamarinWeatherApp.Theme.Light;
+        //    }
+        //}
 
     }
 }

@@ -5,6 +5,10 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{DynamicResource background}"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:BackgroundColor="Green"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:b="http://prismlibrary.com"
@@ -14,28 +18,16 @@
             BackgroundColor="Transparent"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
-            <Grid
+            <StackLayout
                 HeightRequest="{StaticResource NaviHeight}"
-                x:Name="Navi"
-                VerticalOptions="StartAndExpand">
-                <Button
-                    x:Name="BackButton"
-                    Text="BACK"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    TextColor="White"
-                    Command="{Binding GoBackCommand}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Start" />
-                <Label
-                    Text="Weather by other Location"
-                    TextColor="White"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
-            </Grid>
+                x:Name="Navi">
+                <controls:AlternateNavigationBar
+                    HeaderText="Favorite Location"
+                    VerticalOptions="EndAndExpand"
+                    HorizontalOptions="FillAndExpand" />
+            </StackLayout>
             <yummy:PancakeView
                 x:Name="DetailSection"
-                Padding="10,20,10,0"
                 BackgroundColor="{DynamicResource secondbackground}"
                 CornerRadius="30,30,0,0"
                 HasShadow="false"
@@ -54,7 +46,6 @@
                         VerticalOptions="Start"
                         HorizontalOptions="Start" />
                     <ListView
-                        Margin="0,0,0,130"
                         SeparatorColor="Transparent"
                         VerticalScrollBarVisibility="Never"
                         BackgroundColor="Transparent"

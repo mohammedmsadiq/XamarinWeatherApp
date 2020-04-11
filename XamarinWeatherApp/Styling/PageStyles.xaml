@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xaml-comp compile="true" ?>
 <ResourceDictionary
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinWeatherApp.Styling.PageStyles">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <OnPlatform
         x:Key="NaviHeight"
         x:TypeArguments="x:Double"
-        iOS="80"
-        Android="50"/>
+        iOS="90"
+        Android="50" />
 
 </ResourceDictionary>
