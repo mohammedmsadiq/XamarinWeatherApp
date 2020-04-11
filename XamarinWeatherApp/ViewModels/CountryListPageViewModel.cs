@@ -14,23 +14,21 @@ namespace XamarinWeatherApp.ViewModels
         public CountryListPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             this.GoBackCommand = new DelegateCommand(async () => { await this.GoBackAction(); });
-        }       
+        }
 
         public override void OnAppearing()
         {
-            
-
-            SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
-            conn.CreateTable<FavoriteLocationDataModel>();
-            var result = conn.Table<FavoriteLocationDataModel>().ToList();
-            conn.Close();
+            //SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
+            //conn.CreateTable<FavoriteLocationDataModel>();
+            //var result = conn.Table<FavoriteLocationDataModel>().ToList();
+            //conn.Close();
 
             base.OnAppearing();
         }
 
         private async Task GoBackAction()
         {
-            await NavigationService.NavigateAsync("HomePage", animated: true);
+            await NavigationService.NavigateAsync("HomePage");
         }
 
         public DelegateCommand GoBackCommand { get; private set; }

@@ -10,13 +10,14 @@
     xmlns:b="http://prismlibrary.com"
     x:Class="XamarinWeatherApp.Views.SearchCountryPage">
     <ContentPage.Content>
-        <Grid
+        <StackLayout
             BackgroundColor="Transparent"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
             <Grid
+                HeightRequest="{StaticResource NaviHeight}"
                 x:Name="Navi"
-                VerticalOptions="Start">
+                VerticalOptions="StartAndExpand">
                 <Button
                     x:Name="BackButton"
                     Text="BACK"
@@ -27,13 +28,13 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Start" />
                 <Label
-                    Text="Search by Country, City"
+                    Text="Weather by other Location"
                     TextColor="White"
                     VerticalOptions="Center"
                     HorizontalOptions="Center" />
             </Grid>
             <yummy:PancakeView
-                x:Name="cakeDetail"
+                x:Name="DetailSection"
                 Padding="10,20,10,0"
                 BackgroundColor="{DynamicResource secondbackground}"
                 CornerRadius="30,30,0,0"
@@ -88,6 +89,6 @@
                     </ListView>
                 </StackLayout>
             </yummy:PancakeView>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

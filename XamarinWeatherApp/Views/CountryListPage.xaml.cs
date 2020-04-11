@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace XamarinWeatherApp.Views
 {
@@ -12,21 +13,29 @@ namespace XamarinWeatherApp.Views
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        private double pageHeight;
+
+        protected override void OnSizeAllocated(double width, double height)
         {
-            await Navi.FadeTo(0);
+            Navi.FadeTo(0);
             if (Device.RuntimePlatform == Device.iOS)
             {
-                await cakeDetail.TranslateTo(0, 100, 500, Easing.SinOut);
-                Navi.Margin = new Thickness(30, 45, 30, 0);
-                BackButton.IsVisible = true;
+                Navi.HeightRequest = 80;
             }
             else
             {
-                await cakeDetail.TranslateTo(0, 50, 500, Easing.SinOut);
-                Navi.Margin = new Thickness(0, 15, 0, 0);
-                BackButton.IsVisible = false;
+                Navi.HeightRequest = 50;
             }
+            pageHeight = height;
+            DetailSection.TranslationY = pageHeight;
+            base.OnSizeAllocated(width, height);
+        }
+
+        protected override async void OnAppearing()
+        {
+            await Navi.FadeTo(0);
+            await Task.Delay(Constants.Constants.AnimationDelay);
+            await DetailSection.TranslateTo(0, 0, 500, Easing.SinOut);
             await Navi.FadeTo(1, 500, Easing.SinIn);
             base.OnAppearing();
         }

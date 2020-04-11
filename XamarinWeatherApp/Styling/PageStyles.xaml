@@ -2,11 +2,12 @@
 <ResourceDictionary
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinWeatherApp.Styling.DarkTheme">
+    x:Class="XamarinWeatherApp.Styling.PageStyles">
 
-    <Color
-        x:Key="background">#171612</Color>
-    <Color
-        x:Key="secondbackground">#423f34</Color>
+    <OnPlatform
+        x:Key="NaviHeight"
+        x:TypeArguments="x:Double"
+        iOS="80"
+        Android="50"/>
 
 </ResourceDictionary>

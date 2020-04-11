@@ -5,7 +5,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    HeightRequest="60"
+    HeightRequest="50"
     BackgroundColor="Transparent"
     VerticalOptions="FillAndExpand"
     HorizontalOptions="FillAndExpand"
@@ -24,12 +24,12 @@
                 BackgroundColor="Transparent"
                 Grid.Column="0"
                 Command="{Binding CountryListCommand}"
-                VerticalOptions="EndAndExpand"
+                VerticalOptions="CenterAndExpand"
                 HorizontalOptions="EndAndExpand">
                 <ImageButton.Source>
                     <FontImageSource
                         FontFamily="{StaticResource FontAwesomeLight}"
-                        Size="30"
+                        Size="24"
                         Glyph="&#xf03a;"
                         Color="White"
                         d:Color="Black" />
@@ -42,19 +42,19 @@
                 d:TextColor="Black"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
-                FontSize="24"
+                FontSize="22"
                 FontFamily="{StaticResource LightFont}"
                 TextColor="White" />
             <ImageButton
                 BackgroundColor="Transparent"
                 Grid.Column="2"
                 Command="{Binding SearchCountryCommand}"
-                VerticalOptions="EndAndExpand"
+                VerticalOptions="CenterAndExpand"
                 HorizontalOptions="StartAndExpand">
                 <ImageButton.Source>
                     <FontImageSource
                         FontFamily="{StaticResource FontAwesomeLight}"
-                        Size="30"
+                        Size="24"
                         Glyph="&#xf067;"
                         Color="White"
                         d:Color="Black" />

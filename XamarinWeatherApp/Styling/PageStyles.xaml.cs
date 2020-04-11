@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace XamarinWeatherApp.Styling
 {
-    public partial class FontFamily : ResourceDictionary
+    public partial class PageStyles : ResourceDictionary
     {
-        public FontFamily()
+        public PageStyles()
         {
             InitializeComponent();
         }

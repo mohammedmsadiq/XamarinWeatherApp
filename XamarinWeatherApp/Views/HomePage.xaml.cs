@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace XamarinWeatherApp.Views
 {
     public partial class HomePage : ContentPage
-    {
+    {      
         public HomePage()
         {
             InitializeComponent();
@@ -23,53 +23,32 @@ namespace XamarinWeatherApp.Views
             };
         }
 
-        protected override void OnAppearing()
-        {
-            this.setImage();
-            base.OnAppearing();
-        }
+        private double pageHeight;
 
-        private async Task setImage()
+        protected override void OnSizeAllocated(double width, double height)
         {
-            if (App.AppTheme == Theme.Light)
+            Navi.FadeTo(0);
+            if (Device.RuntimePlatform == Device.iOS)
             {
-                ThemeSwitch.Animation = "darkmodeon.json";
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    ThemeSwitch.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    ThemeSwitch.VerticalOptions = LayoutOptions.FillAndExpand;
-                }
-                else
-                {
-                    ThemeSwitch.HorizontalOptions = LayoutOptions.CenterAndExpand;
-                    ThemeSwitch.VerticalOptions = LayoutOptions.EndAndExpand;
-                }
-                await Task.Delay(5000);
-                ThemeSwitch.IsPlaying = true;
+                Navi.HeightRequest = 80;
             }
             else
             {
-                ThemeSwitch.Animation = "darkmodeoff.json";
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    ThemeSwitch.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    ThemeSwitch.VerticalOptions = LayoutOptions.FillAndExpand;
-                }
-                else
-                {
-                    ThemeSwitch.HorizontalOptions = LayoutOptions.CenterAndExpand;
-                    ThemeSwitch.VerticalOptions = LayoutOptions.EndAndExpand;
-                }
-                await Task.Delay(5000);
-                ThemeSwitch.IsPlaying = true;
+                Navi.HeightRequest = 50;
             }
+            pageHeight = height;
+            Navi.FadeTo(0);
+            DetailSection.TranslationY = pageHeight;
+            base.OnSizeAllocated(width, height);
         }
 
-        void Button_Clicked(System.Object sender, System.EventArgs e)
+        protected override async void OnAppearing()
         {
-            Theme themeRequested = App.AppTheme == Theme.Light ? Theme.Dark : Theme.Light;
-            MessagingCenter.Send<Page, Theme>(this, "ModeChanged", themeRequested);
-            setImage();
+            await Navi.FadeTo(0);
+            await Task.Delay(Constants.Constants.AnimationDelay);
+            await DetailSection.TranslateTo(0, 0, 500, Easing.SinOut);            
+            await Navi.FadeTo(1, 500, Easing.SinIn);
+            base.OnAppearing();
         }
     }
 }
