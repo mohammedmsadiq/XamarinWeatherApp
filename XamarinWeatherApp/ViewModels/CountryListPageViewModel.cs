@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Navigation;
@@ -18,10 +19,13 @@ namespace XamarinWeatherApp.ViewModels
 
         public override void OnAppearing()
         {
-            //SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
-            //conn.CreateTable<FavoriteLocationDataModel>();
-            //var result = conn.Table<FavoriteLocationDataModel>().ToList();
-            //conn.Close();
+            using (SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+            {
+                conn.CreateTable<FavoriteLocationDataModel>();
+                var list = conn.Table<FavoriteLocationDataModel>().ToList();
+                Debug.WriteLine("Database Count = " + list.Count());
+            }
+
 
             base.OnAppearing();
         }

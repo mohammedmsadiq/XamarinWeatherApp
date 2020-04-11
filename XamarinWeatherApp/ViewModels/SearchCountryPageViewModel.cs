@@ -44,13 +44,13 @@ namespace XamarinWeatherApp.ViewModels
                 LocationTime = item.tz
             };
 
-            SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
-
-            //delete table
-            //conn.DropTable<FavoriteLocationDataModel>();
-            conn.CreateTable<FavoriteLocationDataModel>();
-            int row = conn.Insert(post);
-            conn.Close();
+            using (SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+            {
+                //delete table
+                //conn.DropTable<FavoriteLocationDataModel>();
+                conn.CreateTable<FavoriteLocationDataModel>();
+                int row = conn.Insert(post);
+            }
 
             await Task.Delay(1000);
             await NavigationService.NavigateAsync("CountryListPage", animated: true);
