@@ -6,6 +6,9 @@ namespace XamarinWeatherApp.DataModel
 {
     public class FavoriteLocationForecastDataModel
     {
+        private string localTime;
+        private string imageIcon;
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
@@ -35,6 +38,31 @@ namespace XamarinWeatherApp.DataModel
         public int uvIndex { get; set; }
         public int visibility { get; set; }
         public double ozone { get; set; }
+
+        public string ImageIcon
+        {
+            get
+            {
+                string str = icon.Replace("-", string.Empty);
+                imageIcon = str;
+                return imageIcon;
+            }
+            set { }
+        }
+
+        public string LocalTime
+        {
+            get
+            {
+                DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                long unixTimeStampInTicks = (long)(time * TimeSpan.TicksPerSecond);
+                DateTime r = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc);
+                var localDateTime = r.ToLocalTime();
+                localTime = localDateTime.ToString("h:mm tt");
+                return localTime;
+            }
+            set { }
+        }
         public string HumidityPerc
         {
             get

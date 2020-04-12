@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using SQLite;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.DataModel;
 using XamarinWeatherApp.Helpers;
@@ -17,7 +19,7 @@ namespace XamarinWeatherApp.ViewModels
     public class CountryListPageViewModel : ViewModelBase
     {
         private ObservableCollection<FavoriteLocationModel> dBData;
-        private ObservableCollection<ForecastModel> locationData;
+        private ObservableCollection<FavoriteLocationForecastDataModel> favoriteLocationData;
         protected readonly IWeatherService WeatherService;
 
         public CountryListPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
@@ -25,8 +27,7 @@ namespace XamarinWeatherApp.ViewModels
             this.WeatherService = weatherService;
             this.GoBackCommand = new DelegateCommand(async () => { await this.GoBackAction(); });
             DBData = new ObservableCollection<FavoriteLocationModel>();
-            LocationData = new ObservableCollection<ForecastModel>();
-
+            FavoriteLocationData = new ObservableCollection<FavoriteLocationForecastDataModel>();
         }
 
         public override void OnAppearing()
@@ -56,24 +57,45 @@ namespace XamarinWeatherApp.ViewModels
                                 latitude = result.latitude,
                                 longitude = result.longitude,
                                 offset = result.offset,
+                                temperature = result.currently.temperature,
+                                time = result.currently.time,
                                 timezone = result.timezone,
                                 icon = result.currently.icon,
                                 summary = result.currently.summary
                             };
-                            conn.Close(); 
-                            using (SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
-                            {
-                                //delete table
-                                //postConn.DropTable<FavoriteLocationForecastDataModel>();
-                                postConn.CreateTable<FavoriteLocationForecastDataModel>();
-                                int row = postConn.Insert(post);
-                                Debug.WriteLine(itemToAdd.LocationName + " Added to DB");
-                            }
+                            conn.Close();
+                            SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
+                            //delete table
+                            postConn.CreateTable<FavoriteLocationForecastDataModel>();
+                            int row = postConn.Insert(post);
+                            Debug.WriteLine(itemToAdd.LocationName + " Added to DB");
                         });
                     });
                 }
             }
             Debug.WriteLine("Database Count = " + list.Count());
+
+            using (SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+            {
+                conn.CreateTable<FavoriteLocationForecastDataModel>();
+                var favorites = conn.Table<FavoriteLocationForecastDataModel>().ToList();
+                this.FavoriteLocationData.Clear();
+                foreach (var fav in favorites)
+                {
+                    var favToAdd = new FavoriteLocationForecastDataModel
+                    {
+                        LocationName = fav.LocationName,
+                        icon = fav.icon + ".png",
+                        ImageIcon = fav.ImageIcon,
+                        temperature = Math.Round(UnitConverters.FahrenheitToCelsius(fav.temperature)),
+                        LocalTime = fav.LocalTime
+                    };
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        this.FavoriteLocationData.Add(favToAdd);
+                    });
+                }
+            }
             base.OnAppearing();
         }
 
@@ -83,10 +105,10 @@ namespace XamarinWeatherApp.ViewModels
             set => SetProperty(ref this.dBData, value);
         }
 
-        public ObservableCollection<ForecastModel> LocationData
+        public ObservableCollection<FavoriteLocationForecastDataModel> FavoriteLocationData
         {
-            get => this.locationData;
-            set => SetProperty(ref this.locationData, value);
+            get => this.favoriteLocationData;
+            set => SetProperty(ref this.favoriteLocationData, value);
         }
 
         private async Task GoBackAction()
