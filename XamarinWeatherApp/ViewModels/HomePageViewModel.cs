@@ -243,8 +243,6 @@ namespace XamarinWeatherApp.ViewModels
             }
         }
 
-
-
         public ObservableCollection<Datum2> HourlyData
         {
             get => this.hourlyData;
