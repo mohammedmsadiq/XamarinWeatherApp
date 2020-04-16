@@ -95,7 +95,7 @@
                                     FontSize="24"
                                     FontFamily="{StaticResource LightFont}"
                                     TextColor="White" />
-                            </StackLayout>
+                            </StackLayout>                          
                             <StackLayout
                                 VerticalOptions="Start"
                                 Orientation="Horizontal"
@@ -118,6 +118,12 @@
                                     VerticalOptions="Center"
                                     HorizontalOptions="Start" />
                             </StackLayout>
+                            <controls:DegreeSwitchControl
+                                Margin="10"
+                                Grid.Row="1"
+                                IsChecked="{Binding IsCelsius, Mode=TwoWay}"
+                                VerticalOptions="End"
+                                HorizontalOptions="End" />
                         </Grid>
                         <StackLayout
                             Grid.Row="2"

@@ -53,7 +53,7 @@ namespace XamarinWeatherApp.ViewModels
             }
 
             await Task.Delay(1000);
-            await NavigationService.NavigateAsync("CountryListPage", animated: true);
+            await NavigationService.NavigateAsync("HomePage", animated: true);
         }
 
         private string _searchedText;

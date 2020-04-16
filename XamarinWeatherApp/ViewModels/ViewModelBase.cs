@@ -8,6 +8,7 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Forms;
+using XamarinWeatherApp.Interfaces;
 
 namespace XamarinWeatherApp.ViewModels
 {

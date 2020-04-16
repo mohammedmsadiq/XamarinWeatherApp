@@ -1,6 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
 using Prism.Unity;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinWeatherApp.Helpers;
 using XamarinWeatherApp.Interfaces;
@@ -36,7 +37,7 @@ namespace XamarinWeatherApp
 
             containerRegistry.RegisterSingleton<IWeatherService, WeatherService>();
             containerRegistry.RegisterSingleton<ILocationService, LocationService>();
-        }       
+        }
 
         protected override void OnStart()
         {

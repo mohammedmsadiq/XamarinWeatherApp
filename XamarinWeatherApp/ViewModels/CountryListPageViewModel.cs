@@ -67,18 +67,19 @@ namespace XamarinWeatherApp.ViewModels
                             SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
                             //delete table
                             postConn.CreateTable<FavoriteLocationForecastDataModel>();
-                            int row = postConn.Insert(post);
+                            int row = postConn.InsertOrReplace(post);
                             Debug.WriteLine(itemToAdd.LocationName + " Added to DB");
+                            postConn.Close();
                         });
                     });
                 }
             }
             Debug.WriteLine("Database Count = " + list.Count());
 
-            using (SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+            using (SQLiteConnection readConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
             {
-                conn.CreateTable<FavoriteLocationForecastDataModel>();
-                var favorites = conn.Table<FavoriteLocationForecastDataModel>().ToList();
+                readConn.CreateTable<FavoriteLocationForecastDataModel>();
+                var favorites = readConn.Table<FavoriteLocationForecastDataModel>().ToList();
                 this.FavoriteLocationData.Clear();
                 foreach (var fav in favorites)
                 {

@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using SQLite;
 using Xamarin.Forms;
+using XamarinWeatherApp.DataModel;
+using XamarinWeatherApp.Helpers;
 
 namespace XamarinWeatherApp.Views
 {
@@ -7,8 +11,9 @@ namespace XamarinWeatherApp.Views
     {
         public CountryListPage()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
+
         private double pageHeight;
 
         protected override void OnSizeAllocated(double width, double height)
@@ -19,6 +24,18 @@ namespace XamarinWeatherApp.Views
             base.OnSizeAllocated(width, height);
         }
 
+        void OnDeleteSwipeItemInvoked(object sender, EventArgs e)
+        {
+                
+            //int currentIndex = CoursesCarouselView.Position;
+            //if (currentIndex >= 0 && currentIndex < ((HomePageViewModel)this.BindingContext).CourseItems.Count)
+            //{
+            //    var courseSelected = ((HomePageViewModel)this.BindingContext).CourseItems[currentIndex];
+            //    ((HomePageViewModel)this.BindingContext).CourseSelectedCommand.Execute(courseSelected as Models.CourseModel);
+            //}
+            DisplayAlert("Success", "Deleted item", "OK");
+        }
+
         protected override async void OnAppearing()
         {
             await Navi.FadeTo(0);
@@ -26,6 +43,10 @@ namespace XamarinWeatherApp.Views
             await DetailSection.TranslateTo(0, 0, 500, Easing.SinOut);
             await Navi.FadeTo(1, 500, Easing.SinIn);
             base.OnAppearing();
+        }
+
+        void SwipeView_SwipeStarted(System.Object sender, Xamarin.Forms.SwipeStartedEventArgs e)
+        {
         }
     }
 }

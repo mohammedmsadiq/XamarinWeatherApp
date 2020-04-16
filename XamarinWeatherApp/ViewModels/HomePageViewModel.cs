@@ -32,12 +32,16 @@ namespace XamarinWeatherApp.ViewModels
         private string currentIcon;
         private string humidityPerc;
         private string cloudCoverPerc;
+        private bool isCelsius;
+        private Color cTextColor;
+        private Color fTextColor;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
+            this.IsCelsius = Settings.Settings.IsCelsius;
             this.SearchCountryCommand = new DelegateCommand(async () => { await this.SearchCountryAction(); });
             this.CountryListCommand = new DelegateCommand(async () => { await this.CountryListAction(); });
             HourlyData = new ObservableCollection<Datum2>();
@@ -144,7 +148,7 @@ namespace XamarinWeatherApp.ViewModels
                              DeviceLongitude = result.longitude;
                              TimeZoneInfo = result.timezone;
                              OffSet = result.offset;
-                             CurrentTemp = Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString();
+                             CurrentTemp = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString() : Math.Round(result.currently.temperature).ToString();
                              CurrentSummary = result.currently.summary;
                              HumidityPerc = result.currently.HumidityPerc;
                              CloudCoverPerc = result.currently.CloudCoverPerc;
@@ -162,7 +166,7 @@ namespace XamarinWeatherApp.ViewModels
                                      ImageIcon = item.ImageIcon,
                                      precipIntensity = item.precipIntensity,
                                      precipProbability = item.precipProbability,
-                                     temperature = Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)),
+                                     temperature = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)) : Math.Round(item.temperature),
                                      STemperature = item.STemperature,
                                      apparentTemperature = item.apparentTemperature,
                                      dewPoint = item.dewPoint,
@@ -203,9 +207,9 @@ namespace XamarinWeatherApp.ViewModels
                                      precipIntensityMaxTime = dailyItem.precipIntensityMaxTime,
                                      precipProbability = dailyItem.precipProbability,
                                      precipType = dailyItem.precipType,
-                                     temperatureHigh = Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureHigh)),
+                                     temperatureHigh = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureHigh)) : Math.Round(dailyItem.temperatureHigh),
                                      temperatureHighTime = dailyItem.temperatureHighTime,
-                                     temperatureLow = Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureLow)),
+                                     temperatureLow = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureLow)) : Math.Round(dailyItem.temperatureLow),
                                      temperatureLowTime = dailyItem.temperatureLowTime,
                                      apparentTemperatureHigh = dailyItem.apparentTemperatureHigh,
                                      apparentTemperatureHighTime = dailyItem.apparentTemperatureHighTime,
@@ -302,6 +306,35 @@ namespace XamarinWeatherApp.ViewModels
         {
             get => this.timeZoneInfo;
             set => SetProperty(ref this.timeZoneInfo, value);
+        }
+
+        public bool IsCelsius
+        {
+            get
+            {
+                return isCelsius;
+            }
+            set
+            {
+                this.SetProperty(ref this.isCelsius, value, isToogledCelsius);
+            }
+        }
+
+        private void isToogledCelsius()
+        {
+            if (IsCelsius == true)
+            {
+                Settings.Settings.IsCelsius = true;
+            }
+            else
+            {
+                Settings.Settings.IsCelsius = false;
+            }
+
+            this.ExecuteAsyncTask(async () =>
+            {
+                await FindUserLocation();
+            });
         }
 
         public string CurrentSummary
