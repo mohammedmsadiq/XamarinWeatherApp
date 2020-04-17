@@ -37,6 +37,7 @@
                     VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
                     <SearchBar
+                        Margin="5,10,5,0"
                         SearchCommand="{Binding SearchCommand}"
                         Text="{Binding SearchedText, Mode=TwoWay}"
                         Placeholder="Search"

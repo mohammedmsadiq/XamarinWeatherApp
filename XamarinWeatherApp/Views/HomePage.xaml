@@ -17,7 +17,7 @@
             BackgroundColor="Transparent"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
-            <StackLayout
+            <StackLayout 
                 HeightRequest="{StaticResource NaviHeight}"
                 x:Name="Navi">
                 <controls:NavigationBarControl

@@ -30,6 +30,13 @@ namespace XamarinWeatherApp.ViewModels
             FavoriteLocationData = new ObservableCollection<FavoriteLocationForecastDataModel>();
         }
 
+        public DelegateCommand<FavoriteLocationForecastDataModel> DeleteCommand => new DelegateCommand<FavoriteLocationForecastDataModel>(async (Param) => await this.DeleteAction(Param));
+
+        private Task DeleteAction(FavoriteLocationForecastDataModel param)
+        {
+           throw new NotImplementedException();  
+        }
+
         public override void OnAppearing()
         {
             SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
@@ -88,7 +95,7 @@ namespace XamarinWeatherApp.ViewModels
                         LocationName = fav.LocationName,
                         icon = fav.icon + ".png",
                         ImageIcon = fav.ImageIcon,
-                        temperature = Math.Round(UnitConverters.FahrenheitToCelsius(fav.temperature)),
+                        temperature = Settings.Settings.IsCelsius ? Math.Round(UnitConverters.FahrenheitToCelsius(fav.temperature)) : Math.Round(fav.temperature),
                         LocalTime = fav.LocalTime
                     };
                     Device.BeginInvokeOnMainThread(() =>
@@ -114,7 +121,7 @@ namespace XamarinWeatherApp.ViewModels
 
         private async Task GoBackAction()
         {
-            await NavigationService.NavigateAsync("HomePage");
+            await NavigationService.NavigateAsync("HomePage", animated: false);
         }
 
         public DelegateCommand GoBackCommand { get; private set; }

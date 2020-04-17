@@ -20,6 +20,8 @@ namespace XamarinWeatherApp.ViewModels
         private ObservableCollection<Datum2> hourlyData;
         private ObservableCollection<Datum3> dailyData;
         private Location userLocation;
+        private Location lastKnownLocation;
+        private Location currentLocation;
         private double deviceLatitude;
         private double deviceLongitude;
         private string timeZoneInfo;
@@ -33,8 +35,6 @@ namespace XamarinWeatherApp.ViewModels
         private string humidityPerc;
         private string cloudCoverPerc;
         private bool isCelsius;
-        private Color cTextColor;
-        private Color fTextColor;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -50,12 +50,12 @@ namespace XamarinWeatherApp.ViewModels
 
         private async Task CountryListAction()
         {
-            await NavigationService.NavigateAsync("CountryListPage", animated: true);
+            await NavigationService.NavigateAsync("CountryListPage", animated: false);
         }
 
         private async Task SearchCountryAction()
         {
-            await NavigationService.NavigateAsync("SearchCountryPage", animated: true);
+            await NavigationService.NavigateAsync("SearchCountryPage", animated: false);
         }
 
         public DelegateCommand SearchCountryCommand { get; private set; }
@@ -73,19 +73,23 @@ namespace XamarinWeatherApp.ViewModels
         async Task FindUserLocation()
         {
             try
-            {
-                var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                userLocation = await Geolocation.GetLastKnownLocationAsync();
+            {                
+                lastKnownLocation = await Geolocation.GetLastKnownLocationAsync();
                 Debug.WriteLine(userLocation?.ToString() ?? "GetLastKnownLocation no location");
-                userLocation = await Geolocation.GetLocationAsync(request);
+
+                currentLocation = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
                 Debug.WriteLine(userLocation?.ToString() ?? "GetLocation no location");
+
+                userLocation = userLocation != null ? currentLocation : lastKnownLocation;
 
                 //Get Name of City/Town
                 var placemarks = await Geocoding.GetPlacemarksAsync(userLocation.Latitude, userLocation.Longitude);
+
                 if (placemarks == null)
                 {
                     DialogService.DisplayAlertAsync("Error", "Unable to get Locaiton Details of device please review your setting to allow location", "OK");
                 }
+
                 var placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {

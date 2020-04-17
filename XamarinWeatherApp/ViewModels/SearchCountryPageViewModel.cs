@@ -53,7 +53,7 @@ namespace XamarinWeatherApp.ViewModels
             }
 
             await Task.Delay(1000);
-            await NavigationService.NavigateAsync("HomePage", animated: true);
+            await NavigationService.NavigateAsync("HomePage", animated: false);
         }
 
         private string _searchedText;
@@ -102,7 +102,7 @@ namespace XamarinWeatherApp.ViewModels
 
         private async Task GoBackAction()
         {
-            await NavigationService.NavigateAsync("HomePage", animated: true);
+            await NavigationService.NavigateAsync("HomePage", animated: false);
         }
 
         public DelegateCommand GoBackCommand { get; private set; }
