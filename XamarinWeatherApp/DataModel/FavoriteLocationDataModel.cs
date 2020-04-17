@@ -9,6 +9,7 @@ namespace XamarinWeatherApp.DataModel
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        public DateTime DateAdded { get; set; }
         public string LocationName { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }

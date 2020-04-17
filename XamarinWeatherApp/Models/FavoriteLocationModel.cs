@@ -12,4 +12,3 @@ namespace XamarinWeatherApp.Models
         public string LocationTime { get; set; }
     }
 }
-

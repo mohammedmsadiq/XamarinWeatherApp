@@ -75,12 +75,12 @@ namespace XamarinWeatherApp.ViewModels
             try
             {                
                 lastKnownLocation = await Geolocation.GetLastKnownLocationAsync();
-                Debug.WriteLine(userLocation?.ToString() ?? "GetLastKnownLocation no location");
+                Debug.WriteLine(lastKnownLocation?.ToString() ?? "GetLastKnownLocation no location");
 
                 currentLocation = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
-                Debug.WriteLine(userLocation?.ToString() ?? "GetLocation no location");
+                Debug.WriteLine(currentLocation?.ToString() ?? "GetLocation no location");
 
-                userLocation = userLocation != null ? currentLocation : lastKnownLocation;
+                userLocation = currentLocation != null ? currentLocation : lastKnownLocation;
 
                 //Get Name of City/Town
                 var placemarks = await Geocoding.GetPlacemarksAsync(userLocation.Latitude, userLocation.Longitude);

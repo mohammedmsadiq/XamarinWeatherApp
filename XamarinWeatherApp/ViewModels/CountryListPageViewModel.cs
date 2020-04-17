@@ -28,20 +28,20 @@ namespace XamarinWeatherApp.ViewModels
             this.GoBackCommand = new DelegateCommand(async () => { await this.GoBackAction(); });
             DBData = new ObservableCollection<FavoriteLocationModel>();
             FavoriteLocationData = new ObservableCollection<FavoriteLocationForecastDataModel>();
+            this.ExecuteAsyncTask(async () =>
+            {
+                await ReadData();
+                LoadFavLocations();
+            });
         }
 
-        public DelegateCommand<FavoriteLocationForecastDataModel> DeleteCommand => new DelegateCommand<FavoriteLocationForecastDataModel>(async (Param) => await this.DeleteAction(Param));
-
-        private Task DeleteAction(FavoriteLocationForecastDataModel param)
-        {
-           throw new NotImplementedException();  
-        }
-
-        public override void OnAppearing()
+        private async Task ReadData()
         {
             SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
             conn.CreateTable<FavoriteLocationDataModel>();
+            DBData.Clear();
             var list = conn.Table<FavoriteLocationDataModel>().ToList();
+            Debug.WriteLine("listConn Count = " + list.Count());
             if (list != null)
             {
                 foreach (var item in list)
@@ -50,43 +50,42 @@ namespace XamarinWeatherApp.ViewModels
                     {
                         LocationName = item.LocationName,
                         Longitude = item.Longitude,
-                        Latitude = item.Latitude
+                        Latitude = item.Latitude,
                     };
-                    Device.BeginInvokeOnMainThread(() =>
+                    this.DBData.Add(itemToAdd);
+
+                    var result = await this.WeatherService.GetForecast(itemToAdd.Latitude, itemToAdd.Longitude);
+                    FavoriteLocationForecastDataModel post = new FavoriteLocationForecastDataModel()
                     {
-                        this.DBData.Add(itemToAdd);
-                        this.ExecuteAsyncTask(async () =>
-                        {
-                            var result = await this.WeatherService.GetForecast(itemToAdd.Latitude, itemToAdd.Longitude);
-                            FavoriteLocationForecastDataModel post = new FavoriteLocationForecastDataModel()
-                            {
-                                LocationName = itemToAdd.LocationName,
-                                latitude = result.latitude,
-                                longitude = result.longitude,
-                                offset = result.offset,
-                                temperature = result.currently.temperature,
-                                time = result.currently.time,
-                                timezone = result.timezone,
-                                icon = result.currently.icon,
-                                summary = result.currently.summary
-                            };
-                            conn.Close();
-                            SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
-                            //delete table
-                            postConn.CreateTable<FavoriteLocationForecastDataModel>();
-                            int row = postConn.InsertOrReplace(post);
-                            Debug.WriteLine(itemToAdd.LocationName + " Added to DB");
-                            postConn.Close();
-                        });
-                    });
+                        LocationName = itemToAdd.LocationName,
+                        latitude = result.latitude,
+                        longitude = result.longitude,
+                        offset = result.offset,
+                        temperature = result.currently.temperature,
+                        time = result.currently.time,
+                        timezone = result.timezone,
+                        icon = result.currently.icon,
+                        summary = result.currently.summary,
+                    };
+                    conn.Close();
+                    using (SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+                    {
+                        //delete table
+                        postConn.CreateTable<FavoriteLocationForecastDataModel>();
+                        int row = postConn.InsertOrReplace(post);
+                        Debug.WriteLine("postConn Added " + itemToAdd.LocationName + " to DB");
+                    }
                 }
             }
-            Debug.WriteLine("Database Count = " + list.Count());
+        }
 
+        private void LoadFavLocations()
+        {
             using (SQLiteConnection readConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
             {
                 readConn.CreateTable<FavoriteLocationForecastDataModel>();
                 var favorites = readConn.Table<FavoriteLocationForecastDataModel>().ToList();
+                Debug.WriteLine("ReadConn Count = " + favorites.Count());
                 this.FavoriteLocationData.Clear();
                 foreach (var fav in favorites)
                 {
@@ -96,15 +95,12 @@ namespace XamarinWeatherApp.ViewModels
                         icon = fav.icon + ".png",
                         ImageIcon = fav.ImageIcon,
                         temperature = Settings.Settings.IsCelsius ? Math.Round(UnitConverters.FahrenheitToCelsius(fav.temperature)) : Math.Round(fav.temperature),
-                        LocalTime = fav.LocalTime
+                        LocalTime = fav.LocalTime,
+                        DateAdded = fav.DateAdded.ToLocalTime()
                     };
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        this.FavoriteLocationData.Add(favToAdd);
-                    });
+                    this.FavoriteLocationData.Add(favToAdd);
                 }
             }
-            base.OnAppearing();
         }
 
         public ObservableCollection<FavoriteLocationModel> DBData

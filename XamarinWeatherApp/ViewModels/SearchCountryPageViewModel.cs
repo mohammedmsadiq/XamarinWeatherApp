@@ -41,7 +41,8 @@ namespace XamarinWeatherApp.ViewModels
                 LocationName = item.name,
                 Longitude = item.Longitude,
                 Latitude = item.Latitude,
-                LocationTime = item.tz
+                LocationTime = item.tz,
+                DateAdded = DateTime.UtcNow
             };
 
             using (SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
@@ -52,7 +53,6 @@ namespace XamarinWeatherApp.ViewModels
                 int row = conn.Insert(post);
             }
 
-            await Task.Delay(1000);
             await NavigationService.NavigateAsync("HomePage", animated: false);
         }
 
