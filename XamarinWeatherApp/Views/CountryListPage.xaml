@@ -46,85 +46,68 @@
                         <DataTemplate>
                             <ViewCell
                                 x:Name="WeatherCell">
-                                <SwipeView
-                                    IsClippedToBounds="True"
-                                    BackgroundColor="Transparent">
-                                    <SwipeView.RightItems>
-                                        <SwipeItems
-                                            Mode="Reveal">
-                                            <SwipeItem
-                                                Text="Delete"
-                                                BackgroundColor="Red"
-                                                Command="{Binding DeleteCommand}"
-                                                CommandParameter="{Binding .}">
-                                                <SwipeItem.IconImageSource>
-                                                    <FontImageSource
-                                                        Glyph="&#xf2ed;"
-                                                        Color="White"
-                                                        Size="20"
-                                                        FontFamily="{StaticResource FontAwesomeLight}" />
-                                                </SwipeItem.IconImageSource>
-                                            </SwipeItem>
-                                        </SwipeItems>
-                                    </SwipeView.RightItems>
-                                    <SwipeView.Content>
-                                        <Grid
-                                            Padding="20,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition
-                                                    Width="2*" />
-                                                <ColumnDefinition
-                                                    Width="6*" />
-                                                <ColumnDefinition
-                                                    Width="2*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition
-                                                    Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Image
-                                                Grid.Column="0"
-                                                Source="{Binding ImageIcon}"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="StartAndExpand"
-                                                HeightRequest="40"
-                                                WidthRequest="40" />
-                                            <Label
-                                                Grid.Column="1"
-                                                Margin="0,0,0,0"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="Start"
-                                                TextColor="White"
-                                                Text="{Binding LocationName}" />
-                                            <StackLayout
-                                                Grid.Column="2"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="EndAndExpand"
-                                                Orientation="Horizontal">
-                                                <Label
-                                                    Margin="0,0,0,0"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    FontSize="24"
-                                                    TextColor="White"
-                                                    Text="{Binding temperature}" />
-                                                <Label
-                                                    Margin="0,0,0,0"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    HorizontalOptions="End"
-                                                    FontSize="24"
-                                                    TextColor="White"
-                                                    Text="°" />
-                                            </StackLayout>
-                                            <BoxView
-                                                Grid.ColumnSpan="3"
-                                                HeightRequest="0.5"
-                                                VerticalOptions="End"
-                                                HorizontalOptions="FillAndExpand"
-                                                BackgroundColor="Gray" />
-                                        </Grid>
-                                    </SwipeView.Content>
-                                </SwipeView>
+                                <ViewCell.ContextActions>
+                                    <MenuItem
+                                        Clicked="OnDelete"
+                                        CommandParameter="{Binding .}"
+                                        Text="Delete"
+                                        IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <Grid
+                                    Padding="20,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="2*" />
+                                        <ColumnDefinition
+                                            Width="6*" />
+                                        <ColumnDefinition
+                                            Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Image
+                                        Grid.Column="0"
+                                        Source="{Binding ImageIcon}"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="StartAndExpand"
+                                        HeightRequest="40"
+                                        WidthRequest="40" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="0,0,0,0"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="Start"
+                                        TextColor="White"
+                                        Text="{Binding LocationName}" />
+                                    <StackLayout
+                                        Grid.Column="2"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="EndAndExpand"
+                                        Orientation="Horizontal">
+                                        <Label
+                                            Margin="0,0,0,0"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="EndAndExpand"
+                                            FontSize="24"
+                                            TextColor="White"
+                                            Text="{Binding temperature}" />
+                                        <Label
+                                            Margin="0,0,0,0"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalOptions="End"
+                                            FontSize="24"
+                                            TextColor="White"
+                                            Text="°" />
+                                    </StackLayout>
+                                    <BoxView
+                                        Grid.ColumnSpan="3"
+                                        HeightRequest="0.5"
+                                        VerticalOptions="End"
+                                        HorizontalOptions="FillAndExpand"
+                                        BackgroundColor="Gray" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

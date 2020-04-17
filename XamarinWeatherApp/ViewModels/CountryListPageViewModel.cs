@@ -38,9 +38,9 @@ namespace XamarinWeatherApp.ViewModels
         private async Task ReadData()
         {
             SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath());
-            conn.CreateTable<FavoriteLocationDataModel>();
+            conn.CreateTable<FavoriteLocationForecastDataModel>();
             DBData.Clear();
-            var list = conn.Table<FavoriteLocationDataModel>().ToList();
+            var list = conn.Table<FavoriteLocationForecastDataModel>().ToList();
             Debug.WriteLine("listConn Count = " + list.Count());
             if (list != null)
             {
@@ -49,8 +49,8 @@ namespace XamarinWeatherApp.ViewModels
                     var itemToAdd = new FavoriteLocationModel
                     {
                         LocationName = item.LocationName,
-                        Longitude = item.Longitude,
-                        Latitude = item.Latitude,
+                        Longitude = item.longitude,
+                        Latitude = item.latitude,
                     };
                     this.DBData.Add(itemToAdd);
 
@@ -73,7 +73,7 @@ namespace XamarinWeatherApp.ViewModels
                         //delete table
                         postConn.CreateTable<FavoriteLocationForecastDataModel>();
                         int row = postConn.InsertOrReplace(post);
-                        Debug.WriteLine("postConn Added " + itemToAdd.LocationName + " to DB");
+                        Debug.WriteLine("postConn updated " + itemToAdd.LocationName + " to DB");
                     }
                 }
             }

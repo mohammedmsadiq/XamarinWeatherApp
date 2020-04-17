@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
@@ -23,11 +24,13 @@ namespace XamarinWeatherApp.ViewModels
     public class SearchCountryPageViewModel : ViewModelBase
     {
         protected readonly ILocationService LocationService;
+        protected readonly IWeatherService WeatherService;
         ObservableCollection<GeoModel> data;
 
-        public SearchCountryPageViewModel(INavigationService navigationService, IPageDialogService dialogService, ILocationService locationService) : base(navigationService, dialogService)
+        public SearchCountryPageViewModel(INavigationService navigationService, IPageDialogService dialogService, ILocationService locationService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
             this.LocationService = locationService;
+            this.WeatherService = weatherService;
             this.GoBackCommand = new DelegateCommand(async () => { await this.GoBackAction(); });
             this.Data = new ObservableCollection<GeoModel>();
         }
@@ -36,21 +39,33 @@ namespace XamarinWeatherApp.ViewModels
 
         private async Task ItemSelectedAction(GeoModel item)
         {
-            FavoriteLocationDataModel post = new FavoriteLocationDataModel()
+            var result = await this.WeatherService.GetForecast(item.Latitude, item.Longitude);
+
+            FavoriteLocationForecastDataModel post = new FavoriteLocationForecastDataModel()
             {
                 LocationName = item.name,
-                Longitude = item.Longitude,
-                Latitude = item.Latitude,
-                LocationTime = item.tz,
-                DateAdded = DateTime.UtcNow
+                DateAdded = DateTime.Now,
+                latitude = item.Latitude,
+                longitude = item.Latitude,
+                timezone = result.timezone,
+                icon = result.currently.icon,
+                summary = result.currently.summary,
+                time = result.currently.time,
+                offset = result.offset,
+                temperature = result.currently.temperature,
+                apparentTemperature = result.currently.apparentTemperature,
+                dewPoint = result.currently.dewPoint,
+                humidity = result.currently.humidity,
+                cloudCover = result.currently.cloudCover
             };
 
-            using (SQLiteConnection conn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
+            using (SQLiteConnection postConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
             {
                 //delete table
-                //conn.DropTable<FavoriteLocationDataModel>();
-                conn.CreateTable<FavoriteLocationDataModel>();
-                int row = conn.Insert(post);
+                postConn.CreateTable<FavoriteLocationForecastDataModel>();
+                int rows = postConn.InsertOrReplace(post);
+
+                Debug.WriteLine("postConn Added " + item.name + " to DB");
             }
 
             await NavigationService.NavigateAsync("HomePage", animated: false);

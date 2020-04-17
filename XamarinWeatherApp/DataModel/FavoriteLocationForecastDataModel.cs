@@ -11,6 +11,7 @@ namespace XamarinWeatherApp.DataModel
 
         [PrimaryKey]
         public string LocationName { get; set; }
+
         public int Id { get; set; }
         public DateTime DateAdded { get; set; }
         public double latitude { get; set; }
