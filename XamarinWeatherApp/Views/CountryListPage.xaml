@@ -116,6 +116,12 @@
                                                     TextColor="White"
                                                     Text="°" />
                                             </StackLayout>
+                                            <BoxView
+                                                Grid.ColumnSpan="3"
+                                                HeightRequest="0.5"
+                                                VerticalOptions="End"
+                                                HorizontalOptions="FillAndExpand"
+                                                BackgroundColor="Gray" />
                                         </Grid>
                                     </SwipeView.Content>
                                 </SwipeView>
