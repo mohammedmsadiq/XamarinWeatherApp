@@ -19,7 +19,7 @@ namespace XamarinWeatherApp.ViewModels
 
         public async Task GoToHome()
         {
-            await NavigationService.NavigateAsync("HomePage");
+            await NavigationService.NavigateAsync("HomePage", animated: false);
         }
     }
-}    
+}

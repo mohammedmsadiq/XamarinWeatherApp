@@ -47,7 +47,7 @@ namespace XamarinWeatherApp.Views
             }
             else if (status != PermissionStatus.Unknown)
             {
-                await DisplayAlert("Location Denied", "Can not continue, try again.", "OK");
+                await DisplayAlert("Location Denied", "Can not continue, Goto settings and allow the app to request location", "OK");
                 CrossPermissions.Current.OpenAppSettings();
             }
         }
