@@ -13,5 +13,11 @@
     ios:Page.UseSafeArea="true"
     x:Class="XamarinWeatherApp.Views.SplashScreenPage">
     <ContentPage.Content>
+        <Image
+            Margin="40,0"
+            Aspect="AspectFit"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Source="splashlogo.png" />
     </ContentPage.Content>
 </ContentPage>

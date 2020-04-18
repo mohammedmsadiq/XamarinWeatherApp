@@ -22,13 +22,11 @@
 	<key>MinimumOSVersion</key>
 	<string>11.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>XamarinWeatherApp</string>
+	<string>GEOSKY</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.mohammedsadiq.weather</string>
+	<string>com.mohammedsadiq.geosky</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleName</key>
-	<string>XamarinWeatherApp</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -54,5 +52,7 @@
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CFBundleName</key>
+	<string>GEOSKY</string>
 </dict>
 </plist>
