@@ -79,7 +79,7 @@ namespace XamarinWeatherApp.ViewModels
 
                 Debug.WriteLine("postConn Added " + item.name + " to DB");
             }
-
+            Settings.Settings.HasFavLocationsSaved = true;
             await NavigationService.NavigateAsync("HomePage", animated: false);
         }
 

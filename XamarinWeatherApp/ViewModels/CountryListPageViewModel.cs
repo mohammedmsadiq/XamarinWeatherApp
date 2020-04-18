@@ -101,6 +101,11 @@ namespace XamarinWeatherApp.ViewModels
                     this.FavoriteLocationData.Add(favToAdd);
                 }
             }
+            if (FavoriteLocationData.Count == 0)
+            {
+                Settings.Settings.HasFavLocationsSaved = false;
+                await GoBackAction();
+            }
         }
 
         public ObservableCollection<FavoriteLocationModel> DBData

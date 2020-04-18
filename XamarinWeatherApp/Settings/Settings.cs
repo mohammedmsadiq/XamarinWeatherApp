@@ -21,5 +21,11 @@ namespace XamarinWeatherApp.Settings
             set => AppSettings.AddOrUpdateValue(nameof(IsCelsius), value);
         }
 
+        public static bool HasFavLocationsSaved
+        {
+            get => AppSettings.GetValueOrDefault(nameof(HasFavLocationsSaved), false);
+            set => AppSettings.AddOrUpdateValue(nameof(HasFavLocationsSaved), value);
+        }
+
     }
 }

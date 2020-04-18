@@ -35,6 +35,7 @@ namespace XamarinWeatherApp.ViewModels
         private string humidityPerc;
         private string cloudCoverPerc;
         private bool isCelsius;
+        private bool isFavButtonVisible;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -322,6 +323,15 @@ namespace XamarinWeatherApp.ViewModels
             {
                 this.SetProperty(ref this.isCelsius, value, isToogledCelsius);
             }
+        }
+
+        public bool IsFavButtonVisible
+        {
+            get
+            {
+                var result = Settings.Settings.HasFavLocationsSaved;
+                return result;
+            }           
         }
 
         private void isToogledCelsius()
