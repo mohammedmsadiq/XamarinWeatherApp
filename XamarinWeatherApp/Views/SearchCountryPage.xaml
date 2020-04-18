@@ -9,29 +9,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:BackgroundColor="Green"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:b="http://prismlibrary.com"
     x:Class="XamarinWeatherApp.Views.SearchCountryPage">
     <ContentPage.Content>
-        <StackLayout
+        <Grid
+            RowSpacing="0"
             BackgroundColor="Transparent"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
-            <StackLayout
-                HeightRequest="{StaticResource NaviHeight}"
-                x:Name="Navi">
-                <controls:AlternateNavigationBar
-                    HeaderText="Favorite Location"
-                    VerticalOptions="EndAndExpand"
-                    HorizontalOptions="FillAndExpand" />
-            </StackLayout>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="50" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <controls:AlternateNavigationBar
+                Grid.Row="0"
+                x:Name="Navi"
+                HeaderText="Favorite Location"
+                VerticalOptions="Start"
+                HorizontalOptions="FillAndExpand" />
             <yummy:PancakeView
+                Grid.Row="1"
                 x:Name="DetailSection"
                 BackgroundColor="{DynamicResource secondbackground}"
                 CornerRadius="30,30,0,0"
                 HasShadow="false"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="Start">
                 <StackLayout
                     BackgroundColor="Transparent"
                     VerticalOptions="FillAndExpand"
@@ -81,6 +89,6 @@
                     </ListView>
                 </StackLayout>
             </yummy:PancakeView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

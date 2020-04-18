@@ -7,7 +7,7 @@
     <OnPlatform
         x:Key="NaviHeight"
         x:TypeArguments="x:Double"
-        iOS="90"
+        iOS="50"
         Android="50" />
 
 </ResourceDictionary>

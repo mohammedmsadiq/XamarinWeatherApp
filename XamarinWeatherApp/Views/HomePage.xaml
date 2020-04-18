@@ -9,6 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:BackgroundColor="Green"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Class="XamarinWeatherApp.Views.HomePage">
@@ -17,7 +19,7 @@
             BackgroundColor="Transparent"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
-            <StackLayout 
+            <StackLayout
                 HeightRequest="{StaticResource NaviHeight}"
                 x:Name="Navi">
                 <controls:NavigationBarControl
@@ -95,7 +97,7 @@
                                     FontSize="24"
                                     FontFamily="{StaticResource LightFont}"
                                     TextColor="White" />
-                            </StackLayout>                          
+                            </StackLayout>
                             <StackLayout
                                 VerticalOptions="Start"
                                 Orientation="Horizontal"
@@ -180,8 +182,10 @@
                                 Color="White" />
                             <ListView
                                 x:Name="DailyList"
+                                VerticalOptions="FillAndExpand"
                                 BackgroundColor="Transparent"
-                                HeightRequest="380"
+                                RowHeight="40"
+                                HeightRequest="360"
                                 SeparatorColor="Transparent"
                                 ItemsSource="{Binding DailyData}">
                                 <ListView.ItemTemplate>

@@ -7,7 +7,8 @@
     mc:Ignorable="d"
     BackgroundColor="Transparent"
     d:BackgroundColor="Red"
-    VerticalOptions="CenterAndExpand"
+    HeightRequest="50"
+    VerticalOptions="Center"
     HorizontalOptions="FillAndExpand"
     x:Class="XamarinWeatherApp.Controls.AlternateNavigationBar">
     <ContentView.Content>
@@ -17,7 +18,7 @@
             <ImageButton
                 BackgroundColor="Transparent"
                 Command="{Binding GoBackCommand}"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Start">
                 <ImageButton.Source>
                     <FontImageSource
@@ -28,19 +29,11 @@
                         d:Color="Black" />
                 </ImageButton.Source>
             </ImageButton>
-            <!--<Button
-                x:Name="BackButton"
-                Text="BACK"
-                BackgroundColor="Transparent"
-                BorderColor="Transparent"
-                TextColor="White"
-                Command="{Binding GoBackCommand}"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="Start" />-->
             <Label
                 x:Name="InnerHeaderText"
+                d:Text="hello"
                 TextColor="White"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center" />
         </Grid>
     </ContentView.Content>
