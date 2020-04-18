@@ -155,17 +155,5 @@ namespace XamarinWeatherApp.ViewModels
             await DialogService.DisplayAlertAsync("Error", ex.Message, "OK");
         }
         #endregion ExecuteAsyncTask
-
-
-        //#region PropertyChangedEventHandler
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //protected void OnPropertyChanged([CallerMemberName] string name = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        //}
-        //#endregion PropertyChangedEventHandler
-
-
     }
 }

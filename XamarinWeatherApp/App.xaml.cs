@@ -1,4 +1,6 @@
-﻿using Prism;
+﻿using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using Prism;
 using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms;
@@ -23,7 +25,8 @@ namespace XamarinWeatherApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync("HomePage");
+
+            //await NavigationService.NavigateAsync("HomePage");
 
             var availableFolders = Helpers.StorageHelper.GetSpecialFolders();
             var datapath = Helpers.StorageHelper.GetLocalFilePath();
@@ -31,6 +34,7 @@ namespace XamarinWeatherApp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<SplashScreenPage, SplashScreenPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<SearchCountryPage, SearchCountryPageViewModel>();
             containerRegistry.RegisterForNavigation<CountryListPage, CountryListPageViewModel>();
@@ -39,16 +43,18 @@ namespace XamarinWeatherApp
             containerRegistry.RegisterSingleton<ILocationService, LocationService>();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            await NavigationService.NavigateAsync("SplashScreenPage");
         }
 
         protected override void OnSleep()
         {
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
+            await NavigationService.NavigateAsync("SplashScreenPage");
         }
     }
 
