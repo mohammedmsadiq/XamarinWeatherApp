@@ -22,6 +22,7 @@ namespace XamarinWeatherApp.iOS
         {
             Forms.SetFlags("SwipeView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+            global::Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App(new iOSInitializer()));
 

@@ -18,6 +18,9 @@ using XamarinWeatherApp.DataModel;
 using XamarinWeatherApp.Helpers;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
+using Rg.Plugins.Popup.Extensions;
+using XamarinWeatherApp.Controls;
+using Rg.Plugins.Popup.Services;
 
 namespace XamarinWeatherApp.ViewModels
 {
@@ -64,6 +67,15 @@ namespace XamarinWeatherApp.ViewModels
                 //delete table
                 postConn.CreateTable<FavoriteLocationForecastDataModel>();
                 int rows = postConn.InsertOrReplace(post);
+
+                if (rows > 0)
+                {
+                    await PopupNavigation.Instance.PushAsync(new NotificationControl("S", "Success!, Your selection was saved"));
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new NotificationControl("E", "Error!, Your selection wasn't saved"));
+                }
 
                 Debug.WriteLine("postConn Added " + item.name + " to DB");
             }

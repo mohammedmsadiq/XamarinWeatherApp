@@ -79,7 +79,7 @@ namespace XamarinWeatherApp.ViewModels
             }
         }
 
-        private void LoadFavLocations()
+        public async Task LoadFavLocations()
         {
             using (SQLiteConnection readConn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
             {

@@ -1,8 +1,52 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView
-    xmlns ="http://xamarin.com/schemas/2014/forms"
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    BackgroundColor="Transparent"
+    InputTransparent="True"
+    HasSystemPadding="True"
+    CloseWhenBackgroundIsClicked="False"
     x:Class="XamarinWeatherApp.Controls.NotificationControl">
-    <ContentView.Content>
-    </ContentView.Content>
-</ContentView>
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            PositionIn="Top" 
+            PositionOut="Top" />
+    </pages:PopupPage.Animation>
+    <Frame
+        BorderColor="Transparent"
+        HasShadow="False"
+        Margin="10,5"
+        VerticalOptions="Start"
+        IsClippedToBounds="True"
+        CornerRadius="10"
+        Padding="0"
+        x:Name="ParentView">
+        <StackLayout
+            Orientation="Horizontal"
+            d:BackgroundColor="#43A047"
+            VerticalOptions="Start"
+            HeightRequest="50"
+            Padding="0">
+            <Image
+                Margin="0,0,10,0"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="CenterAndExpand"
+                x:Name="imgAlert"
+                d:Source="error.png"
+                HeightRequest="24"
+                WidthRequest="24" />
+            <Label
+                x:Name="LblMsg"
+                TextColor="Black"
+                FontSize="Micro"
+                d:Text="Error!, Your selection wasn't saved"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

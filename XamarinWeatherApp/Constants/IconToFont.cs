@@ -19,5 +19,7 @@
         public const string fog = "\uf74e";
         public const string cloudy = "\uf744";
         public const string DartlyCloudyDay = "\uf746";
+        public const string Correct = "\uf058";
+        public const string ErrorTriangle = "\uf071";
     }
 }

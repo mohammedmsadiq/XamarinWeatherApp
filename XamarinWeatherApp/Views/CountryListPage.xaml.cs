@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Rg.Plugins.Popup.Services;
 using SQLite;
 using Unity.Injection;
 using Xamarin.Forms;
+using XamarinWeatherApp.Controls;
 using XamarinWeatherApp.DataModel;
 using XamarinWeatherApp.Helpers;
+using XamarinWeatherApp.ViewModels;
 
 namespace XamarinWeatherApp.Views
 {
     public partial class CountryListPage : ContentPage
     {
-        FavoriteLocationForecastDataModel selectedItem;
+        private CountryListPageViewModel countryListPageViewModel;
+
         public CountryListPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            countryListPageViewModel = (CountryListPageViewModel)BindingContext;
         }
 
         private double pageHeight;
@@ -35,26 +45,24 @@ namespace XamarinWeatherApp.Views
             base.OnAppearing();
         }
 
-        void OnDelete(System.Object sender, System.EventArgs e)
+        async void OnDelete(System.Object sender, System.EventArgs e)
         {
-            var r = ((MenuItem)sender).CommandParameter as FavoriteLocationForecastDataModel;
-
-            var t = r.LocationName;
-
+            var selectedItem = ((MenuItem)sender).CommandParameter as FavoriteLocationForecastDataModel;
             using (SQLiteConnection Conn = new SQLiteConnection(StorageHelper.GetLocalFilePath()))
             {
                 Conn.CreateTable<FavoriteLocationForecastDataModel>();
-                int rows = Conn.Delete(r);
+                int rows = Conn.Delete(selectedItem);
 
-                //if (rows > 0)
-                //{
-                //    DisplayAlert("Success", "Deleted", "OK");
-                //}
-                //else
-                //{
-                //    DisplayAlert("Failed", "Not Deleted", "OK");
-                //}
+                if (rows > 0)
+                {
+                    await PopupNavigation.Instance.PushAsync(new NotificationControl("S", "Success!, Your selection was deleted"));
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new NotificationControl("E", "Error!, Your selection was not removed"));
+                }                
             }
+            await countryListPageViewModel.LoadFavLocations();
         }
     }
 }
