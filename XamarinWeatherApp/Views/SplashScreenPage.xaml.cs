@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
@@ -35,15 +36,18 @@ namespace XamarinWeatherApp.Views
             {
                 if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
                 {
-                    await DisplayAlert("Need location", "Gunna need that location", "OK");
+                    var r =await DisplayAlert("Need location", "Gunna need that location", "OK", "Cancel");
+                    if (r == true)
+                    {                       
+                        await splashScreenPageViewModel.GoToHome();
+                    }
                 }
-
                 status = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
             }
 
             if (status == PermissionStatus.Granted)
             {
-               await splashScreenPageViewModel.GoToHome();
+                await splashScreenPageViewModel.GoToHome();
             }
             else if (status != PermissionStatus.Unknown)
             {
