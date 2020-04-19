@@ -54,7 +54,11 @@ namespace XamarinWeatherApp
 
         protected override async void OnResume()
         {
-            await NavigationService.NavigateAsync("SplashScreenPage");
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
+            if (status != PermissionStatus.Granted)         
+            {
+                await NavigationService.NavigateAsync("SplashScreenPage");
+            }
         }
     }
 

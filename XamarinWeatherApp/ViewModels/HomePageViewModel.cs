@@ -35,7 +35,7 @@ namespace XamarinWeatherApp.ViewModels
         private string humidityPerc;
         private string cloudCoverPerc;
         private bool isCelsius;
-        private bool isFavButtonVisible;
+        private ForecastModel result;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -74,7 +74,7 @@ namespace XamarinWeatherApp.ViewModels
         async Task FindUserLocation()
         {
             try
-            {                
+            {
                 lastKnownLocation = await Geolocation.GetLastKnownLocationAsync();
                 Debug.WriteLine(lastKnownLocation?.ToString() ?? "GetLastKnownLocation no location");
 
@@ -117,8 +117,8 @@ namespace XamarinWeatherApp.ViewModels
 
                     Debug.WriteLine(geocodeAddress);
                     Debug.WriteLine(TownCityName);
+                    await this.loadData();
                 }
-                await this.loadData();
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -145,111 +145,129 @@ namespace XamarinWeatherApp.ViewModels
                 await this.ExecuteAsyncTask(async () =>
                  {
                      if (userLocation != null)
-                     {
-                         var result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
-                         if (result != null)
-                         {
-                             DeviceLatitude = result.latitude;
-                             DeviceLongitude = result.longitude;
-                             TimeZoneInfo = result.timezone;
-                             OffSet = result.offset;
-                             CurrentTemp = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(result.currently.temperature)).ToString() : Math.Round(result.currently.temperature).ToString();
-                             CurrentSummary = result.currently.summary;
-                             HumidityPerc = result.currently.HumidityPerc;
-                             CloudCoverPerc = result.currently.CloudCoverPerc;
-                             CurrentIcon = result.currently.icon.Replace("-", string.Empty);
-
-                             HourlyData.Clear();
-                             foreach (var item in result.hourly.data)
-                             {
-                                 var itemToAdd = new Datum2
-                                 {
-                                     time = item.time,
-                                     HrTime = item.HrTime,
-                                     summary = item.summary,
-                                     icon = item.icon + ".png",
-                                     ImageIcon = item.ImageIcon,
-                                     precipIntensity = item.precipIntensity,
-                                     precipProbability = item.precipProbability,
-                                     temperature = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)) : Math.Round(item.temperature),
-                                     STemperature = item.STemperature,
-                                     apparentTemperature = item.apparentTemperature,
-                                     dewPoint = item.dewPoint,
-                                     humidity = item.humidity,
-                                     pressure = item.pressure,
-                                     windSpeed = item.windSpeed,
-                                     windGust = item.windGust,
-                                     windBearing = item.windBearing,
-                                     cloudCover = item.cloudCover,
-                                     uvIndex = item.uvIndex,
-                                     visibility = item.visibility,
-                                     ozone = item.ozone,
-                                     precipType = item.precipType
-                                 };
-                                 Device.BeginInvokeOnMainThread(() =>
-                                 {
-                                     this.HourlyData.Add(itemToAdd);
-                                 });
-                             }
-
-                             DailyData.Clear();
-                             foreach (var dailyItem in result.daily.data)
-                             {
-                                 var dailyItemToAdd = new Datum3
-                                 {
-                                     time = dailyItem.time,
-                                     DailyTime = dailyItem.DailyTime,
-                                     summary = dailyItem.summary,
-                                     icon = dailyItem.icon + ".png",
-                                     ImageIcon = dailyItem.ImageIcon,
-                                     sunriseTime = dailyItem.sunriseTime,
-                                     sunsetTime = dailyItem.sunsetTime,
-                                     LocalSunriseTime = dailyItem.LocalSunriseTime,
-                                     LocalSunsetTime = dailyItem.LocalSunsetTime,
-                                     moonPhase = dailyItem.moonPhase,
-                                     precipIntensity = dailyItem.precipIntensity,
-                                     precipIntensityMax = dailyItem.precipIntensityMax,
-                                     precipIntensityMaxTime = dailyItem.precipIntensityMaxTime,
-                                     precipProbability = dailyItem.precipProbability,
-                                     precipType = dailyItem.precipType,
-                                     temperatureHigh = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureHigh)) : Math.Round(dailyItem.temperatureHigh),
-                                     temperatureHighTime = dailyItem.temperatureHighTime,
-                                     temperatureLow = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureLow)) : Math.Round(dailyItem.temperatureLow),
-                                     temperatureLowTime = dailyItem.temperatureLowTime,
-                                     apparentTemperatureHigh = dailyItem.apparentTemperatureHigh,
-                                     apparentTemperatureHighTime = dailyItem.apparentTemperatureHighTime,
-                                     apparentTemperatureLow = dailyItem.apparentTemperatureLow,
-                                     apparentTemperatureLowTime = dailyItem.apparentTemperatureLowTime,
-                                     dewPoint = dailyItem.dewPoint,
-                                     humidity = dailyItem.humidity,
-                                     pressure = dailyItem.pressure,
-                                     windSpeed = dailyItem.windSpeed,
-                                     windGust = dailyItem.windGust,
-                                     windGustTime = dailyItem.windGustTime,
-                                     windBearing = dailyItem.windBearing,
-                                     cloudCover = dailyItem.cloudCover,
-                                     uvIndex = dailyItem.uvIndex,
-                                     uvIndexTime = dailyItem.uvIndexTime,
-                                     visibility = dailyItem.visibility,
-                                     ozone = dailyItem.ozone,
-                                     temperatureMin = dailyItem.temperatureMin,
-                                     temperatureMinTime = dailyItem.temperatureMinTime,
-                                     temperatureMax = dailyItem.temperatureMax,
-                                     temperatureMaxTime = dailyItem.temperatureMaxTime,
-                                     apparentTemperatureMin = dailyItem.apparentTemperatureMin,
-                                     apparentTemperatureMinTime = dailyItem.apparentTemperatureMinTime,
-                                     apparentTemperatureMax = dailyItem.apparentTemperatureMax,
-                                     apparentTemperatureMaxTime = dailyItem.apparentTemperatureMaxTime
-                                 };
-                                 Device.BeginInvokeOnMainThread(() =>
-                                 {
-                                     this.DailyData.Add(dailyItemToAdd);
-                                 });
-                             }
-                         }
+                     {                         
+                         Result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
+                         this.todayData();
                      }
                  });
             }
+        }
+
+        private void todayData()
+        {
+            if (Result != null)
+            {
+                DeviceLatitude = Result.latitude;
+                DeviceLongitude = Result.longitude;
+                TimeZoneInfo = Result.timezone;
+                OffSet = Result.offset;
+                CurrentTemp = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(Result.currently.temperature)).ToString() : Math.Round(Result.currently.temperature).ToString();
+                CurrentSummary = Result.currently.summary;
+                HumidityPerc = Result.currently.HumidityPerc;
+                CloudCoverPerc = Result.currently.CloudCoverPerc;
+                CurrentIcon = Result.currently.icon.Replace("-", string.Empty);
+                this.hourlyList();
+                this.dailyList();
+            }
+        }
+
+        private void dailyList()
+        {
+            this.DailyData.Clear();
+            foreach (var dailyItem in Result.daily.data)
+            {
+                var dailyItemToAdd = new Datum3
+                {
+                    time = dailyItem.time,
+                    DailyTime = dailyItem.DailyTime,
+                    summary = dailyItem.summary,
+                    icon = dailyItem.icon + ".png",
+                    ImageIcon = dailyItem.ImageIcon,
+                    sunriseTime = dailyItem.sunriseTime,
+                    sunsetTime = dailyItem.sunsetTime,
+                    LocalSunriseTime = dailyItem.LocalSunriseTime,
+                    LocalSunsetTime = dailyItem.LocalSunsetTime,
+                    moonPhase = dailyItem.moonPhase,
+                    precipIntensity = dailyItem.precipIntensity,
+                    precipIntensityMax = dailyItem.precipIntensityMax,
+                    precipIntensityMaxTime = dailyItem.precipIntensityMaxTime,
+                    precipProbability = dailyItem.precipProbability,
+                    precipType = dailyItem.precipType,
+                    temperatureHigh = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureHigh)) : Math.Round(dailyItem.temperatureHigh),
+                    temperatureHighTime = dailyItem.temperatureHighTime,
+                    temperatureLow = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(dailyItem.temperatureLow)) : Math.Round(dailyItem.temperatureLow),
+                    temperatureLowTime = dailyItem.temperatureLowTime,
+                    apparentTemperatureHigh = dailyItem.apparentTemperatureHigh,
+                    apparentTemperatureHighTime = dailyItem.apparentTemperatureHighTime,
+                    apparentTemperatureLow = dailyItem.apparentTemperatureLow,
+                    apparentTemperatureLowTime = dailyItem.apparentTemperatureLowTime,
+                    dewPoint = dailyItem.dewPoint,
+                    humidity = dailyItem.humidity,
+                    pressure = dailyItem.pressure,
+                    windSpeed = dailyItem.windSpeed,
+                    windGust = dailyItem.windGust,
+                    windGustTime = dailyItem.windGustTime,
+                    windBearing = dailyItem.windBearing,
+                    cloudCover = dailyItem.cloudCover,
+                    uvIndex = dailyItem.uvIndex,
+                    uvIndexTime = dailyItem.uvIndexTime,
+                    visibility = dailyItem.visibility,
+                    ozone = dailyItem.ozone,
+                    temperatureMin = dailyItem.temperatureMin,
+                    temperatureMinTime = dailyItem.temperatureMinTime,
+                    temperatureMax = dailyItem.temperatureMax,
+                    temperatureMaxTime = dailyItem.temperatureMaxTime,
+                    apparentTemperatureMin = dailyItem.apparentTemperatureMin,
+                    apparentTemperatureMinTime = dailyItem.apparentTemperatureMinTime,
+                    apparentTemperatureMax = dailyItem.apparentTemperatureMax,
+                    apparentTemperatureMaxTime = dailyItem.apparentTemperatureMaxTime
+                };
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.DailyData.Add(dailyItemToAdd);
+                });
+            }
+        }
+
+        private void hourlyList()
+        {
+            this.HourlyData.Clear();
+            foreach (var item in Result.hourly.data)
+            {
+                var itemToAdd = new Datum2
+                {
+                    time = item.time,
+                    HrTime = item.HrTime,
+                    summary = item.summary,
+                    icon = item.icon + ".png",
+                    ImageIcon = item.ImageIcon,
+                    precipIntensity = item.precipIntensity,
+                    precipProbability = item.precipProbability,
+                    temperature = IsCelsius == true ? Math.Round(UnitConverters.FahrenheitToCelsius(item.temperature)) : Math.Round(item.temperature),
+                    STemperature = item.STemperature,
+                    apparentTemperature = item.apparentTemperature,
+                    dewPoint = item.dewPoint,
+                    humidity = item.humidity,
+                    pressure = item.pressure,
+                    windSpeed = item.windSpeed,
+                    windGust = item.windGust,
+                    windBearing = item.windBearing,
+                    cloudCover = item.cloudCover,
+                    uvIndex = item.uvIndex,
+                    visibility = item.visibility,
+                    ozone = item.ozone,
+                    precipType = item.precipType
+                };
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.HourlyData.Add(itemToAdd);
+                });
+            }
+        }
+        public ForecastModel Result
+        {
+            get => this.result;
+            set => SetProperty(ref this.result, value);
         }
 
         public ObservableCollection<Datum2> HourlyData
@@ -298,8 +316,8 @@ namespace XamarinWeatherApp.ViewModels
         {
             get
             {
-                var result = currentIcon + ".png";
-                return result;
+                var r = currentIcon + ".png";
+                return r;
             }
             set
             {
@@ -329,26 +347,22 @@ namespace XamarinWeatherApp.ViewModels
         {
             get
             {
-                var result = Settings.Settings.HasFavLocationsSaved;
-                return result;
-            }           
+                var r = Settings.Settings.HasFavLocationsSaved;
+                return r;
+            }
         }
 
-        private void isToogledCelsius()
+        private async void isToogledCelsius()
         {
-            if (IsCelsius == true)
-            {
-                Settings.Settings.IsCelsius = true;
-            }
-            else
+            if (IsCelsius != true)
             {
                 Settings.Settings.IsCelsius = false;
             }
-
-            this.ExecuteAsyncTask(async () =>
+            else
             {
-                await FindUserLocation();
-            });
+                Settings.Settings.IsCelsius = true;
+            }
+            this.loadData();
         }
 
         public string CurrentSummary
