@@ -36,6 +36,11 @@ namespace XamarinWeatherApp.ViewModels
         private string cloudCoverPerc;
         private bool isCelsius;
         private ForecastModel result;
+        
+        //static long and lat added due to simulator issue (London)
+        private double simLatitude = 51.509865;
+        private double simLongitude = -0.118092;
+
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -75,16 +80,29 @@ namespace XamarinWeatherApp.ViewModels
         {
             try
             {
+
+                //if (DeviceInfo.DeviceType == DeviceType.Physical)
+
                 lastKnownLocation = await Geolocation.GetLastKnownLocationAsync();
                 Debug.WriteLine(lastKnownLocation?.ToString() ?? "GetLastKnownLocation no location");
 
-                currentLocation = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
+                //timespan added because location not working on simulator 
+                currentLocation = await Geolocation.GetLocationAsync(new GeolocationRequest(
+                    DeviceInfo.DeviceType == DeviceType.Physical ? GeolocationAccuracy.Best : GeolocationAccuracy.Medium, new TimeSpan(0, 0, 1)));
                 Debug.WriteLine(currentLocation?.ToString() ?? "GetLocation no location");
 
-                userLocation = currentLocation != null ? currentLocation : lastKnownLocation;
+
+                if (DeviceInfo.DeviceType == DeviceType.Physical)
+                {
+                    userLocation = currentLocation != null ? currentLocation : lastKnownLocation;
+                }
+
+                //static lat and log added because location not working on simulator 
+                var placemarks = await Geocoding.GetPlacemarksAsync(
+                     DeviceInfo.DeviceType == DeviceType.Physical ? userLocation.Latitude : simLatitude,
+                     DeviceInfo.DeviceType == DeviceType.Physical ? userLocation.Longitude : simLongitude);
 
                 //Get Name of City/Town
-                var placemarks = await Geocoding.GetPlacemarksAsync(userLocation.Latitude, userLocation.Longitude);
 
                 if (placemarks == null)
                 {
@@ -124,16 +142,19 @@ namespace XamarinWeatherApp.ViewModels
             {
                 // Handle not supported on device exception
                 Debug.WriteLine(fnsEx);
+                await ShowErrorMessage(fnsEx);
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Debug.WriteLine(pEx);
+                await ShowErrorMessage(pEx);
             }
             catch (Exception ex)
             {
                 // Unable to get location
                 Debug.WriteLine(ex);
+                await ShowErrorMessage(ex);
             }
         }
 
@@ -144,11 +165,11 @@ namespace XamarinWeatherApp.ViewModels
             {
                 await this.ExecuteAsyncTask(async () =>
                  {
-                     if (userLocation != null)
-                     {                         
-                         Result = await this.WeatherService.GetForecast(userLocation.Latitude, userLocation.Longitude);
-                         this.todayData();
-                     }
+                     //static lat and log added because location not working on simulator 
+                     Result = await this.WeatherService.GetForecast(
+                         DeviceInfo.DeviceType == DeviceType.Physical ? userLocation.Latitude : simLatitude,
+                         DeviceInfo.DeviceType == DeviceType.Physical ? userLocation.Longitude : simLongitude);
+                     this.todayData();
                  });
             }
         }
