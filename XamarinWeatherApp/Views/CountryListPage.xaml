@@ -30,7 +30,7 @@
             <controls:AlternateNavigationBar
                 Grid.Row="0"
                 x:Name="Navi"
-                HeaderText="Search by location name"
+                HeaderText="Favorite Locations"
                 VerticalOptions="Start"
                 HorizontalOptions="FillAndExpand" />
             <yummy:PancakeView

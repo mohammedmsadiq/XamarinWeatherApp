@@ -37,16 +37,31 @@
                         d:Color="Black" />
                 </ImageButton.Source>
             </ImageButton>
-            <Label
+            <StackLayout
                 Grid.Column="1"
-                Text="{Binding TownCityName}"
-                d:Text="Test"
-                d:TextColor="Black"
+                Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                FontSize="22"
-                FontFamily="{StaticResource LightFont}"
-                TextColor="White" />
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    Text="{Binding TownCityName}"
+                    d:Text="Test"
+                    d:TextColor="Black"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    FontSize="22"
+                    FontFamily="{StaticResource LightFont}"
+                    TextColor="White" />
+                <Label
+                    Text="&#xf124;"
+                    d:TextColor="Black"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    FontSize="10"
+                    Margin="5,0,0,0"
+                    FontFamily="{StaticResource FontAwesomeLight}"
+                    TextColor="White" />
+            </StackLayout>
+
             <ImageButton
                 BackgroundColor="Transparent"
                 Grid.Column="2"
