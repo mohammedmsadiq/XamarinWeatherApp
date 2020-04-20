@@ -13,11 +13,21 @@
     ios:Page.UseSafeArea="true"
     x:Class="XamarinWeatherApp.Views.SplashScreenPage">
     <ContentPage.Content>
-        <Image
-            Margin="40,0"
-            Aspect="AspectFit"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Source="splashlogo.png" />
+        <Grid>
+            <Image
+                Margin="40,0"
+                Aspect="AspectFit"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Source="splashlogo.png" />
+            <Label
+                Margin="10"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                d:Text="Version"
+                TextColor="White"
+                Text="{Binding Version}"
+                Style="{StaticResource RegularFont}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
