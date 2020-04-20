@@ -21,7 +21,7 @@
                 HorizontalOptions="Center"
                 Source="splashlogo.png" />
             <Label
-                Margin="10"
+                Margin="30"
                 VerticalOptions="End"
                 HorizontalOptions="Center"
                 d:Text="Version"
