@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace XamarinWeatherApp.Views
 {
     public partial class HomePage : ContentPage
-    {      
+    {
         public HomePage()
         {
             InitializeComponent();
@@ -28,13 +28,14 @@ namespace XamarinWeatherApp.Views
         {
             pageHeight = height;
             DetailSection.TranslationY = pageHeight;
+            CardView.PeekAreaInsets = width / 6;
             base.OnSizeAllocated(width, height);
         }
 
         protected override async void OnAppearing()
         {
             await Task.Delay(Constants.Constants.AnimationDelay);
-            await DetailSection.TranslateTo(0, 0, 500, Easing.SinOut);            
+            await DetailSection.TranslateTo(0, 0, 500, Easing.SinOut);
             base.OnAppearing();
         }
     }

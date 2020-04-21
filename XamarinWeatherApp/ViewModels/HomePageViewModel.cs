@@ -10,6 +10,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.Interfaces;
 using XamarinWeatherApp.Models;
+using XamarinWeatherApp.Settings;
 
 namespace XamarinWeatherApp.ViewModels
 {
@@ -49,13 +50,14 @@ namespace XamarinWeatherApp.ViewModels
             this.WeatherService = weatherService;
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
-            this.IsCelsius = Settings.Settings.IsCelsius;
-            this.IsMPH = Settings.Settings.IsMPH;
-            this.IsGridViewVisibleSwitch = Settings.Settings.IsDefaultGridVewVisible;
             this.SearchCountryCommand = new DelegateCommand(async () => { await this.SearchCountryAction(); });
             this.CountryListCommand = new DelegateCommand(async () => { await this.CountryListAction(); });
             HourlyData = new ObservableCollection<Datum2>();
             DailyData = new ObservableCollection<Datum3>();
+            result = new ForecastModel();
+            IsCelsius = Settings.Settings.IsCelsius;
+            IsGridViewVisibleSwitch = Settings.Settings.IsDefaultGridVewVisible;
+            IsMPH = Settings.Settings.IsMPH;
         }
 
         private async Task CountryListAction()
@@ -167,7 +169,7 @@ namespace XamarinWeatherApp.ViewModels
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                await this.ExecuteAsyncTask(async () =>
+                this.ExecuteAsyncTask(async () =>
                  {
                      //static lat and log added because location not working on simulator 
                      Result = await this.WeatherService.GetForecast(
@@ -229,7 +231,7 @@ namespace XamarinWeatherApp.ViewModels
                     dewPoint = dailyItem.dewPoint,
                     humidity = dailyItem.humidity,
                     pressure = dailyItem.pressure,
-                    windGust = IsMPH  == true ? Math.Round(UnitConverters.KilometersToMiles(dailyItem.windGust)) : Math.Round(dailyItem.windGust),// dailyItem.windGust,
+                    windGust = IsMPH == true ? Math.Round(UnitConverters.KilometersToMiles(dailyItem.windGust)) : Math.Round(dailyItem.windGust),// dailyItem.windGust,
                     windGustTime = dailyItem.windGustTime,
                     windBearing = dailyItem.windBearing,
                     cloudCover = dailyItem.cloudCover,
@@ -288,7 +290,9 @@ namespace XamarinWeatherApp.ViewModels
                     this.HourlyData.Add(itemToAdd);
                 });
             }
+           
         }
+
         public ForecastModel Result
         {
             get => this.result;
@@ -382,15 +386,18 @@ namespace XamarinWeatherApp.ViewModels
 
         private void isToogledMPH()
         {
-            if (isMPH != true)
+            if (isMPH != Settings.Settings.IsMPH)
             {
-                Settings.Settings.IsMPH = false;
+                if (isMPH != true)
+                {
+                    Settings.Settings.IsMPH = false;
+                }
+                else
+                {
+                    Settings.Settings.IsMPH = true;
+                }
+                this.loadData();
             }
-            else
-            {
-                Settings.Settings.IsMPH = true;
-            }
-            this.loadData();
         }
 
         public bool IsGridViewVisibleSwitch
@@ -407,16 +414,19 @@ namespace XamarinWeatherApp.ViewModels
 
         private void IsGridViewVisibleSwitchAction()
         {
-            if (IsGridViewVisibleSwitch != true)
+            if (isGridViewVisibleSwitch != Settings.Settings.IsDefaultGridVewVisible)
             {
-                Settings.Settings.IsDefaultGridVewVisible = false;
+                if (IsGridViewVisibleSwitch != true)
+                {
+                    Settings.Settings.IsDefaultGridVewVisible = false;
+                }
+                else
+                {
+                    Settings.Settings.IsDefaultGridVewVisible = true;
+                }
+                OnPropertyChanged("ListviewLayoutVisible");
+                OnPropertyChanged("GridviewLayoutVisible");
             }
-            else
-            {
-                Settings.Settings.IsDefaultGridVewVisible = true;
-            }
-            OnPropertyChanged("ListviewLayoutVisible");
-            OnPropertyChanged("GridviewLayoutVisible");
         }
 
         public bool IsFavButtonVisible
@@ -440,15 +450,18 @@ namespace XamarinWeatherApp.ViewModels
 
         private async void isToogledCelsius()
         {
-            if (IsCelsius != true)
+            if (isCelsius != Settings.Settings.IsCelsius)
             {
-                Settings.Settings.IsCelsius = false;
+                if (IsCelsius != true)
+                {
+                    Settings.Settings.IsCelsius = false;
+                }
+                else
+                {
+                    Settings.Settings.IsCelsius = true;
+                }
+                this.loadData();
             }
-            else
-            {
-                Settings.Settings.IsCelsius = true;
-            }
-            this.loadData();
         }
 
         public string CurrentSummary

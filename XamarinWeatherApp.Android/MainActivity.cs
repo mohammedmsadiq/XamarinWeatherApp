@@ -21,7 +21,7 @@ namespace XamarinWeatherApp.Droid
 
             base.OnCreate(savedInstanceState);
 
-            Forms.SetFlags("SwipeView_Experimental");
+            Forms.SetFlags("SwipeView_Experimental", "CarouselView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

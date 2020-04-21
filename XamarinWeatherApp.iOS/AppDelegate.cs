@@ -20,7 +20,7 @@ namespace XamarinWeatherApp.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Forms.SetFlags("SwipeView_Experimental");
+            Forms.SetFlags("SwipeView_Experimental", "CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             global::Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.FormsMaterial.Init();

@@ -186,23 +186,24 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <CollectionView
+                            <CarouselView
+                                x:Name="CardView"
                                 IsVisible="{Binding GridviewLayoutVisible}"
                                 Margin="0,0,0,10"
                                 ItemsSource="{Binding DailyData}"
                                 HorizontalScrollBarVisibility="Never"
                                 HeightRequest="400">
-                                <CollectionView.ItemsLayout>
+                                <CarouselView.ItemsLayout>
                                     <LinearItemsLayout
                                         Orientation="Horizontal"
-                                        ItemSpacing="5" />
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
+                                        ItemSpacing="10" />
+                                </CarouselView.ItemsLayout>
+                                <CarouselView.ItemTemplate>
                                     <DataTemplate>
                                         <controls:DailyCardControl />
                                     </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
                         </StackLayout>
                     </Grid>
                 </ScrollView>
