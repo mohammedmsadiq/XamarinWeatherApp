@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:XamarinWeatherApp.Controls"
+    mc:Ignorable="d"
+    BackgroundColor="Transparent"
+    Padding="5"
+    x:Class="XamarinWeatherApp.Controls.DailyCardControl">
+    <Frame
+        CornerRadius="10"
+        BorderColor="White"
+        HeightRequest="390"
+        WidthRequest="240"
+        HasShadow="False"
+        Padding="0"
+        IsClippedToBounds="True"
+        BackgroundColor="{StaticResource secondbackground}"
+        Margin="0">
+        <Grid
+            RowSpacing="0"
+            ColumnSpacing="0"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="2*" />
+                <RowDefinition
+                    Height="2*" />
+                <RowDefinition
+                    Height="2*" />
+                <RowDefinition
+                    Height="2*" />
+                <RowDefinition
+                    Height="2*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Margin="0"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                TextColor="White"
+                d:Text="Monday"
+                FontFamily="{StaticResource LightFont}"
+                FontSize="30"
+                Text="{Binding DailyTime}" />
+            <Image
+                Grid.Row="1"
+                Margin="0"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Source="{Binding ImageIcon}"
+                HeightRequest="60"
+                WidthRequest="60"
+                Aspect="AspectFit" />
+            <StackLayout
+                Grid.Row="2"
+                Orientation="Horizontal"
+                Margin="10,0,0,0"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    Margin="0"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="DodgerBlue"
+                    FontSize="20"
+                    FontFamily="{StaticResource FontAwesomeLight}"
+                    Text="&#xf176;" />
+                <Label
+                    Margin="0"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="DodgerBlue"
+                    FontSize="40"
+                    d:Text="20"
+                    FontFamily="{StaticResource LightFont}"
+                    Text="{Binding temperatureHigh}" />
+                <Label
+                    Margin="10,0,0,0"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="EndAndExpand"
+                    TextColor="IndianRed"
+                    d:Text="10"
+                    FontSize="40"
+                    FontFamily="{StaticResource LightFont}"
+                    Text="{Binding temperatureLow}" />
+                <Label
+                    Margin="0"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="IndianRed"
+                    FontSize="20"
+                    FontFamily="{StaticResource FontAwesomeLight}"
+                    Text="&#xf175;" />
+            </StackLayout>
+            <StackLayout
+                VerticalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Grid.Row="3">
+                <Label
+                    Margin="0,0,5,0"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    TextColor="White"
+                    d:Text="10:00 am"
+                    FontSize="15"
+                    FontFamily="{StaticResource LightFont}"
+                    Text="{Binding windGust}" />
+                <Label
+                    Margin="0"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    TextColor="White"
+                    FontSize="30"
+                    FontFamily="{StaticResource FontAwesomeLight}"
+                    Text="&#xf72e;" />
+            </StackLayout>
+            <Grid
+                Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout
+                    Grid.Column="0">
+                    <Label
+                        Margin="0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="30"
+                        FontFamily="{StaticResource FontAwesomeLight}"
+                        Text="&#xf766;" />
+                    <Label
+                        Margin="0"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        d:Text="10:00 am"
+                        FontSize="15"
+                        FontFamily="{StaticResource LightFont}"
+                        Text="{Binding LocalSunriseTime}" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="1">
+                    <Label
+                        Margin="0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="30"
+                        FontFamily="{StaticResource FontAwesomeLight}"
+                        Text="&#xf767;" />
+                    <Label
+                        Margin="0"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        d:Text="10:00 am"
+                        FontSize="15"
+                        FontFamily="{StaticResource LightFont}"
+                        Text="{Binding LocalSunsetTime}" />
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </Frame>
+</ContentView>

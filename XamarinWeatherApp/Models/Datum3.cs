@@ -1,14 +1,15 @@
 ﻿using System;
+using Xamarin.Essentials;
 
 namespace XamarinWeatherApp.Models
 {
     public class Datum3
     {
         private string dailyTime;
-        private string sunrise;
-        private DateTime localSunriseTime;
-        private DateTime localSunsetTime;
+        private string localSunriseTime;
+        private string localSunsetTime;
         private string imageIcon;
+        private string localWindSpeed;
 
         public int time { get; set; }
         public string summary { get; set; }
@@ -61,7 +62,18 @@ namespace XamarinWeatherApp.Models
             set { }
         }
 
-
+        public string LocalWindSpeed
+        {
+            get
+            {
+                //MPS to MPH 
+                double mph = (windSpeed * 2.236936);
+                var r = Settings.Settings.IsMPH == true ? Math.Round(mph) : Math.Round(UnitConverters.MilesToKilometers(mph));
+                localWindSpeed = r.ToString();
+                return localWindSpeed;
+            }
+            set { }
+        }
 
         public string DailyTime
         {
@@ -77,23 +89,29 @@ namespace XamarinWeatherApp.Models
             set { }
         }
 
-        public DateTime LocalSunriseTime
+        public string LocalSunriseTime
         {
             get
             {
-                var timeSpan = TimeSpan.FromSeconds((double)sunriseTime);
-                localSunriseTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                long unixTimeStampInTicks = (long)(sunriseTime * TimeSpan.TicksPerSecond);
+                DateTime r = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc);
+                var localDateTime = r.ToLocalTime();
+                localSunriseTime = localDateTime.ToString("h:mm tt");
                 return localSunriseTime;
             }
             set { }
         }
 
-        public DateTime LocalSunsetTime
+        public string LocalSunsetTime
         {
             get
             {
-                var timeSpan = TimeSpan.FromSeconds((double)sunsetTime);
-                localSunsetTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+                DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                long unixTimeStampInTicks = (long)(sunsetTime * TimeSpan.TicksPerSecond);
+                DateTime r = new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Utc);
+                var localDateTime = r.ToLocalTime();
+                localSunsetTime = localDateTime.ToString("h:mm tt");
                 return localSunsetTime;
             }
             set { }

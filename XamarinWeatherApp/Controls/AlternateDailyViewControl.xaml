@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="XamarinWeatherApp.Controls.AlternateDailyViewControl">
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer
+            Tapped="OnTapped" />
+    </ContentView.GestureRecognizers>
+    <ContentView.Content>
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Orientation="Horizontal">
+            <Label
+                x:Name="GridLayout"
+                FontFamily="{StaticResource FontAwesomeLight}"
+                Text="&#xf0c8;" />
+            <Label
+                x:Name="ListLayout"
+                Margin="10,0,0,0"
+                FontFamily="{StaticResource FontAwesomeLight}"
+                Text="&#xf0ca;" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

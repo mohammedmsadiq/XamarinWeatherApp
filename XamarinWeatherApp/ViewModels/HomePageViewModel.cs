@@ -36,11 +36,13 @@ namespace XamarinWeatherApp.ViewModels
         private string cloudCoverPerc;
         private bool isCelsius;
         private ForecastModel result;
-        
+
         //static long and lat added due to simulator issue (London)
         private double simLatitude = 51.509865;
         private double simLongitude = -0.118092;
-
+        private bool isGridViewVisibleSwitch;
+        private string listviewLayoutVisible;
+        private bool isMPH;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IWeatherService weatherService) : base(navigationService, dialogService)
         {
@@ -48,6 +50,8 @@ namespace XamarinWeatherApp.ViewModels
             this.Title = "Main Page";
             this.TextForLabel = "This is some text";
             this.IsCelsius = Settings.Settings.IsCelsius;
+            this.IsMPH = Settings.Settings.IsMPH;
+            this.IsGridViewVisibleSwitch = Settings.Settings.IsDefaultGridVewVisible;
             this.SearchCountryCommand = new DelegateCommand(async () => { await this.SearchCountryAction(); });
             this.CountryListCommand = new DelegateCommand(async () => { await this.CountryListAction(); });
             HourlyData = new ObservableCollection<Datum2>();
@@ -225,11 +229,11 @@ namespace XamarinWeatherApp.ViewModels
                     dewPoint = dailyItem.dewPoint,
                     humidity = dailyItem.humidity,
                     pressure = dailyItem.pressure,
-                    windSpeed = dailyItem.windSpeed,
-                    windGust = dailyItem.windGust,
+                    windGust = IsMPH  == true ? Math.Round(UnitConverters.KilometersToMiles(dailyItem.windGust)) : Math.Round(dailyItem.windGust),// dailyItem.windGust,
                     windGustTime = dailyItem.windGustTime,
                     windBearing = dailyItem.windBearing,
                     cloudCover = dailyItem.cloudCover,
+                    LocalWindSpeed = dailyItem.LocalWindSpeed,
                     uvIndex = dailyItem.uvIndex,
                     uvIndexTime = dailyItem.uvIndexTime,
                     visibility = dailyItem.visibility,
@@ -364,6 +368,57 @@ namespace XamarinWeatherApp.ViewModels
             }
         }
 
+        public bool IsMPH
+        {
+            get
+            {
+                return isMPH;
+            }
+            set
+            {
+                this.SetProperty(ref this.isMPH, value, isToogledMPH);
+            }
+        }
+
+        private void isToogledMPH()
+        {
+            if (isMPH != true)
+            {
+                Settings.Settings.IsMPH = false;
+            }
+            else
+            {
+                Settings.Settings.IsMPH = true;
+            }
+            this.loadData();
+        }
+
+        public bool IsGridViewVisibleSwitch
+        {
+            get
+            {
+                return isGridViewVisibleSwitch;
+            }
+            set
+            {
+                this.SetProperty(ref this.isGridViewVisibleSwitch, value, IsGridViewVisibleSwitchAction);
+            }
+        }
+
+        private void IsGridViewVisibleSwitchAction()
+        {
+            if (IsGridViewVisibleSwitch != true)
+            {
+                Settings.Settings.IsDefaultGridVewVisible = false;
+            }
+            else
+            {
+                Settings.Settings.IsDefaultGridVewVisible = true;
+            }
+            OnPropertyChanged("ListviewLayoutVisible");
+            OnPropertyChanged("GridviewLayoutVisible");
+        }
+
         public bool IsFavButtonVisible
         {
             get
@@ -371,6 +426,16 @@ namespace XamarinWeatherApp.ViewModels
                 var r = Settings.Settings.HasFavLocationsSaved;
                 return r;
             }
+        }
+
+        public bool ListviewLayoutVisible
+        {
+            get => !Settings.Settings.IsDefaultGridVewVisible;
+        }
+
+        public bool GridviewLayoutVisible
+        {
+            get => Settings.Settings.IsDefaultGridVewVisible;
         }
 
         private async void isToogledCelsius()
