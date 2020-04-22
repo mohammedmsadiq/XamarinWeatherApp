@@ -53,6 +53,6 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CFBundleName</key>
-	<string>GEOSKY</string>
+	<string>Local</string>
 </dict>
 </plist>
