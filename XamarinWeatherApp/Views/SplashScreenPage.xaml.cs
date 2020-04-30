@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinWeatherApp.ViewModels;
 
@@ -31,18 +31,10 @@ namespace XamarinWeatherApp.Views
 
         private async void CheckLocation()
         {
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
             if (status != PermissionStatus.Granted)
             {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                {
-                    var r =await DisplayAlert("Need location", "Gunna need that location", "OK", "Cancel");
-                    if (r == true)
-                    {                       
-                        await splashScreenPageViewModel.GoToHome();
-                    }
-                }
-                status = await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
+                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
             }
 
             if (status == PermissionStatus.Granted)
