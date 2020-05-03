@@ -44,7 +44,6 @@ then
     echo "##[error][Pre-Build Action] - Fix them and try again..."
     exit 1 # this will kill the build
     # exit # this will exit this script, but continues building
-    else
 fi
 
 echo "##[warning][Pre-Build Action] - There are ${SCRIPT_ERROR} errors."
